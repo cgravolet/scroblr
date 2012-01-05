@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>scroblr popup</title>
+	<style>
+		@import url(css/popup.css);
+	</style>
+</head>
+<body>
+
+	<header>
+		<h1>scroblr</h1>
+	</header>
+
+	<section id="auth">
+		<form id="lastfmLoginForm">
+			<input id="lastfmLoginName" name="lastfmLoginName" type="text" value="" placeholder="Username" />
+			<input id="lastfmLoginButton" type="submit" value="Login" />
+		</form>
+		<p id="lastfmWaitingAuth">Authenticating... (<a href="#" id="lastfmCancelAuthLink">Cancel</a>)</p>
+		<p id="lastfmAccountDetails"><span id="lastfmUserimage"></span> <span id="lastfmUsername"></span> <a href="#" id="lastfmLogoutLink">logout</a></p>
+	</section>
+
+	<section id="nowPlaying">
+		<p class="album"></p>
+		<p class="artist"></p>
+		<p class="track"></p>
+		<p id="turntable" class="hostdata"><strong>Room vote:</strong> <span id="turntableScore">50%</span></p>
+	</section>
+
+	<script src="js/lib/jquery-1.6.4.min.js"></script> 
+	<script src="js/scroblr-popup.js"></script> 
+
+</body>
+</html>
+

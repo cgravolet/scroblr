@@ -1,0 +1,163 @@
+@import url(reset.css);
+
+html,
+body {
+	border: none;
+	font: normal 12px helvetica, arial, verdana, sans-serif;
+	margin: 0;
+	padding: 0;
+	}
+
+body {
+	padding: 0 200px 0 85px;
+	}
+
+em { font-style: italic; }
+strong { font-weight: bold; }
+
+header,
+section,
+footer {
+	height: 30px;
+	line-height: 30px;
+	}
+
+header {
+	float: none;
+	left: 15px;
+	position: absolute;
+	top: 0;
+	}
+
+		h1 {
+			background: transparent url(../img/icons/lastfm24.png) no-repeat 0 3px;
+			font-weight: bold;
+			height: 30px;
+			line-height: 30px;
+			margin: 0;
+			padding: 0 0 0 29px;
+			}
+
+section {
+	float: left;
+	padding: 0 0 0 15px;
+	text-overflow: ellipsis;
+	white-space: normal;
+	}
+
+		#nowPlaying {
+			display: none;
+			}
+
+		#nowPlaying.accuradio,
+		#nowPlaying.amazon,
+		#nowPlaying.bandcamp,
+		#nowPlaying.google,
+		#nowPlaying.grooveshark,
+		#nowPlaying.jango,
+		#nowPlaying.pandora,
+		#nowPlaying.turntable,
+		#nowPlaying.we7 {
+			background: transparent url(../img/icons/pandora.png) no-repeat 0 7px;
+			padding-left: 20px;
+			}
+
+		#nowPlaying.accuradio {
+			background-image: url(../img/icons/accuradio.png);
+			}
+
+		#nowPlaying.amazon {
+			background-image: url(../img/icons/amazon.png);
+			}
+
+		#nowPlaying.bandcamp {
+			background-image: url(../img/icons/bandcamp.png);
+			}
+
+		#nowPlaying.google {
+			background-image: url(../img/icons/google.png);
+			}
+
+		#nowPlaying.grooveshark {
+			background-image: url(../img/icons/grooveshark.png);
+			}
+
+		#nowPlaying.jango {
+			background-image: url(../img/icons/jango.png);
+			}
+
+		#nowPlaying.turntable {
+			background-image: url(../img/icons/turntable.png);
+			}
+
+		#nowPlaying.we7 {
+			background-image: url(../img/icons/we7.png);
+			}
+
+		#hostControls .accuradio,
+		#hostControls .amazon,
+		#hostControls .bandcamp,
+		#hostControls .google,
+		#hostControls .grooveshark,
+		#hostControls .pandora,
+		#hostControls .turntable,
+		#hostControls .we7,
+		#hostControls .loveTrack {
+			display: none;
+			}
+
+		#lastfmLoveTrackLink {
+			background: transparent url(../img/icons/heart_add.png) no-repeat center center;
+			display: block;
+			float: left;
+			height: 30px;
+			opacity: 0.5;
+			overflow: hidden;
+			text-indent: -9999px;
+			width: 30px;
+			}
+
+		#lastfmLoveTrackLink:hover {
+			opacity: 1;
+			}
+
+		#lastfmLoveTrackLink.loved {
+			background-image: url(../img/icons/heart.png);
+			opacity: 1;
+			}
+
+		#lastfmLoveTrackLink.loved:hover {
+			background-image: url(../img/icons/cross.png);
+			opacity: 1;
+			}
+
+footer {
+	float: none;
+	position: absolute;
+	right: 15px;
+	top: 0;
+	}
+
+		#lastfmUserimage {
+			padding: 0 3px 0 0;
+			}
+
+				#lastfmUserimage img {
+					border: 1px solid #999;
+					margin: 0 0 -7px -5px;
+					}
+
+		#lastfmLogoutLink {
+			background: transparent url(../img/icons/control_eject.png) no-repeat 3px 7px;
+			display: inline-block;
+			height: 30px;
+			opacity: 0.6;
+			overflow: hidden;
+			text-indent: -9999px;
+			width: 22px;
+			}
+
+		#lastfmLogoutLink:hover {
+			opacity: 1;
+			}
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Charles Gravolet</string>
+	<key>Builder Version</key>
+	<string>7534.51.22</string>
+	<key>CFBundleDisplayName</key>
+	<string>scroblr</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.cgravolet.scroblr</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.9.64</string>
+	<key>CFBundleVersion</key>
+	<string>0.9.64</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Bars</key>
+		<array>
+			<dict>
+				<key>Filename</key>
+				<string>scroblr-bar.html</string>
+				<key>Identifier</key>
+				<string>scroblr</string>
+				<key>Label</key>
+				<string>scroblr</string>
+			</dict>
+		</array>
+		<key>Database Quota</key>
+		<real>10485760</real>
+		<key>Global Page</key>
+		<string>scroblr-background.html</string>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>toggleScroblr</string>
+				<key>Identifier</key>
+				<string>scroblrToggle</string>
+				<key>Image</key>
+				<string>img/icons/lastfm16.png</string>
+				<key>Label</key>
+				<string>scroblr</string>
+				<key>Palette Label</key>
+				<string>scroblr</string>
+				<key>Tool Tip</key>
+				<string>Toggle the scroblr bar</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict>
+			<key>End</key>
+			<array>
+				<string>js/scroblr-injection.js</string>
+			</array>
+			<key>Start</key>
+			<array>
+				<string>js/lib/jquery-1.6.4.min.js</string>
+			</array>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string>Scrobble the music you listen to the web.</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Allowed Domains</key>
+			<array>
+				<string>*.accuradio.com</string>
+				<string>*.amazon.com</string>
+				<string>*.bandcamp.com</string>
+				<string>music.google.com</string>
+				<string>*.grooveshark.com</string>
+				<string>*.jango.com</string>
+				<string>*.pandora.com</string>
+				<string>*.turntable.fm</string>
+				<string>*.we7.com</string>
+			</array>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>Some</string>
+		</dict>
+	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://scroblr.fm/updates/safari.plist</string>
+	<key>Website</key>
+	<string>http://scroblr.fm</string>
+</dict>
+</plist>

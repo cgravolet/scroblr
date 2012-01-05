@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>scroblr - access granted</title>
+	<script>
+		var token = window.location.search.split('=')[1];
+		if (typeof chrome != 'undefined') {
+			chrome.extension.sendRequest({
+				name: 'accessGranted',
+				message: token
+			});
+		}
+		else if (typeof safari != 'undefined') {
+			safari.self.tab.dispatchMessage('accessGranted', token);
+		}
+	</script>
+	<link href='http://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
+	<link href='css/access-granted.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+
+	<h1>scroblr</h1>
+
+	<p>Access has been granted successfully.</p>
+
+	<p>Thanks for installing scroblr! Your account information is now being retrieved. Close this window and begin scrobbling!</p>
+
+	<p>scroblr supports the following web players:</p>
+
+	<ul id="supported">
+		<li class="pandora"><a href="http://www.pandora.com">Pandora</a></li>
+		<li class="grooveshark"><a href="http://grooveshark.com">Grooveshark</a></li>
+		<li class="google"><a href="http://music.google.com">Google Music Beta</a></li>
+		<li class="amazon"><a href="http://www.amazon.com/b?ie=UTF8&node=2658409011">Amazon Cloud Player</a></li>
+		<li class="turntable"><a href="http://turntable.fm">Turntable.fm</a></li>
+		<li class="bandcamp"><a href="http://bandcamp.com">Bandcamp</a></li>
+		<li class="accuradio"><a href="http://accuradio.com">AccuRadio</a></li>
+		<li class="jango"><a href="http://www.jango.com">Jango</a></li>
+		<li class="we7"><a href="http://www.we7.com">we7</a></li>
+	</ul>
+	
+	<footer>
+
+		<p class="tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://scroblr.fm" data-text="I just installed #scroblr for Last.fm to scrobble the web!" data-count="horizontal" data-via="scroblrfm">Tweet</a></p>
+
+		<p><small>Questions or comments? Follow me on twitter <a href="http://twitter.com/scroblrfm">@scroblrfm</a></small></p>
+
+	</footer>
+
+	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"> </script>
+
+</body>
+</html>
