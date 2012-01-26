@@ -1,5 +1,6 @@
 var isJango = (window.location.hostname.toLowerCase().indexOf('jango') >= 0 ? true : false),
-	isJangoPlayer = (isJango && $('#player_info').length ? true : false);
+	isJangoPlayer = (isJango && $('#player_info').length ? true : false),
+	scroblr;
 
 if (!isJango || isJangoPlayer) {
 
@@ -26,38 +27,6 @@ if (!isJango || isJangoPlayer) {
 				url_artist: ''
 			};
 
-
-		if (window.location.hostname.toLowerCase().indexOf('pandora') >= 0) {
-			host = 'pandora';
-		}
-		else if (window.location.hostname.toLowerCase().indexOf('turntable') >= 0) {
-			host = 'turntable';
-		}
-		else if (window.location.hostname.toLowerCase().indexOf('google') >= 0) {
-			host = 'google';
-		}
-		else if (window.location.hostname.toLowerCase().indexOf('amazon') >= 0 && window.location.pathname.indexOf('music') >= 0) {
-			host = 'amazon';
-		}
-		else if (window.location.hostname.toLowerCase().indexOf('jango') >= 0) {
-			host = 'jango';
-		}
-		else if (window.location.hostname.toLowerCase().indexOf('we7') >= 0) {
-			host = 'we7';
-		}
-		else if (window.location.hostname.toLowerCase().indexOf('bandcamp') >= 0) {
-			host = 'bandcamp';
-		}
-		else if (window.location.hostname.toLowerCase().indexOf('grooveshark') >= 0) {
-			host = 'grooveshark';
-		}
-		else if (window.location.hostname.toLowerCase().indexOf('accuradio') >= 0) {
-			host = 'accuradio';
-		}
-		else {
-			return false;
-		}
-
 		
 		function calculateDuration (timestring) {
 			var seconds = 0;
@@ -67,11 +36,6 @@ if (!isJango || isJangoPlayer) {
 				}
 			}
 			return seconds * 1000;
-		}
-
-
-		function init () {
-			interval = window.setInterval(pollSongInfo, 5000);
 		}
 
 
@@ -148,7 +112,7 @@ if (!isJango || isJangoPlayer) {
 
 					jango: function () {
 						return {
-							artist: $('#player_info #player_current_artist').text(),
+							artist: $.trim($('#player_info #player_current_artist').contents().last().text()),
 							duration: calculateDuration($('#player_info #timer').text().substring(1)),
 							name: $('#player_info #current-song').text().replace(/^\s+/, '').replace(/\s+$/, ''),
 							stopped: $('#btn-playpause').hasClass('pause')
@@ -213,6 +177,48 @@ if (!isJango || isJangoPlayer) {
 			}
 			return elapsed;
 		} 
+
+
+		function getHost () {
+			var host = false;
+			if (window.location.hostname.toLowerCase().indexOf('accuradio') >= 0) {
+				host = 'accuradio';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('amazon') >= 0 && window.location.pathname.indexOf('music') >= 0) {
+				host = 'amazon';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('bandcamp') >= 0) {
+				host = 'bandcamp';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('google') >= 0) {
+				host = 'google';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('grooveshark') >= 0) {
+				host = 'grooveshark';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('jango') >= 0) {
+				host = 'jango';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('pandora') >= 0) {
+				host = 'pandora';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('turntable') >= 0) {
+				host = 'turntable';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('we7') >= 0) {
+				host = 'we7';
+			}
+			return host;
+		}
+
+		
+		function init () {
+			host = getHost();
+			if (host === false) {
+				return false;
+			}
+			interval = window.setInterval(pollSongInfo, 5000);
+		}
 
 
 		function pollSongInfo () {

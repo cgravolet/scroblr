@@ -24,4 +24,4 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 
 ##License
 
-scroblr is is licensed under the terms of the MIT License, see the included MIT-LICENSE file.
+scroblr is licensed under the terms of the MIT License, see the included MIT-LICENSE file.
