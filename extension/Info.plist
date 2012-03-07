@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9.65</string>
+	<string>0.9.66</string>
 	<key>CFBundleVersion</key>
-	<string>0.9.65</string>
+	<string>0.9.66</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -78,7 +78,7 @@
 				<string>*.accuradio.com</string>
 				<string>*.amazon.com</string>
 				<string>*.bandcamp.com</string>
-				<string>music.google.com</string>
+				<string>play.google.com</string>
 				<string>*.grooveshark.com</string>
 				<string>*.jango.com</string>
 				<string>*.pandora.com</string>

@@ -10,8 +10,8 @@
 				"http://*.accuradio.com/*",
 				"https://*.amazon.com/gp/dmusic*",
 				"http://*.bandcamp.com/*",
-				"http://music.google.com/*",
-				"https://music.google.com/*",
+				"http://play.google.com/music/*",
+				"https://play.google.com/music/*",
 				"http://*.grooveshark.com/*",
 				"http://*.pandora.com/*",
 				"https://*.pandora.com/*",
@@ -49,5 +49,5 @@
 		"tabs",
 		"http://ws.audioscrobbler.com/2.0/"
 	],
-	"version": "0.9.65"
+	"version": "0.9.66"
 }
