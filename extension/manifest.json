@@ -15,10 +15,10 @@
 				"http://*.grooveshark.com/*",
 				"http://*.pandora.com/*",
 				"https://*.pandora.com/*",
+				"http://*.rhapsody.com/*",
 				"http://*.turntable.fm/*",
-				"http://*.we7.com/*",
 				"http://*.twonky.com/*",
-				"http://*.rhapsody.com/*"
+				"http://*.we7.com/*"
 			],
 			"js": [
 				"js/lib/jquery-1.6.4.min.js",
@@ -51,5 +51,5 @@
 		"tabs",
 		"http://ws.audioscrobbler.com/2.0/"
 	],
-	"version": "0.9.66"
+	"version": "0.9.67"
 }

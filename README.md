@@ -8,16 +8,16 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 ##Currently supports scrobbling from:
 
 - Pandora
-- Grooveshark
+- Turntable.fm
 - Google Music Beta
 - Amazon Cloud Player
-- Turntable.fm
 - AccuRadio
 - Bandcamp
+- Grooveshark
 - Jango
-- we7
-- Twonky
 - Rhapsody
+- Twonky
+- we7
 
 ##What's "scrobbling?"
 

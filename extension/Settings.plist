@@ -72,9 +72,9 @@
 		<key>DefaultValue</key>
 		<true/>
 		<key>Key</key>
-		<string>enable_turntable</string>
+		<string>enable_rhapsody</string>
 		<key>Title</key>
-		<string>Turntable</string>
+		<string>Rhapsody</string>
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
@@ -82,9 +82,9 @@
 		<key>DefaultValue</key>
 		<true/>
 		<key>Key</key>
-		<string>enable_we7</string>
+		<string>enable_turntable</string>
 		<key>Title</key>
-		<string>we7</string>
+		<string>Turntable</string>
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
@@ -102,9 +102,9 @@
 		<key>DefaultValue</key>
 		<true/>
 		<key>Key</key>
-		<string>enable_rhapsody</string>
+		<string>enable_we7</string>
 		<key>Title</key>
-		<string>Rhapsody</string>
+		<string>we7</string>
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>

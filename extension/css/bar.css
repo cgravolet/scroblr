@@ -56,10 +56,10 @@ section {
 		#nowPlaying.grooveshark,
 		#nowPlaying.jango,
 		#nowPlaying.pandora,
+		#nowPlaying.rhapsody,
 		#nowPlaying.turntable,
-		#nowPlaying.we7,
 		#nowPlaying.twonky,
-		#nowPlaying.rhapsody {
+		#nowPlaying.we7 {
 			background: transparent url(../img/icons/pandora.png) no-repeat 0 7px;
 			padding-left: 20px;
 			}
@@ -88,19 +88,21 @@ section {
 			background-image: url(../img/icons/jango.png);
 			}
 
+		#nowPlaying.rhapsody {
+			background-image: url(../img/icons/rhapsody.png);
+			}
+
 		#nowPlaying.turntable {
 			background-image: url(../img/icons/turntable.png);
+			}
+
+		#nowPlaying.twonky {
+			background-image: url(../img/icons/twonky.png);
 			}
 
 		#nowPlaying.we7 {
 			background-image: url(../img/icons/we7.png);
 			}
-		#nowPlaying.twonky {
-		  background-image: url(../img/icons/twonky.png);
-		  }
-		#nowPlaying.rhapsody {
-		  background-image: url(../img/icons/rhapsody.png);
-		  }
 
 		#hostControls .accuradio,
 		#hostControls .amazon,
@@ -108,10 +110,10 @@ section {
 		#hostControls .google,
 		#hostControls .grooveshark,
 		#hostControls .pandora,
-		#hostControls .turntable,
-		#hostControls .we7,
-		#hostControls .twonky,
 		#hostControls .rhapsody,
+		#hostControls .turntable,
+		#hostControls .twonky,
+		#hostControls .we7,
 		#hostControls .loveTrack {
 			display: none;
 			}

@@ -69,10 +69,10 @@ h1 {
 				#supported li.google a { background-image: url(../img/icons/google.png); }
 				#supported li.grooveshark a { background-image: url(../img/icons/grooveshark.png); }
 				#supported li.jango a { background-image: url(../img/icons/jango.png); }
-				#supported li.turntable a { background-image: url(../img/icons/turntable.png); }
-				#supported li.we7 a { background-image: url(../img/icons/we7.png); }
-				#supported li.twonky a { background-image: url(../img/icons/twonky.png); }
 				#supported li.rhapsody a { background-image: url(../img/icons/rhapsody.png); }
+				#supported li.turntable a { background-image: url(../img/icons/turntable.png); }
+				#supported li.twonky a { background-image: url(../img/icons/twonky.png); }
+				#supported li.we7 a { background-image: url(../img/icons/we7.png); }
 
 .tweet {
 	float: right;

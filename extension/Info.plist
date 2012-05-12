@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9.66</string>
+	<string>0.9.67</string>
 	<key>CFBundleVersion</key>
-	<string>0.9.66</string>
+	<string>0.9.67</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -82,10 +82,10 @@
 				<string>*.grooveshark.com</string>
 				<string>*.jango.com</string>
 				<string>*.pandora.com</string>
-				<string>*.turntable.fm</string>
-				<string>*.we7.com</string>
-				<string>*.twonky.com</string>
 				<string>*.rhapsody.com</string>
+				<string>*.turntable.fm</string>
+				<string>*.twonky.com</string>
+				<string>*.we7.com</string>
 			</array>
 			<key>Include Secure Pages</key>
 			<true/>
