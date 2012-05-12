@@ -166,9 +166,9 @@ if (!isJango || isJangoPlayer) {
 						if ($('.meta_title').text().length) {
 							return {
 								album: $('.meta_album').text(),
-								artist: $('.meta_artist').text(),
+								artist: $.trim($('.meta_artist').text()),
 								duration: calculateDuration($('.meta_duration').text()),
-								name: $('.meta_title').text(),
+								name: $.trim($('.meta_title').text()),
 								stopped: $('.trackPlayerButtonIcon').hasClass('play')
 							};
 						}
@@ -225,8 +225,6 @@ if (!isJango || isJangoPlayer) {
 				host = 'pandora';
 			}
 			else if (window.location.hostname.toLowerCase().indexOf('rhapsody') >= 0) {
-				// Rhapsody has several iframes, need to check to make sure it's
-				// the main window
 				if ($('#container').length) {
 					host = 'rhapsody';
 				}
@@ -235,7 +233,9 @@ if (!isJango || isJangoPlayer) {
 				host = 'turntable';
 			}
 			else if (window.location.hostname.toLowerCase().indexOf('twonky') >= 0) {
-			  host = 'twonky';
+				if ($('body.musicDashboard').length) {
+					host = 'twonky';
+				}
 			}
 			else if (window.location.hostname.toLowerCase().indexOf('we7') >= 0) {
 				host = 'we7';
