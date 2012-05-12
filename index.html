@@ -1,62 +1,96 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+	<title>scroblr - scrobble the music you listen to on the web</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" type="image/png" href="http://scroblr.fm/img/scroblr16.png">
 
-    <title>Scroblr by cgravolet</title>
-  </head>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <body>
+	<!-- CSS concatenated and minified via ant build script-->
+	<link href='http://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/style.css">
+	<!-- end CSS-->
 
-    <header>
-      <div class="container">
-        <h1>Scroblr</h1>
-        <h2>A lightweight browser extension that scrobbles the music you listen to on the web.</h2>
+	<script>
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-26149119-2']);
+		_gaq.push(['_trackPageview']);
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 
-        <section id="downloads">
-          <a href="https://github.com/cgravolet/scroblr/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/cgravolet/scroblr/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/cgravolet/scroblr" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
+</head>
 
-    <div class="container">
-      <section id="main_content">
-        <h3>Welcome to GitHub Pages.</h3>
+<body>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+	<div id="container">
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+		<header>
+			<h1>scroblr</h1>
+		</header>
+		<div id="main" role="main">
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+			<p>A lightweight browser extension that &ldquo;scrobbles&rdquo; the music you listen to on the web to your <a href="http://www.last.fm">Last.fm</a> account.</p>
 
-<h3>Designer Templates</h3>
+			<h3>Currently supports scrobbling from:</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+			<ul id="supported">
+				<li class="pandora"><a href="http://www.pandora.com">Pandora</a></li>
+				<li class="turntable"><a href="http://turntable.fm">Turntable.fm</a></li>
+				<li class="google"><a href="http://music.google.com">Google Music</a></li>
+				<li class="amazon"><a href="http://www.amazon.com/b?ie=UTF8&node=2658409011">Amazon Cloud Player</a></li>
+				<li class="accuradio"><a href="http://accuradio.com">AccuRadio</a></li>
+				<li class="bandcamp"><a href="http://bandcamp.com">Bandcamp</a></li>
+				<li class="grooveshark"><a href="http://grooveshark.com">Grooveshark</a></li>
+				<li class="jango"><a href="http://www.jango.com">Jango</a></li>
+				<li class="rhapsody"><a href="http://www.rhapsody.com">Rhapsody</a></li>
+				<li class="twonky"><a href="http://my.twonky.com">Twonky</a></li>
+				<li class="we7"><a href="http://www.we7.com">we7</a></li>
+			</ul>
 
-<h3>Rather Drive Stick?</h3>
+			<h3>What's &ldquo;scrobbling?&rdquo;</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+			<p class="definition"><strong><a href="http://en.wiktionary.org/wiki/scrobble">scrobble</a></strong> <em>(third-person singular simple present scrobbles, 
+				present participle scrobbling, simple past and past participle scrobbled)</em><br />
+				1. (Internet, slang) To publish one's music-listening habits via software, as counted events when songs or albums are played, to selected internet 
+				services in order to track them over time, out of curiosity and/or to make them visible to others.</p>
 
-<h3>Authors and Contributors</h3>
+			<h3>Download</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+			<p><strong><a href="scroblr.safariextz">Download for Safari.</a></strong><br />
+				<small>Last updated: 5/12/2012</small></p>
 
-<h3>Support or Contact</h3>
+			<p><strong><a href="https://chrome.google.com/webstore/detail/mflbcmpjneookibbaeopkfcnegknkgog">Download for Google Chrome.</a></strong><br />
+				<small>Last updated: 5/12/2012</small></p>
+		</div>
+		<footer>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact support@github.com and we’ll help you sort it out.</p>
-      </section>
-    </div>
+			<p class="tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://scroblr.fm" data-text="Check out #scroblr for Last.fm, a browser extension for scrobbling the web!" data-count="horizontal" data-via="scroblrfm">Tweet</a></p>
 
-    
-  </body>
+			<p><small>Questions or comments? Follow me on twitter <a href="http://www.twitter.com/scroblrfm" rel="external">@scroblrfm</a></small></p>
+
+		</footer>
+	</div> <!--! end of #container -->
+
+	<a href="http://github.com/cgravolet/scroblr"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+
+	<!--[if lt IE 7 ]>
+	<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+	<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+	<![endif]-->
+
+	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"> </script>
+  
+</body>
 </html>
