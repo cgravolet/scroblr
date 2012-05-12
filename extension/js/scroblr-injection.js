@@ -225,7 +225,11 @@ if (!isJango || isJangoPlayer) {
 				host = 'pandora';
 			}
 			else if (window.location.hostname.toLowerCase().indexOf('rhapsody') >= 0) {
-			  host = 'rhapsody';
+				// Rhapsody has several iframes, need to check to make sure it's
+				// the main window
+				if ($('#container').length) {
+					host = 'rhapsody';
+				}
 			}
 			else if (window.location.hostname.toLowerCase().indexOf('turntable') >= 0) {
 				host = 'turntable';
@@ -283,7 +287,10 @@ if (!isJango || isJangoPlayer) {
 		}
 
 
-		init();
+		// Initialize on document ready
+		$(function () {
+			init();
+		});
 
 
 		return {
