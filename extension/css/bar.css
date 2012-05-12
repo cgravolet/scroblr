@@ -57,7 +57,9 @@ section {
 		#nowPlaying.jango,
 		#nowPlaying.pandora,
 		#nowPlaying.turntable,
-		#nowPlaying.we7 {
+		#nowPlaying.we7,
+		#nowPlaying.twonky,
+		#nowPlaying.rhapsody {
 			background: transparent url(../img/icons/pandora.png) no-repeat 0 7px;
 			padding-left: 20px;
 			}
@@ -93,6 +95,12 @@ section {
 		#nowPlaying.we7 {
 			background-image: url(../img/icons/we7.png);
 			}
+		#nowPlaying.twonky {
+		  background-image: url(../img/icons/twonky.png);
+		  }
+		#nowPlaying.rhapsody {
+		  background-image: url(../img/icons/rhapsody.png);
+		  }
 
 		#hostControls .accuradio,
 		#hostControls .amazon,
@@ -102,6 +110,8 @@ section {
 		#hostControls .pandora,
 		#hostControls .turntable,
 		#hostControls .we7,
+		#hostControls .twonky,
+		#hostControls .rhapsody,
 		#hostControls .loveTrack {
 			display: none;
 			}

@@ -84,6 +84,8 @@
 				<string>*.pandora.com</string>
 				<string>*.turntable.fm</string>
 				<string>*.we7.com</string>
+				<string>*.twonky.com</string>
+				<string>*.rhapsody.com</string>
 			</array>
 			<key>Include Secure Pages</key>
 			<true/>

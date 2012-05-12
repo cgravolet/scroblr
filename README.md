@@ -16,6 +16,8 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 - Bandcamp
 - Jango
 - we7
+- Twonky
+- Rhapsody
 
 ##What's "scrobbling?"
 

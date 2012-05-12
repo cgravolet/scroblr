@@ -16,7 +16,9 @@
 				"http://*.pandora.com/*",
 				"https://*.pandora.com/*",
 				"http://*.turntable.fm/*",
-				"http://*.we7.com/*"
+				"http://*.we7.com/*",
+				"http://*.twonky.com/*",
+				"http://*.rhapsody.com/*"
 			],
 			"js": [
 				"js/lib/jquery-1.6.4.min.js",
