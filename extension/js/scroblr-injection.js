@@ -160,7 +160,28 @@ if (!isJango || isJangoPlayer) {
 							name: $('.chugger-current .chugger-track-details .track-name').text(),
 							stopped: $('.player-bar-button').hasClass('play') 
 						};
-					}
+					},
+					
+          twonky: function () {
+            if ($('.meta_title').text().length) {
+              return {
+                album: $('.meta_album').text(),
+                artist: $('.meta_artist').text(),
+                duration: calculateDuration($('.meta_duration').text()),
+                name: $('.meta_title').text(),
+                stopped: $('.trackPlayerButtonIcon').hasClass('play')
+              };
+            }
+          },
+					
+          rhapsody: function () {
+            return {
+              artist: $('#player-artist-link').text(),
+              duration: calculateDuration($('#player-total-time').text()),
+              name: $('#player-track-link').text(), // may need to remove ""?
+              stopped: ($('#player-play').css('display') == 'block')
+            };
+          }
 
 				};
 
@@ -207,6 +228,12 @@ if (!isJango || isJangoPlayer) {
 			}
 			else if (window.location.hostname.toLowerCase().indexOf('we7') >= 0) {
 				host = 'we7';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('twonky') >= 0) {
+			  host = 'twonky';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('rhapsody') >= 0) {
+			  host = 'rhapsody';
 			}
 			return host;
 		}
