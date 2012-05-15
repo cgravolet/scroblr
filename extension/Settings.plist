@@ -34,7 +34,7 @@
 		<key>Key</key>
 		<string>enable_google</string>
 		<key>Title</key>
-		<string>Google Music</string>
+		<string>Google Play</string>
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
