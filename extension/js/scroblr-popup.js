@@ -52,7 +52,7 @@ var scroblrBar = (function (model) {
 	function formatDuration (duration) {
 		var seconds_total = duration / 1000,
 			minutes = Math.floor(seconds_total / 60),
-			seconds = (seconds_total % 60);
+			seconds = Math.round(seconds_total % 60);
 		if (seconds.toString().length < 2) {
 			seconds = '0' + seconds;
 		}

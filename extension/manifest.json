@@ -16,6 +16,7 @@
 				"http://*.pandora.com/*",
 				"https://*.pandora.com/*",
 				"http://*.rhapsody.com/*",
+				"http://*.songza.com/*",
 				"http://*.turntable.fm/*",
 				"http://*.twonky.com/*",
 				"http://*.we7.com/*"
@@ -51,5 +52,5 @@
 		"tabs",
 		"http://ws.audioscrobbler.com/2.0/"
 	],
-	"version": "0.9.67"
+	"version": "0.9.68"
 }

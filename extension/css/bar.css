@@ -57,6 +57,7 @@ section {
 		#nowPlaying.jango,
 		#nowPlaying.pandora,
 		#nowPlaying.rhapsody,
+		#nowPlaying.songza,
 		#nowPlaying.turntable,
 		#nowPlaying.twonky,
 		#nowPlaying.we7 {
@@ -90,6 +91,10 @@ section {
 
 		#nowPlaying.rhapsody {
 			background-image: url(../img/icons/rhapsody.png);
+			}
+
+		#nowPlaying.songza {
+			background-image: url(../img/icons/songza.png);
 			}
 
 		#nowPlaying.turntable {

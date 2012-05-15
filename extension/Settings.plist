@@ -82,6 +82,16 @@
 		<key>DefaultValue</key>
 		<true/>
 		<key>Key</key>
+		<string>enable_songza</string>
+		<key>Title</key>
+		<string>Songza</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
 		<string>enable_turntable</string>
 		<key>Title</key>
 		<string>Turntable</string>

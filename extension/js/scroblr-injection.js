@@ -150,6 +150,15 @@ if (!isJango || isJangoPlayer) {
 						};
 					},
 
+					songza: function () {
+						return {
+							artist: $('#player .szi-roll-song .szi-info .szi-artist').text(),
+							name: $('#player .szi-roll-song .szi-info .szi-title').text(),
+							percent: parseFloat($('#player .szi-progress .szi-bar').width() / $('#player .szi-progress').width()),
+							stopped: ($('#player .sz-player-state-pause').length > 0)
+						};
+					},
+
 					turntable: function () {
 						var info = {};
 						if ($('#songboard_artist').text().length) {
@@ -229,6 +238,11 @@ if (!isJango || isJangoPlayer) {
 					host = 'rhapsody';
 				}
 			}
+			else if (window.location.hostname.toLowerCase().indexOf('songza') >= 0) {
+				if ($('#player').length) {
+					host = 'songza';
+				}
+			}
 			else if (window.location.hostname.toLowerCase().indexOf('turntable') >= 0) {
 				host = 'turntable';
 			}
@@ -261,6 +275,10 @@ if (!isJango || isJangoPlayer) {
 				sendMessage('nowPlaying', song);
 			}
 			else if (currentsong.name.length && currentsong.artist.length) {
+				if (currentsong.hasOwnProperty('percent') && currentsong.duration === 0) {
+					currentsong.duration = Math.round((currentsong.timestamp * 1000 - song.timestamp * 1000) / currentsong.percent);
+					currentsong.elapsed = Math.round(currentsong.duration * currentsong.percent);
+				}
 				if (currentsong.duration > song.duration) {
 					currentsong_update_object.duration = song.duration = currentsong.duration;
 				}
