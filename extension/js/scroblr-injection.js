@@ -27,12 +27,18 @@ if (!isJango || isJangoPlayer) {
 				url_artist: ''
 			};
 
-		
+
 		function calculateDuration (timestring) {
 			var seconds = 0;
 			for (var i = 0, max = arguments.length; i < max; i += 1) {
 				if (arguments[i].toString().length) {
-					seconds += (parseFloat(arguments[i].split(':')[0].replace('-', '')) * 60) + parseFloat(arguments[i].split(':')[1]);
+					timeSegments = arguments[i].split(':');
+					// Iterate over timeSegments in reverse calculating the number
+					// of seconds represented by the seconds, minutes, and hours
+					// fields.
+					for (var j = timeSegments.length - 1, pow = 0; (j >= 0) && (j >= (timeSegments.length - 3)); j -= 1, pow += 1) {
+						seconds += parseFloat(timeSegments[j].replace('-', '')) * Math.pow(60, pow);
+					}
 				}
 			}
 			return seconds * 1000;
@@ -189,7 +195,7 @@ if (!isJango || isJangoPlayer) {
 							duration: 300000,
 							elapsed: Math.floor(($('#played-bar').width() / $('#timeline-bar').width()) * 300000),
 							name: $('.chugger-current .chugger-track-details .track-name').text(),
-							stopped: $('.player-bar-button').hasClass('play') 
+							stopped: $('.player-bar-button').hasClass('play')
 						};
 					}
 
@@ -207,7 +213,7 @@ if (!isJango || isJangoPlayer) {
 				elapsed = Math.round(now - song.timestamp) * 1000;
 			}
 			return elapsed;
-		} 
+		}
 
 
 		function getHost () {
@@ -257,7 +263,7 @@ if (!isJango || isJangoPlayer) {
 			return host;
 		}
 
-		
+
 		function init () {
 			host = getHost();
 			if (host === false) {
