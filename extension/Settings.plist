@@ -72,6 +72,16 @@
 		<key>DefaultValue</key>
 		<true/>
 		<key>Key</key>
+		<string>enable_playerfm</string>
+		<key>Title</key>
+		<string>Player.fm</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
 		<string>enable_rhapsody</string>
 		<key>Title</key>
 		<string>Rhapsody</string>

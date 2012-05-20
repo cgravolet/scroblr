@@ -146,6 +146,19 @@ if (!isJango || isJangoPlayer) {
 						};
 					},
 
+					playerfm: function() {
+                        var elapsedString       = $('.permaplayer .current .play-monitor .time-elapsed').text();
+                        var timeRemainingString = $('.permaplayer .current .play-monitor .time-remaining').text();
+
+                        return {
+                            artist:   $('.permaplayer .meta .trackWrapper .title :first-child').text(),
+                            name:     $('.permaplayer .meta .trackWrapper .title :last-child').text(),
+                            elapsed:  calculateDuration(elapsedString),
+                            duration: calculateDuration(elapsedString, timeRemainingString),
+                            stopped:  $('.permaplayer .current .playpause .icon-play').is(':visible')
+                        };
+					},
+
 					rhapsody: function () {
 						return {
 							artist: $('#player-artist-link').text(),
@@ -238,6 +251,9 @@ if (!isJango || isJangoPlayer) {
 			}
 			else if (window.location.hostname.toLowerCase().indexOf('pandora') >= 0) {
 				host = 'pandora';
+			}
+			else if (window.location.hostname.toLowerCase().indexOf('player.fm') >= 0) {
+				host = 'playerfm';
 			}
 			else if (window.location.hostname.toLowerCase().indexOf('rhapsody') >= 0) {
 				if ($('#container').length) {
