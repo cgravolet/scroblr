@@ -1,5 +1,5 @@
 var scroblrBar = (function (model) {
-	
+
 
 	var currentsong = null,
 		keepalive = null;
@@ -13,7 +13,7 @@ var scroblrBar = (function (model) {
 			updateNowPlaying(model.currentsong);
 		}
 	}
-	
+
 
 	function attachBehaviors () {
 
@@ -51,12 +51,20 @@ var scroblrBar = (function (model) {
 
 	function formatDuration (duration) {
 		var seconds_total = duration / 1000,
-			minutes = Math.floor(seconds_total / 60),
-			seconds = Math.round(seconds_total % 60);
+			hours   = Math.floor(seconds_total / 3600),
+			minutes = Math.floor((seconds_total - (hours * 3600)) / 60),
+			seconds = Math.round((seconds_total - (hours * 3600)) % 60),
+			formatted_hour = '';
+		if (hours > 0) {
+			formatted_hour = hours + ':';
+			if (minutes.toString().length < 2) {
+				minutes = '0' + minutes;
+			}
+		}
 		if (seconds.toString().length < 2) {
 			seconds = '0' + seconds;
 		}
-		return minutes + ':' + seconds;
+		return formatted_hour + minutes + ':' + seconds;
 	}
 
 
