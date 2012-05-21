@@ -230,50 +230,55 @@ if (!isJango || isJangoPlayer) {
 
 
 		function getHost () {
-			var host = false;
-			if (window.location.hostname.toLowerCase().indexOf('accuradio') >= 0) {
+
+			var host, hostname;
+
+			host = false;
+			hostname = window.location.hostname.toLowerCase();
+
+			if (hostname.indexOf('accuradio') >= 0) {
 				host = 'accuradio';
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('amazon') >= 0 && window.location.pathname.indexOf('music') >= 0) {
+			else if (hostname.indexOf('amazon') >= 0 && window.location.pathname.indexOf('music') >= 0) {
 				host = 'amazon';
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('bandcamp') >= 0) {
+			else if (hostname.indexOf('bandcamp') >= 0) {
 				host = 'bandcamp';
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('google') >= 0) {
+			else if (hostname.indexOf('google') >= 0) {
 				host = 'google';
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('grooveshark') >= 0) {
+			else if (hostname.indexOf('grooveshark') >= 0) {
 				host = 'grooveshark';
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('jango') >= 0) {
+			else if (hostname.indexOf('jango') >= 0) {
 				host = 'jango';
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('pandora') >= 0) {
+			else if (hostname.indexOf('pandora') >= 0) {
 				host = 'pandora';
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('player.fm') >= 0) {
+			else if (hostname.indexOf('player.fm') >= 0) {
 				host = 'playerfm';
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('rhapsody') >= 0) {
+			else if (hostname.indexOf('rhapsody') >= 0 || hostname.indexOf('napster') >= 0) {
 				if ($('#container').length) {
 					host = 'rhapsody';
 				}
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('songza') >= 0) {
+			else if (hostname.indexOf('songza') >= 0) {
 				if ($('#player').length) {
 					host = 'songza';
 				}
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('turntable') >= 0) {
+			else if (hostname.indexOf('turntable') >= 0) {
 				host = 'turntable';
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('twonky') >= 0) {
+			else if (hostname.indexOf('twonky') >= 0) {
 				if ($('body.musicDashboard').length) {
 					host = 'twonky';
 				}
 			}
-			else if (window.location.hostname.toLowerCase().indexOf('we7') >= 0) {
+			else if (hostname.indexOf('we7') >= 0) {
 				host = 'we7';
 			}
 			return host;

@@ -13,6 +13,7 @@
 				"http://play.google.com/music/*",
 				"https://play.google.com/music/*",
 				"http://*.grooveshark.com/*",
+				"http://*.napster.de/*",
 				"http://*.pandora.com/*",
 				"https://*.pandora.com/*",
 				"http://player.fm/*",
