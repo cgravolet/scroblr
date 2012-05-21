@@ -15,10 +15,10 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 - Bandcamp
 - Grooveshark
 - Jango
+- Player.fm
 - Rhapsody
 - Twonky
 - we7
-- Player.fm
 
 ##What's "scrobbling?"
 
