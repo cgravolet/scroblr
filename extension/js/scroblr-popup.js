@@ -149,7 +149,7 @@ var scroblrBar = (function (model) {
 			if (data.image.length) {
 				$('p.album', nowPlaying).html('<a href="' + data.url_album + '" target="_blank"><img src="' + data.image + '" alt="' + data.album + '" /></a>');
 			}
-			$('p.track', nowPlaying).html(data.name + ' <em>' + (data.duration > 0 && data.host != 'we7' ? formatDuration(data.duration) : '') + '</em>');
+			$('p.track', nowPlaying).html(data.name + ' <em>' + (data.duration > 0 ? formatDuration(data.duration) : '') + '</em>');
 			$('p.artist', nowPlaying).html(data.artist);
 			showHostControls(data);
 			updateCurrentSong({score: data.score});

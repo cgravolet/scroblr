@@ -388,9 +388,7 @@ function update_now_playing (data) {
 			if (data.album) {
 				params.album = data.album;
 			}
-			if (data.host != 'we7') {
-				params.duration = data.duration / 1000;
-			}
+			params.duration = data.duration / 1000;
 			if (data.name.length && data.artist.length) {
 				sendRequest('track.updateNowPlaying', params);
 			}

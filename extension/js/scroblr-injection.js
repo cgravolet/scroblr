@@ -204,11 +204,10 @@ if (!isJango || isJangoPlayer) {
 
 					we7: function () {
 						return {
-							artist: $('.chugger-current .chugger-track-details .artist-name').text(),
-							duration: 300000,
-							elapsed: Math.floor(($('#played-bar').width() / $('#timeline-bar').width()) * 300000),
-							name: $('.chugger-current .chugger-track-details .track-name').text(),
-							stopped: $('.player-bar-button').hasClass('play')
+							artist: $('#fpw-player .artist').text(),
+							name: $('#fpw-player .track').text(),
+							percent: parseFloat($('#fpw-player-timeline .played-bar').width() / $('#fpw-player-timeline').width()),
+							stopped: ($('#fpw-player .fpw-controls .play').length ? true : false)
 						};
 					}
 
@@ -306,7 +305,7 @@ if (!isJango || isJangoPlayer) {
 					currentsong.duration = Math.round((currentsong.timestamp * 1000 - song.timestamp * 1000) / currentsong.percent);
 					currentsong.elapsed = Math.round(currentsong.duration * currentsong.percent);
 				}
-				if (currentsong.duration > song.duration) {
+				if (currentsong.duration > song.duration || song.duration - currentsong.duration > 200000) {
 					currentsong_update_object.duration = song.duration = currentsong.duration;
 				}
 				if (currentsong.score != song.score) {
