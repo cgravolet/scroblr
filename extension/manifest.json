@@ -7,34 +7,26 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"http://*.accuradio.com/*",
-				"https://*.amazon.com/gp/dmusic*",
-				"http://*.bandcamp.com/*",
-				"http://play.google.com/music/*",
-				"https://play.google.com/music/*",
-				"http://*.grooveshark.com/*",
-				"http://*.napster.de/*",
-				"http://*.pandora.com/*",
-				"https://*.pandora.com/*",
-				"http://player.fm/*",
-				"http://*.rhapsody.com/*",
-				"http://*.songza.com/*",
-				"http://*.turntable.fm/*",
-				"http://*.twonky.com/*",
-				"http://*.we7.com/*"
+				"http://*/*",
+				"https://*/*"
 			],
 			"js": [
-				"js/lib/jquery-1.6.4.min.js",
-				"js/scroblr-injection.js"
-			]
-		},
-		{
-			"matches": [
-				"http://*.jango.com/*"
-			],
-			"js": [
-				"js/lib/jquery-1.6.4.min.js",
-				"js/scroblr-injection.js"
+				"js/lib/jquery-1.7.2.js",
+				"js/lib/moment.js",
+				"js/scroblr-injection.js",
+				"js/plugins/accuradio.js",
+				"js/plugins/amazon.js",
+				"js/plugins/bandcamp.js",
+				"js/plugins/google.js",
+				"js/plugins/grooveshark.js",
+				"js/plugins/jango.js",
+				"js/plugins/pandora.js",
+				"js/plugins/playerfm.js",
+				"js/plugins/rhapsody.js",
+				"js/plugins/songza.js",
+				"js/plugins/turntable.js",
+				"js/plugins/twonky.js",
+				"js/plugins/we7.js"
 			],
 			"all_frames": true
 		}
@@ -54,5 +46,5 @@
 		"tabs",
 		"http://ws.audioscrobbler.com/2.0/"
 	],
-	"version": "0.9.69"
+	"version": "2.0"
 }

@@ -1,348 +1,303 @@
-var isJango = (window.location.hostname.toLowerCase().indexOf('jango') >= 0 ? true : false),
-	isJangoPlayer = (isJango && $('#player_info').length ? true : false),
-	scroblr;
+var scroblr = (function ($, moment) {
 
-if (!isJango || isJangoPlayer) {
+	var history, host, Plugin, plugins, poller, Song;
 
-	scroblr = (function () {
+	history = [];
+	plugins = {};
+
+	/**
+	 * @constructor
+	 * @private
+	 */
+	Plugin = function (name) {
+
+		this.hostre = new RegExp("www\\." + name + "\\.com", "i");
+		this.name = name;
+
+		// Init method should return true or false depending on whether this
+		// plugin matches the hostname
+		this.init = function () {
+			return this.hostre.test(document.location.hostname);
+		}
+	};
+
+	/**
+	 * @constructor
+	 * @private
+	 */
+	Song = function (params) {
+
+		$.extend(this, params);
+
+		this.dateTime = moment();
+		this.toString = function () {
+			if (this.artist.length && this.title.length) {
+				return this.artist + ' - ' + this.title;
+			} else {
+				return "";
+			}
+		};
+	};
+
+	/**
+	 * @param {string} timestring
+	 */
+	function calculateDuration (timestring) {
+		var seconds = 0;
+		for (var i = 0, max = arguments.length; i < max; i += 1) {
+			if (arguments[i].toString().length) {
+				timeSegments = arguments[i].split(':');
+				// Iterate over timeSegments in reverse calculating the number
+				// of seconds represented by the seconds, minutes, and hours
+				// fields.
+				for (var j = timeSegments.length - 1, pow = 0; (j >= 0) && (j >= (timeSegments.length - 3)); j -= 1, pow += 1) {
+					seconds += parseFloat(timeSegments[j].replace('-', '')) * Math.pow(60, pow);
+				}
+			}
+		}
+		return seconds * 1000;
+	}
+
+	/**
+	 * Initialization method
+	 * 
+	 * @private
+	 */
+	function init() {
+
+		for (var key in plugins) {
+			if (plugins.hasOwnProperty(key) && plugins[key].init()) {
+				host = plugins[key];
+				poller = window.setInterval(pollSongInfo, 5000);
+				break;
+			}
+		}
+	}
+
+	/**
+	 * @private
+	 */
+	function pollSongInfo() {
+
+		var currentSong, currentSongStr, lastSongInHistory, lastSongInHistoryStr;
+
+		currentSong = new Song(host.scrape());
+		currentSongStr = currentSong.toString();
+
+		if (history.length) {
+			lastSongInHistory = history[history.length - 1];
+			lastSongInHistoryStr = lastSongInHistory.toString();
+		}
+
+		if (currentSongStr.length && currentSongStr !== lastSongInHistoryStr) {
+			history.push(currentSong);
+			console.log(history);
+
+		} else if (currentSongStr.length) {
+
+			$.each(['album', 'duration', 'elapsed', 'percent', 'score', 'stopped'], function (i, val) {
+				if (currentSong.hasOwnProperty(val)) {
+					lastSongInHistory[val] = currentSong[val];
+				}
+			});
+		}
+	}
+
+	/**
+	 */
+	function registerPlugin(name) {
+		plugins[name] = new Plugin(name);
+		return plugins[name];
+	}
+
+	/**
+	 * @param {string} name
+	 * @param {object} message
+	 */
+	function sendMessage (name, message) {
+		if (typeof chrome != 'undefined') {
+			chrome.extension.sendRequest({
+				name: name,
+				message: message
+			});
+		}
+		else if (typeof safari != 'undefined') {
+			safari.self.tab.dispatchMessage(name, message);
+		}
+	}
+
+	/*
+	 * Document ready
+	 */
+	$(document).ready(function () {
+		init();
+	});
+
+	return {
+		registerHost: registerPlugin,
+		utilities: {
+			calculateDuration: calculateDuration
+		}
+	};
+}(jQuery, moment));
 
 
-		var host = '',
-			interval = '',
-			song = {
+
+
+
+
+
+
+
+
+
+var scroblr1 = function () {
+
+	var host = '',
+		interval = '',
+		song = {
+			album: '',
+			artist: 'undefined',
+			duration: 0,
+			elapsed: 0,
+			host: host,
+			image: '',
+			loved: false,
+			name: 'undefined',
+			score: 50,
+			stopped: false,
+			tags: [],
+			timestamp: null,
+			url: '',
+			url_album: '',
+			url_artist: ''
+		};
+
+
+
+
+	function getCurrentSongInfo () {
+		var currentsong = {
 				album: '',
-				artist: 'undefined',
+				artist: '',
 				duration: 0,
 				elapsed: 0,
 				host: host,
 				image: '',
 				loved: false,
-				name: 'undefined',
+				name: '',
 				score: 50,
 				stopped: false,
 				tags: [],
-				timestamp: null,
+				timestamp: Math.round((new Date()).getTime() / 1000.0),
 				url: '',
 				url_album: '',
 				url_artist: ''
+			},
+			scrape = {
 			};
 
+		return $.extend(currentsong, scrape[host]());
 
-		function calculateDuration (timestring) {
-			var seconds = 0;
-			for (var i = 0, max = arguments.length; i < max; i += 1) {
-				if (arguments[i].toString().length) {
-					timeSegments = arguments[i].split(':');
-					// Iterate over timeSegments in reverse calculating the number
-					// of seconds represented by the seconds, minutes, and hours
-					// fields.
-					for (var j = timeSegments.length - 1, pow = 0; (j >= 0) && (j >= (timeSegments.length - 3)); j -= 1, pow += 1) {
-						seconds += parseFloat(timeSegments[j].replace('-', '')) * Math.pow(60, pow);
-					}
-				}
-			}
-			return seconds * 1000;
+	}
+
+
+	function getElapsedTime (data) {
+		var elapsed = data.elapsed,
+			now = (new Date()).getTime() / 1000.0;
+		if (elapsed === 0) {
+			elapsed = Math.round(now - song.timestamp) * 1000;
 		}
+		return elapsed;
+	}
 
 
-		function getCurrentSongInfo () {
-			var currentsong = {
-					album: '',
-					artist: '',
-					duration: 0,
-					elapsed: 0,
-					host: host,
-					image: '',
-					loved: false,
-					name: '',
-					score: 50,
-					stopped: false,
-					tags: [],
-					timestamp: Math.round((new Date()).getTime() / 1000.0),
-					url: '',
-					url_album: '',
-					url_artist: ''
-				},
-				scrape = {
+	function getHost () {
 
-					accuradio: function () {
-						return {
-							album: $('#span_information_album').text(),
-							artist: $('#span_information_artist').text(),
-							name: $('#span_information_title').text(),
-							stopped: $('#player_lowest_controls_wrapper #play').length ? true : false
-						};
-					},
+		var host, hostname;
 
-					amazon: function () {
-						return {
-							artist: $('#nowPlayingSection .currentSongDetails .title').next().text().substring(3),
-							duration: calculateDuration($('#nowPlayingSection .currentSongStatus #currentTime').next().next().text()),
-							name: $('#nowPlayingSection .currentSongDetails .title').text(),
-							stopped: $('#mp3Player .mp3Player-MasterControl .mp3MasterPlayGroup').hasClass('paused')
-						};
-					},
+		host = false;
+		hostname = window.location.hostname.toLowerCase();
 
-					bandcamp: function () {
-						var info = {
-								stopped: (!$('.inline_player .playbutton').hasClass('playing'))
-							},
-							istrack = (document.location.pathname.indexOf('/track') >= 0),
-							pagetitle = $('title').text().split('|');
-						if (!info.stopped) {
-							info.artist = $.trim(pagetitle[pagetitle.length-1]);
-							info.duration = calculateDuration($('.inline_player .track_info .time').text().split('/')[1]);
-							info.name = istrack ? $(".trackTitle").first().text() : $(".track_info .title").text();
-						}
-						return info;
-					},
-
-					google: function () {
-						return {
-							artist: $('#playerArtist .fade-out-content').attr('title'),
-							duration: calculateDuration($('#duration').text()),
-							name: $('#playerSongTitle .fade-out-content').attr('title'),
-							stopped: ($('#playPause').attr('title') == 'Play')
-						};
-					},
-
-					grooveshark: function () {
-						return {
-							album: $('#playerDetails_nowPlaying .album').attr('title'),
-							artist: $('#playerDetails_nowPlaying .artist').attr('title'),
-							duration: calculateDuration($('#player #player_duration').text()),
-							name: $('#playerDetails_nowPlaying .currentSongLink').attr('title'),
-							stopped: $('#player #player_play_pause').hasClass('play')
-						};
-					},
-
-					jango: function () {
-						return {
-							artist: $.trim($('#player_info #player_current_artist').contents().last().text()),
-							duration: calculateDuration($('#player_info #timer').text().substring(1)),
-							name: $('#player_info #current-song').text().replace(/^\s+/, '').replace(/\s+$/, ''),
-							stopped: $('#btn-playpause').hasClass('pause')
-						};
-					},
-
-					pandora: function () {
-						function stripChildrensLabel (string) {
-							return string.replace(/\s+\(Children's\)$/i, '');
-						}
-						function stripHolidayLabel (string) {
-							return string.replace(/\s+\(Holiday\)$/i, '');
-						}
-						function cleanseArtist (string) {
-							var artist = stripChildrensLabel(string);
-							return stripHolidayLabel(artist);
-						}
-						return {
-							album: $('#playerBar .playerBarAlbum').text(),
-							artist: cleanseArtist($('#playerBar .playerBarArtist').text()),
-							duration: calculateDuration($('#playbackControl .elapsedTime').text(), $('#playbackControl .remainingTime').text()),
-							elapsed: calculateDuration($('#playbackControl .elapsedTime').text()),
-							name: $('#playerBar .playerBarSong').text(),
-							stopped: $('#playerBar .playButton').is(':visible')
-						};
-					},
-
-					playerfm: function() {
-                        var elapsedString       = $('.permaplayer .current .play-monitor .time-elapsed').text();
-                        var timeRemainingString = $('.permaplayer .current .play-monitor .time-remaining').text();
-
-                        return {
-                            artist:   $('.permaplayer .meta .trackWrapper .title :first-child').text(),
-                            name:     $('.permaplayer .meta .trackWrapper .title :last-child').text(),
-                            elapsed:  calculateDuration(elapsedString),
-                            duration: calculateDuration(elapsedString, timeRemainingString),
-                            stopped:  $('.permaplayer .current .playpause .icon-play').is(':visible')
-                        };
-					},
-
-					rhapsody: function () {
-						return {
-							artist: $('#player-artist-link').text(),
-							duration: calculateDuration($('#player-total-time').text()),
-							elapsed: calculateDuration($('#player-current-time').text()),
-							name: $('#player-track-link').text(),
-							stopped: ($('#player-play').css('display') == 'block')
-						};
-					},
-
-					songza: function () {
-						return {
-							artist: $('#player .szi-roll-song .szi-info .szi-artist').text(),
-							name: $('#player .szi-roll-song .szi-info .szi-title').text(),
-							percent: parseFloat($('#player .szi-progress .szi-bar').width() / $('#player .szi-progress').width()),
-							stopped: ($('#player .sz-player-state-pause').length > 0)
-						};
-					},
-
-					turntable: function () {
-						var info = {};
-						if ($('#songboard_artist').text().length) {
-							info.artist = $('#room-info-tab .song:first-child .details div:first-child').text().split(' - ');
-							info.duration = calculateDuration(info.artist.pop());
-							info.artist = info.artist.join(' - ');
-							info.name = $('#room-info-tab .song:first-child .title').text();
-							info.score = parseFloat($('#room-info-tab .song:first-child .details div.score').text().replace(/[^0-9]+/g, ''));
-						}
-						return info;
-					},
-
-					twonky: function () {
-						if ($('.meta_title').text().length) {
-							return {
-								album: $('.meta_album').text(),
-								artist: $.trim($('.meta_artist').text()),
-								duration: calculateDuration($('.meta_duration').text()),
-								name: $.trim($('.meta_title').text()),
-								stopped: $('.trackPlayerButtonIcon').hasClass('play')
-							};
-						}
-					},
-
-					we7: function () {
-						return {
-							artist: $('#fpw-player .artist').text(),
-							name: $('#fpw-player .track').text(),
-							percent: parseFloat($('#fpw-player-timeline .played-bar').width() / $('#fpw-player-timeline').width()),
-							stopped: ($('#fpw-player .fpw-controls .play').length ? true : false)
-						};
-					}
-
-				};
-
-			return $.extend(currentsong, scrape[host]());
-
+		if (hostname.indexOf('accuradio') >= 0) {
+			host = 'accuradio';
 		}
-
-
-		function getElapsedTime (data) {
-			var elapsed = data.elapsed,
-				now = (new Date()).getTime() / 1000.0;
-			if (elapsed === 0) {
-				elapsed = Math.round(now - song.timestamp) * 1000;
-			}
-			return elapsed;
+		else if (hostname.indexOf('amazon') >= 0 && window.location.pathname.indexOf('music') >= 0) {
+			host = 'amazon';
 		}
-
-
-		function getHost () {
-
-			var host, hostname;
-
-			host = false;
-			hostname = window.location.hostname.toLowerCase();
-
-			if (hostname.indexOf('accuradio') >= 0) {
-				host = 'accuradio';
-			}
-			else if (hostname.indexOf('amazon') >= 0 && window.location.pathname.indexOf('music') >= 0) {
-				host = 'amazon';
-			}
-			else if (hostname.indexOf('bandcamp') >= 0) {
-				host = 'bandcamp';
-			}
-			else if (hostname.indexOf('google') >= 0) {
-				host = 'google';
-			}
-			else if (hostname.indexOf('grooveshark') >= 0) {
-				host = 'grooveshark';
-			}
-			else if (hostname.indexOf('jango') >= 0) {
-				host = 'jango';
-			}
-			else if (hostname.indexOf('pandora') >= 0) {
-				host = 'pandora';
-			}
-			else if (hostname.indexOf('player.fm') >= 0) {
-				host = 'playerfm';
-			}
-			else if (hostname.indexOf('rhapsody') >= 0 || hostname.indexOf('napster') >= 0) {
-				if ($('#container').length) {
-					host = 'rhapsody';
-				}
-			}
-			else if (hostname.indexOf('songza') >= 0) {
-				if ($('#player').length) {
-					host = 'songza';
-				}
-			}
-			else if (hostname.indexOf('turntable') >= 0) {
-				host = 'turntable';
-			}
-			else if (hostname.indexOf('twonky') >= 0) {
-				if ($('body.musicDashboard').length) {
-					host = 'twonky';
-				}
-			}
-			else if (hostname.indexOf('we7') >= 0) {
-				host = 'we7';
-			}
-			return host;
+		else if (hostname.indexOf('bandcamp') >= 0) {
+			host = 'bandcamp';
 		}
-
-
-		function init () {
-			host = getHost();
-			if (host === false) {
-				return false;
-			}
-			interval = window.setInterval(pollSongInfo, 5000);
+		else if (hostname.indexOf('google') >= 0) {
+			host = 'google';
 		}
-
-
-		function pollSongInfo () {
-			var currentsong = getCurrentSongInfo(),
-				currentsong_update_object = {};
-			if (currentsong.name != song.name || currentsong.artist != song.artist) {
-				song = currentsong;
-				sendMessage('nowPlaying', song);
-			}
-			else if (currentsong.name.length && currentsong.artist.length) {
-				if (currentsong.hasOwnProperty('percent') && currentsong.duration === 0) {
-					currentsong.duration = Math.round((currentsong.timestamp * 1000 - song.timestamp * 1000) / currentsong.percent);
-					currentsong.elapsed = Math.round(currentsong.duration * currentsong.percent);
-				}
-				if (currentsong.duration > song.duration || song.duration - currentsong.duration > 200000) {
-					currentsong_update_object.duration = song.duration = currentsong.duration;
-				}
-				if (currentsong.score != song.score) {
-					currentsong_update_object.score = song.score = currentsong.score;
-				}
-				currentsong_update_object.elapsed = song.elapsed = getElapsedTime(currentsong);
-				sendMessage('updateCurrentSong', currentsong_update_object);
-			}
-			sendMessage('keepAlive', null);
+		else if (hostname.indexOf('grooveshark') >= 0) {
+			host = 'grooveshark';
 		}
-
-
-		function sendMessage (name, message) {
-			if (typeof chrome != 'undefined') {
-				chrome.extension.sendRequest({
-					name: name,
-					message: message
-				});
-			}
-			else if (typeof safari != 'undefined') {
-				safari.self.tab.dispatchMessage(name, message);
+		else if (hostname.indexOf('jango') >= 0) {
+			host = 'jango';
+		}
+		else if (hostname.indexOf('pandora') >= 0) {
+			host = 'pandora';
+		}
+		else if (hostname.indexOf('player.fm') >= 0) {
+			host = 'playerfm';
+		}
+		else if (hostname.indexOf('rhapsody') >= 0 || hostname.indexOf('napster') >= 0) {
+			if ($('#container').length) {
+				host = 'rhapsody';
 			}
 		}
+		else if (hostname.indexOf('songza') >= 0) {
+			if ($('#player').length) {
+				host = 'songza';
+			}
+		}
+		else if (hostname.indexOf('turntable') >= 0) {
+			host = 'turntable';
+		}
+		else if (hostname.indexOf('twonky') >= 0) {
+			if ($('body.musicDashboard').length) {
+				host = 'twonky';
+			}
+		}
+		else if (hostname.indexOf('we7') >= 0) {
+			host = 'we7';
+		}
+		return host;
+	}
 
 
-		// Initialize on document ready
-		$(function () {
-			init();
-		});
+	function init () {
+		host = getHost();
+		if (host === false) {
+			return false;
+		}
+		interval = window.setInterval(pollSongInfo, 5000);
+	}
 
 
-		return {
-			getCurrentSongInfo: getCurrentSongInfo
-		};
-
-
-	}());
-
-}
-
+	function pollSongInfo () {
+		var currentsong = getCurrentSongInfo(),
+			currentsong_update_object = {};
+		if (currentsong.name != song.name || currentsong.artist != song.artist) {
+			song = currentsong;
+			sendMessage('nowPlaying', song);
+		}
+		else if (currentsong.name.length && currentsong.artist.length) {
+			if (currentsong.hasOwnProperty('percent') && currentsong.duration === 0) {
+				currentsong.duration = Math.round((currentsong.timestamp * 1000 - song.timestamp * 1000) / currentsong.percent);
+				currentsong.elapsed = Math.round(currentsong.duration * currentsong.percent);
+			}
+			if (currentsong.duration > song.duration || song.duration - currentsong.duration > 200000) {
+				currentsong_update_object.duration = song.duration = currentsong.duration;
+			}
+			if (currentsong.score != song.score) {
+				currentsong_update_object.score = song.score = currentsong.score;
+			}
+			currentsong_update_object.elapsed = song.elapsed = getElapsedTime(currentsong);
+			sendMessage('updateCurrentSong', currentsong_update_object);
+		}
+		sendMessage('keepAlive', null);
+	}
+};
