@@ -20,8 +20,7 @@
 				"http://*.rhapsody.com/*",
 				"http://*.songza.com/*",
 				"http://*.turntable.fm/*",
-				"http://*.twonky.com/*",
-				"http://*.we7.com/*"
+				"http://*.twonky.com/*"
 			],
 			"js": [
 				"js/lib/jquery-1.6.4.min.js",
@@ -30,7 +29,8 @@
 		},
 		{
 			"matches": [
-				"http://*.jango.com/*"
+				"http://*.jango.com/*",
+				"http://*.we7.com/*"
 			],
 			"js": [
 				"js/lib/jquery-1.6.4.min.js",

@@ -204,10 +204,10 @@ if (!isJango || isJangoPlayer) {
 
 					we7: function () {
 						return {
-							artist: $('#fpw-player .artist').text(),
-							name: $('#fpw-player .track').text(),
-							percent: parseFloat($('#fpw-player-timeline .played-bar').width() / $('#fpw-player-timeline').width()),
-							stopped: ($('#fpw-player .fpw-controls .play').length ? true : false)
+							artist: $('#track-marquee #track-title a').eq(0).text(),
+							name: $('#track-marquee #track-title a').eq(1).text(),
+							duration: calculateDuration($('#elapsed').text(), $('#remaining').text()),
+							elapsed: calculateDuration($('#elapsed').text())
 						};
 					}
 
@@ -278,7 +278,9 @@ if (!isJango || isJangoPlayer) {
 				}
 			}
 			else if (hostname.indexOf('we7') >= 0) {
-				host = 'we7';
+				if ($('#player-section').length) {
+					host = 'we7';
+				}
 			}
 			return host;
 		}
