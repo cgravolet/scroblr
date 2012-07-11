@@ -13,9 +13,9 @@
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.9.69</string>
+    <string>0.9.71</string>
     <key>CFBundleVersion</key>
-    <string>0.9.69</string>
+    <string>0.9.71</string>
     <key>Chrome</key>
     <dict>
       <key>Bars</key>
@@ -83,7 +83,7 @@
           <string>*.jango.com</string>
           <string>*.napster.de</string>
           <string>*.pandora.com</string>
-          <string>player.fm</string>
+          <string>*.player.fm</string>
           <string>*.rhapsody.com</string>
           <string>*.songza.com</string>
           <string>*.turntable.fm</string>

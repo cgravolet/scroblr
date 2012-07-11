@@ -147,16 +147,17 @@ if (!isJango || isJangoPlayer) {
 					},
 
 					playerfm: function() {
-                        var elapsedString       = $('.permaplayer .current .play-monitor .time-elapsed').text();
-                        var timeRemainingString = $('.permaplayer .current .play-monitor .time-remaining').text();
 
-                        return {
-                            artist:   $('.permaplayer .meta .trackWrapper .title :first-child').text(),
-                            name:     $('.permaplayer .meta .trackWrapper .title :last-child').text(),
-                            elapsed:  calculateDuration(elapsedString),
-                            duration: calculateDuration(elapsedString, timeRemainingString),
-                            stopped:  $('.permaplayer .current .playpause .icon-play').is(':visible')
-                        };
+						var elapsedString       = $('.permaplayer .current .play-monitor .time-elapsed').text();
+						var timeRemainingString = $('.permaplayer .current .play-monitor .time-remaining').text();
+
+						return {
+							artist:   $('.permaplayer .meta .track-wrapper .title :first-child').text(),
+							name:     $('.permaplayer .meta .track-wrapper .title :last-child').text(),
+							elapsed:  calculateDuration(elapsedString),
+							duration: calculateDuration(elapsedString, timeRemainingString),
+							stopped:  $('.container .mainflow .playpause .icon-play').is(':visible')
+						};
 					},
 
 					rhapsody: function () {

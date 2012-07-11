@@ -16,7 +16,7 @@
 				"http://*.napster.de/*",
 				"http://*.pandora.com/*",
 				"https://*.pandora.com/*",
-				"http://player.fm/*",
+				"http://*.player.fm/*",
 				"http://*.rhapsody.com/*",
 				"http://*.songza.com/*",
 				"http://*.turntable.fm/*",
@@ -54,5 +54,5 @@
 		"tabs",
 		"http://ws.audioscrobbler.com/2.0/"
 	],
-	"version": "0.9.69"
+	"version": "0.9.71"
 }
