@@ -1,6 +1,6 @@
 var scroblr = (function ($, moment) {
 
-	var history, host, Plugin, plugins, poller, Song;
+	var history, host, Plugin, plugins, poller, Track;
 
 	history = [];
 	plugins = {};
@@ -25,7 +25,7 @@ var scroblr = (function ($, moment) {
 	 * @constructor
 	 * @private
 	 */
-	Song = function (params) {
+	Track = function (params) {
 
 		$.extend(this, params);
 
@@ -40,6 +40,9 @@ var scroblr = (function ($, moment) {
 	};
 
 	/**
+	 * Calculates the duration of a track in milliseconds based on a time string
+	 * (i.e. '01:24' or '-2:32')
+	 *
 	 * @param {string} timestring
 	 */
 	function calculateDuration(timestring) {
@@ -65,6 +68,10 @@ var scroblr = (function ($, moment) {
 	}
 
 	/**
+	 * Calculates the amount of milliseconds that have passed since the track
+	 * started playing.
+	 *
+	 * @param {object} dateTime A moment object
 	 * @private
 	 */
 	function getElapsedTime(dateTime) {
@@ -82,7 +89,7 @@ var scroblr = (function ($, moment) {
 		for (var key in plugins) {
 			if (plugins.hasOwnProperty(key) && plugins[key].init()) {
 				host = plugins[key];
-				poller = window.setInterval(pollSongInfo, 5000);
+				poller = window.setInterval(pollTrackInfo, 5000);
 				break;
 			}
 		}
@@ -91,35 +98,39 @@ var scroblr = (function ($, moment) {
 	/**
 	 * @private
 	 */
-	function pollSongInfo() {
+	function pollTrackInfo() {
 
-		var currentSong, currentSongStr, lastSongInHistory, lastSongInHistoryStr;
+		var currentTrack, currentTrackStr, prevTrack, prevTrackStr;
 
-		currentSong = new Song(host.scrape());
-		currentSongStr = currentSong.toString();
+		currentTrack = new Track(host.scrape());
+		currentTrackStr = currentTrack.toString();
 
 		if (history.length) {
-			lastSongInHistory = history[history.length - 1];
-			lastSongInHistoryStr = lastSongInHistory.toString();
+			prevTrack = history[history.length - 1];
+			prevTrackStr = prevTrack.toString();
 		}
 
-		if (currentSongStr.length && currentSongStr !== lastSongInHistoryStr) {
-			history.push(currentSong);
-			console.log(history);
+		// New track is playing
+		if (currentTrackStr.length && currentTrackStr !== prevTrackStr) {
+			updateNowPlaying(currentTrack);
+		
+		// A track continues to play
+		} else if (currentTrackStr.length) {
 
-		} else if (currentSongStr.length) {
+			$.each(['album', 'duration', 'elapsed', 'percent', 'score', 'stopped'],
+					function (i, val) {
 
-			$.each(['album', 'duration', 'elapsed', 'percent', 'score', 'stopped'], function (i, val) {
-				if (currentSong.hasOwnProperty(val)) {
-					lastSongInHistory[val] = currentSong[val];
+				if (currentTrack.hasOwnProperty(val)) {
+					prevTrack[val] = currentTrack[val];
 				} else if (val === 'elapsed') {
-					lastSongInHistory[val] = getElapsedTime(lastSongInHistory.dateTime);
+					prevTrack[val] = getElapsedTime(prevTrack.dateTime);
 				}
 			});
 		}
 	}
 
 	/**
+	 * @private
 	 */
 	function registerPlugin(name) {
 		plugins[name] = new Plugin(name);
@@ -129,8 +140,10 @@ var scroblr = (function ($, moment) {
 	/**
 	 * @param {string} name
 	 * @param {object} message
+	 * @private
 	 */
 	function sendMessage(name, message) {
+		console.log(name + ': ' + message);
 		if (typeof chrome != 'undefined') {
 			chrome.extension.sendRequest({
 				name: name,
@@ -140,6 +153,20 @@ var scroblr = (function ($, moment) {
 		else if (typeof safari != 'undefined') {
 			safari.self.tab.dispatchMessage(name, message);
 		}
+	}
+
+	/**
+	 * @param {object} track
+	 * @private
+	 */
+	function updateNowPlaying(track) {
+
+		sendMessage('nowPlaying', track);
+
+		if (history.length) {
+			sendMessage('scrobbleTrack', history[history.length - 1]);
+		}
+		history.push(track);
 	}
 
 	/*
