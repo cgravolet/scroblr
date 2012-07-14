@@ -11,9 +11,9 @@ var api_key = '59c070288bfca89ca9700fde083969bb',
 /**
  * Hanldes commands sent to the background script (Safari-specific)
  *
- * @param {object} event - The event that was triggered (ex. {command: 'toggleScroblr'})
+ * @param {object} event The event that was triggered (ex. {command: 'toggleScroblr'})
  */
-function command_handler (event) {
+function command_handler(event) {
 	switch (event.command) {
 		case "toggleScroblr":
 			toggle_scroblr_bar();
@@ -27,9 +27,9 @@ function command_handler (event) {
  * turns it into an md5 hash to create the API signature which Last.fm requires be appended
  * to all requests.
  *
- * @param {object} params - The request parameters (ex. {artist: 'Big Black', track: 'Kerosene', method: 'track.love'})
+ * @param {object} params The request parameters (ex. {artist: 'Big Black', track: 'Kerosene', method: 'track.love'})
  */
-function getApiSignature (params) {
+function getApiSignature(params) {
 	var key,
 		keys = [],
 		string = '';
@@ -53,7 +53,7 @@ function getApiSignature (params) {
  *
  * @param {string} option - The name of the option (ex. 'pandora')
  */
-function getOptionStatus (option) {
+function getOptionStatus(option) {
 	if (typeof chrome != 'undefined') {
 		return (localStorage['enable_' + option] == 'false' ? false : true);
 	}
@@ -68,7 +68,7 @@ function getOptionStatus (option) {
  *
  * @param {object} data - The song object (ex. {name: 'Kerosene', artist: 'Big Black', duration: etc...})
  */
-function get_song_info (data) {
+function get_song_info(data) {
 	var params;
 	if (data.name.length && data.artist.length) {
 		params = {
@@ -90,7 +90,7 @@ function get_song_info (data) {
  *
  * @param {object} data - The data returned from the track.getInfo API request
  */
-function get_song_info_callback (data) {
+function get_song_info_callback(data) {
 	currentsong.url = $('track > url', data).text() || '';
 	currentsong.url_album = $('track > album url', data).text() || '';
 	currentsong.url_artist = $('track > artist url', data).text() || '';
@@ -111,7 +111,7 @@ function get_song_info_callback (data) {
 /**
  * Handles API request failures. Notice how it doesn't do a goddamn thing, this should probably be expanded upon...
  */
-function handleFailure () {
+function handleFailure() {
 	console.log(arguments);
 }
 
@@ -120,7 +120,7 @@ function handleFailure () {
  * The initialization function, gets run once on page load (when the browser window opens for the first time, or when
  * scroblr is enabled.)
  */
-function initialize () {
+function initialize() {
 	if (typeof chrome != 'undefined') {
 		chrome.extension.onRequest.addListener(message_handler);
 	}
@@ -135,7 +135,7 @@ function initialize () {
  * Function that gets run every couple seconds while a song is playing and resets the keepAlive timeout. This is how the 
  * extension understands when a scrobbling window gets closed or the song stops playing.
  */
-function keepAlive () {
+function keepAlive() {
 	window.clearTimeout(keepalive);
 	keepalive = window.setTimeout(function () {
 		currentsong = null;
@@ -148,7 +148,7 @@ function keepAlive () {
  *
  * @param {boolean} love - She loves me. She loves me not. (True or False)
  */
-function love_track (love) {
+function love_track(love) {
 	var params = {
 			api_key: api_key,
 			sk: lf_session.key,
@@ -169,7 +169,7 @@ function love_track (love) {
  *
  * @param {object} msg - The message contents (ex. {name: 'keepAlive', message: null})
  */
-function message_handler (msg) {
+function message_handler(msg) {
 	switch (msg.name) {
 		case "accessGranted":
 			user_get_session(msg.message);
@@ -214,7 +214,7 @@ function message_handler (msg) {
  *
  * @param {object} notification - The notification to be sent (ex. {title: 'Now Playing', message: 'Big Black - Kerosene'})
  */
-function notify (notification) {
+function notify(notification) {
 	var notification;
 	if (window.webkitNotifications && getOptionStatus('messaging')) {
 		notification = webkitNotifications.createNotification('img/scroblr64.png', notification.title, notification.message);
@@ -233,7 +233,7 @@ function notify (notification) {
  * to the auth URL so that when the user grants access to scroblr on the Last.fm website, it will refer them back to the access granted
  * page with a token in the URL.
  */
-function openAuthWindow () {
+function openAuthWindow() {
 	if (typeof chrome != 'undefined') {
 		chrome.tabs.create({
 			url: 'http://www.last.fm/api/auth/?api_key=' + api_key + '&cb=' + chrome.extension.getURL('scroblr-access-granted.html')
@@ -252,7 +252,7 @@ function openAuthWindow () {
  *
  * @param {object} data - The song object (ex. {name: 'Kerosene', artist: 'Big Black', duration: etc...})
  */
-function scrobble (data) {
+function scrobble(data) {
 	var params = {
 			api_key: api_key,
 			sk: lf_session != null ? lf_session.key : null,
@@ -282,7 +282,7 @@ function scrobble (data) {
  * @param {string} name - The name of the event to trigger
  * @param {?} message - Any type of data that should be sent along with the message
  */
-function sendMessage (name, message) {
+function sendMessage(name, message) {
 	var bars, i;
 	if (typeof chrome != 'undefined') {
 		chrome.extension.sendRequest({
@@ -307,7 +307,7 @@ function sendMessage (name, message) {
  * @param {object} params - Any related parameters that are required, depending on the method
  * @param {function} callback - Any callback function to be run on success
  */
-function sendRequest (method, params, callback) {
+function sendRequest(method, params, callback) {
 	var type = 'GET';
 	if ($.inArray(method, ['track.love', 'track.scrobble', 'track.unlove', 'track.updateNowPlaying']) >= 0) {
 		type = 'POST';
@@ -331,7 +331,7 @@ function sendRequest (method, params, callback) {
 /**
  * Toggles the Safari scroblr bar
  */
-function toggle_scroblr_bar () {
+function toggle_scroblr_bar() {
 	var scroblrBar,
 		i = 0,
 		max = safari.extension.bars.length;
@@ -352,7 +352,7 @@ function toggle_scroblr_bar () {
  *
  * @param {object} data
  */
-function update_current_song (data) {
+function update_current_song(data) {
 	for (var key in data) {
 		if (data.hasOwnProperty(key)) {
 			currentsong[key] = data[key];
@@ -366,7 +366,7 @@ function update_current_song (data) {
  *
  * @param {object} data
  */
-function update_now_playing (data) {
+function update_now_playing(data) {
 	var params,
 		hostEnabled = getOptionStatus(data.host);
 	if (currentsong != null) {
@@ -402,7 +402,7 @@ function update_now_playing (data) {
  *
  * @param {string} user - Last.fm username
  */
-function user_get_info (user) {
+function user_get_info(user) {
 	var params = {
 			api_key: api_key,
 			user: user
@@ -419,7 +419,7 @@ function user_get_info (user) {
  *
  * @param {string} token
  */
-function user_get_session (token) {
+function user_get_session(token) {
 	var params = {
 			api_key: api_key,
 			token: token
@@ -435,7 +435,7 @@ function user_get_session (token) {
  *
  * @param {object} data - The XML response from the Last.fm API server
  */
-function user_get_session_callback (data, session) {
+function user_get_session_callback(data, session) {
 	if (data) {
 		lf_session = {
 			name: $('session name', data).text(),
@@ -454,7 +454,7 @@ function user_get_session_callback (data, session) {
  * Attempts to find the user's session information in local memory, otherwise it needs to
  * send the user to authorization in order to request a valid session token
  */
-function user_get_session_from_cache (user) {
+function user_get_session_from_cache(user) {
 	if (lf_sessioncache.hasOwnProperty(user)) {
 		lf_session = lf_sessioncache[user];
 		localStorage.lf_session = JSON.stringify(lf_session);
@@ -469,7 +469,7 @@ function user_get_session_from_cache (user) {
 /**
  * Clears the current users session from local memory
  */
-function user_logout () {
+function user_logout() {
 	localStorage.removeItem('lf_session');
 	lf_session = null;
 	sendMessage('initUserForm', null);
@@ -477,4 +477,3 @@ function user_logout () {
 
 
 initialize();
-
