@@ -1,8 +1,8 @@
 {
-	"background_page": "scroblr-background.html",
+	"background_page": "background.html",
 	"browser_action": {
 		"default_icon": "img/icons/lastfm16.png",
-		"popup": "scroblr-popup.html"
+		"popup": "popup.html"
 	},
 	"content_scripts": [
 		{
@@ -40,7 +40,7 @@
 		"128": "img/scroblr128.png"
 	},
 	"name": "scroblr",
-	"options_page": "scroblr-options.html",
+	"options_page": "options.html",
 	"permissions": [
 		"notifications",
 		"tabs",
