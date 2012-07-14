@@ -42,20 +42,34 @@ var scroblr = (function ($, moment) {
 	/**
 	 * @param {string} timestring
 	 */
-	function calculateDuration (timestring) {
-		var seconds = 0;
-		for (var i = 0, max = arguments.length; i < max; i += 1) {
+	function calculateDuration(timestring) {
+
+		var i, j, max, pow, seconds, timeSegments;
+
+		seconds = 0;
+
+		for (i = 0, max = arguments.length; i < max; i += 1) {
+
 			if (arguments[i].toString().length) {
 				timeSegments = arguments[i].split(':');
-				// Iterate over timeSegments in reverse calculating the number
-				// of seconds represented by the seconds, minutes, and hours
-				// fields.
-				for (var j = timeSegments.length - 1, pow = 0; (j >= 0) && (j >= (timeSegments.length - 3)); j -= 1, pow += 1) {
-					seconds += parseFloat(timeSegments[j].replace('-', '')) * Math.pow(60, pow);
+
+				for (j = timeSegments.length - 1, pow = 0; j >= 0 &&
+						j >= (timeSegments.length - 3); j -= 1, pow += 1) {
+					seconds += parseFloat(timeSegments[j].replace('-', '')) *
+							Math.pow(60, pow);
 				}
 			}
 		}
+
 		return seconds * 1000;
+	}
+
+	/**
+	 * @private
+	 */
+	function getElapsedTime(dateTime) {
+		var now = moment().valueOf();
+		return now - dateTime.valueOf();
 	}
 
 	/**
@@ -98,6 +112,8 @@ var scroblr = (function ($, moment) {
 			$.each(['album', 'duration', 'elapsed', 'percent', 'score', 'stopped'], function (i, val) {
 				if (currentSong.hasOwnProperty(val)) {
 					lastSongInHistory[val] = currentSong[val];
+				} else if (val === 'elapsed') {
+					lastSongInHistory[val] = getElapsedTime(lastSongInHistory.dateTime);
 				}
 			});
 		}
@@ -114,7 +130,7 @@ var scroblr = (function ($, moment) {
 	 * @param {string} name
 	 * @param {object} message
 	 */
-	function sendMessage (name, message) {
+	function sendMessage(name, message) {
 		if (typeof chrome != 'undefined') {
 			chrome.extension.sendRequest({
 				name: name,
@@ -140,164 +156,3 @@ var scroblr = (function ($, moment) {
 		}
 	};
 }(jQuery, moment));
-
-
-
-
-
-
-
-
-
-
-
-var scroblr1 = function () {
-
-	var host = '',
-		interval = '',
-		song = {
-			album: '',
-			artist: 'undefined',
-			duration: 0,
-			elapsed: 0,
-			host: host,
-			image: '',
-			loved: false,
-			name: 'undefined',
-			score: 50,
-			stopped: false,
-			tags: [],
-			timestamp: null,
-			url: '',
-			url_album: '',
-			url_artist: ''
-		};
-
-
-
-
-	function getCurrentSongInfo () {
-		var currentsong = {
-				album: '',
-				artist: '',
-				duration: 0,
-				elapsed: 0,
-				host: host,
-				image: '',
-				loved: false,
-				name: '',
-				score: 50,
-				stopped: false,
-				tags: [],
-				timestamp: Math.round((new Date()).getTime() / 1000.0),
-				url: '',
-				url_album: '',
-				url_artist: ''
-			},
-			scrape = {
-			};
-
-		return $.extend(currentsong, scrape[host]());
-
-	}
-
-
-	function getElapsedTime (data) {
-		var elapsed = data.elapsed,
-			now = (new Date()).getTime() / 1000.0;
-		if (elapsed === 0) {
-			elapsed = Math.round(now - song.timestamp) * 1000;
-		}
-		return elapsed;
-	}
-
-
-	function getHost () {
-
-		var host, hostname;
-
-		host = false;
-		hostname = window.location.hostname.toLowerCase();
-
-		if (hostname.indexOf('accuradio') >= 0) {
-			host = 'accuradio';
-		}
-		else if (hostname.indexOf('amazon') >= 0 && window.location.pathname.indexOf('music') >= 0) {
-			host = 'amazon';
-		}
-		else if (hostname.indexOf('bandcamp') >= 0) {
-			host = 'bandcamp';
-		}
-		else if (hostname.indexOf('google') >= 0) {
-			host = 'google';
-		}
-		else if (hostname.indexOf('grooveshark') >= 0) {
-			host = 'grooveshark';
-		}
-		else if (hostname.indexOf('jango') >= 0) {
-			host = 'jango';
-		}
-		else if (hostname.indexOf('pandora') >= 0) {
-			host = 'pandora';
-		}
-		else if (hostname.indexOf('player.fm') >= 0) {
-			host = 'playerfm';
-		}
-		else if (hostname.indexOf('rhapsody') >= 0 || hostname.indexOf('napster') >= 0) {
-			if ($('#container').length) {
-				host = 'rhapsody';
-			}
-		}
-		else if (hostname.indexOf('songza') >= 0) {
-			if ($('#player').length) {
-				host = 'songza';
-			}
-		}
-		else if (hostname.indexOf('turntable') >= 0) {
-			host = 'turntable';
-		}
-		else if (hostname.indexOf('twonky') >= 0) {
-			if ($('body.musicDashboard').length) {
-				host = 'twonky';
-			}
-		}
-		else if (hostname.indexOf('we7') >= 0) {
-			host = 'we7';
-		}
-		return host;
-	}
-
-
-	function init () {
-		host = getHost();
-		if (host === false) {
-			return false;
-		}
-		interval = window.setInterval(pollSongInfo, 5000);
-	}
-
-
-	function pollSongInfo () {
-		var currentsong = getCurrentSongInfo(),
-			currentsong_update_object = {};
-		if (currentsong.name != song.name || currentsong.artist != song.artist) {
-			song = currentsong;
-			sendMessage('nowPlaying', song);
-		}
-		else if (currentsong.name.length && currentsong.artist.length) {
-			if (currentsong.hasOwnProperty('percent') && currentsong.duration === 0) {
-				currentsong.duration = Math.round((currentsong.timestamp * 1000 - song.timestamp * 1000) / currentsong.percent);
-				currentsong.elapsed = Math.round(currentsong.duration * currentsong.percent);
-			}
-			if (currentsong.duration > song.duration || song.duration - currentsong.duration > 200000) {
-				currentsong_update_object.duration = song.duration = currentsong.duration;
-			}
-			if (currentsong.score != song.score) {
-				currentsong_update_object.score = song.score = currentsong.score;
-			}
-			currentsong_update_object.elapsed = song.elapsed = getElapsedTime(currentsong);
-			sendMessage('updateCurrentSong', currentsong_update_object);
-		}
-		sendMessage('keepAlive', null);
-	}
-};
