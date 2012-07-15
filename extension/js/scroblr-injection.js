@@ -79,6 +79,10 @@ var scroblr = (function ($, moment) {
 		return now - dateTime.valueOf();
 	}
 
+	function getTrackHistory() {
+		return history;
+	}
+
 	/**
 	 * Initialization method
 	 * 
@@ -143,7 +147,6 @@ var scroblr = (function ($, moment) {
 	 * @private
 	 */
 	function sendMessage(name, message) {
-		console.log(name + ': ' + message);
 		if (typeof chrome != 'undefined') {
 			chrome.extension.sendRequest({
 				name: name,
@@ -156,16 +159,45 @@ var scroblr = (function ($, moment) {
 	}
 
 	/**
+	 * Determines if a track should be scrobbled or not.
+	 *
+	 * @param {object} track
+	 * @return {boolean}
+	 * @private
+	 */
+	function trackShouldBeScrobbled(track) {
+
+		var greaterThan30s, listenedTo4m, listenedToMoreThanHalf;
+
+		greaterThan30s = (track.duration > 30000);
+		listenedTo4m = (track.elapsed >= 240000);
+		listenedToMoreThanHalf = (track.elapsed >= track.duration / 2);
+
+		if (greaterThan30s && (listenedTo4m || listenedToMoreThanHalf)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * @param {object} track
 	 * @private
 	 */
 	function updateNowPlaying(track) {
 
+		var prevTrack;
+
 		sendMessage('nowPlaying', track);
 
 		if (history.length) {
-			sendMessage('scrobbleTrack', history[history.length - 1]);
+			prevTrack = history.pop();
+
+			if (trackShouldBeScrobbled(prevTrack)) {
+				sendMessage('scrobbleTrack', prevTrack);
+			}
 		}
+
 		history.push(track);
 	}
 
@@ -177,6 +209,7 @@ var scroblr = (function ($, moment) {
 	});
 
 	return {
+		getTrackHistory: getTrackHistory,
 		registerHost: registerPlugin,
 		utilities: {
 			calculateDuration: calculateDuration
