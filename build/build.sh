@@ -14,6 +14,7 @@ echo "Minifying..."
 java -jar compiler.jar --js=../extension/js/scroblr-background.js --js_output_file=scroblr.safariextension/js/scroblr-background.js
 java -jar compiler.jar --js=../extension/js/scroblr-bar.js --js_output_file=scroblr.safariextension/js/scroblr-bar.js
 java -jar compiler.jar --js=../extension/js/scroblr-injection.js --js_output_file=scroblr.safariextension/js/scroblr-injection.js
+java -jar compiler.jar --js=../extension/js/scroblr-access-granted.js --js_output_file=scroblr.safariextension/js/scroblr-access-granted.js
 
 
 # CHROME
@@ -32,4 +33,5 @@ echo "Minifying..."
 java -jar compiler.jar --js=../extension/js/scroblr-background.js --js_output_file=scroblr-chrome/js/scroblr-background.js
 java -jar compiler.jar --js=../extension/js/scroblr-popup.js --js_output_file=scroblr-chrome/js/scroblr-popup.js
 java -jar compiler.jar --js=../extension/js/scroblr-injection.js --js_output_file=scroblr-chrome/js/scroblr-injection.js
+java -jar compiler.jar --js=../extension/js/scroblr-access-granted.js --js_output_file=scroblr-chrome/js/scroblr-access-granted.js
 zip -r scroblr.zip scroblr-chrome

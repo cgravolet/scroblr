@@ -2,18 +2,7 @@
 <html>
 <head>
 	<title>scroblr - access granted</title>
-	<script>
-		var token = window.location.search.split('=')[1];
-		if (typeof chrome != 'undefined') {
-			chrome.extension.sendRequest({
-				name: 'accessGranted',
-				message: token
-			});
-		}
-		else if (typeof safari != 'undefined') {
-			safari.self.tab.dispatchMessage('accessGranted', token);
-		}
-	</script>
+	<script type="text/javascript" charset="utf-8" src="js/scroblr-access-granted.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
 	<link href='css/access-granted.css' rel='stylesheet' type='text/css'>
 </head>

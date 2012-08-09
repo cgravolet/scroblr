@@ -90,7 +90,7 @@ if (!isJango || isJangoPlayer) {
 							istrack = (document.location.pathname.indexOf('/track') >= 0),
 							pagetitle = $('title').text().split('|');
 						if (!info.stopped) {
-							info.artist = $.trim(pagetitle[pagetitle.length-1]);
+							info.artist = pagetitle[pagetitle.length-1];
 							info.duration = calculateDuration($('.inline_player .track_info .time').text().split('/')[1]);
 							info.name = istrack ? $(".trackTitle").first().text() : $(".track_info .title").text();
 						}
@@ -118,7 +118,7 @@ if (!isJango || isJangoPlayer) {
 
 					jango: function () {
 						return {
-							artist: $.trim($('#player_info #player_current_artist').contents().last().text()),
+							artist: $('#player_info #player_current_artist').contents().last().text(),
 							duration: calculateDuration($('#player_info #timer').text().substring(1)),
 							name: $('#player_info #current-song').text().replace(/^\s+/, '').replace(/\s+$/, ''),
 							stopped: $('#btn-playpause').hasClass('pause')
@@ -195,9 +195,9 @@ if (!isJango || isJangoPlayer) {
 						if ($('.meta_title').text().length) {
 							return {
 								album: $('.meta_album').text(),
-								artist: $.trim($('.meta_artist').text()),
+								artist: $('.meta_artist').text(),
 								duration: calculateDuration($('.meta_duration').text()),
-								name: $.trim($('.meta_title').text()),
+								name: $('.meta_title').text(),
 								stopped: $('.trackPlayerButtonIcon').hasClass('play')
 							};
 						}
@@ -299,6 +299,11 @@ if (!isJango || isJangoPlayer) {
 		function pollSongInfo () {
 			var currentsong = getCurrentSongInfo(),
 				currentsong_update_object = {};
+
+			for (attribute in ['album', 'artist', 'name']) {
+				currentsong[attribute] = $.trim(currentsong[attribute]);
+			}
+
 			if (currentsong.name != song.name || currentsong.artist != song.artist) {
 				song = currentsong;
 				sendMessage('nowPlaying', song);

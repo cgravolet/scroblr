@@ -1,8 +1,11 @@
 {
-	"background_page": "scroblr-background.html",
+	"manifest_version": 2,
+	"background": {
+		"page": "scroblr-background.html"
+	},
 	"browser_action": {
 		"default_icon": "img/icons/lastfm16.png",
-		"popup": "scroblr-popup.html"
+		"default_popup": "scroblr-popup.html"
 	},
 	"content_scripts": [
 		{
