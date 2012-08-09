@@ -23,7 +23,7 @@ function command_handler (event) {
 
 
 /**
- * Helper function that takes Last.fm request parameters, appends the api secret key and 
+ * Helper function that takes Last.fm request parameters, appends the api secret key and
  * turns it into an md5 hash to create the API signature which Last.fm requires be appended
  * to all requests.
  *
@@ -42,12 +42,12 @@ function getApiSignature (params) {
 		string += key + params[key];
 	}
 	string += api_sec;
-	return md5(string);
+	return hex_md5(string);
 }
 
 
 /**
- * Checks the browser's local storage for preference options and returns the default setting 
+ * Checks the browser's local storage for preference options and returns the default setting
  * if not found. Options are stored differently based on the browser, this function simplifies
  * the process of accessing those preferences.
  *
@@ -132,7 +132,7 @@ function initialize () {
 
 
 /**
- * Function that gets run every couple seconds while a song is playing and resets the keepAlive timeout. This is how the 
+ * Function that gets run every couple seconds while a song is playing and resets the keepAlive timeout. This is how the
  * extension understands when a scrobbling window gets closed or the song stops playing.
  */
 function keepAlive () {
