@@ -1,5 +1,5 @@
 var scroblrBar = (function (model) {
-	
+
 
 	var currentsong = null,
 		keepalive = null;
@@ -10,7 +10,7 @@ var scroblrBar = (function (model) {
 		resetBar();
 		initializeUserForm();
 	}
-	
+
 
 	function attachBehaviors () {
 
