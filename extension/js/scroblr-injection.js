@@ -87,10 +87,9 @@ if (!isJango || isJangoPlayer) {
 						var info = {
 								stopped: (!$('.inline_player .playbutton').hasClass('playing'))
 							},
-							istrack = (document.location.pathname.indexOf('/track') >= 0),
-							pagetitle = $('title').text().split('|');
+							istrack = (document.location.pathname.indexOf('/track') >= 0);
 						if (!info.stopped) {
-							info.artist = pagetitle[pagetitle.length-1];
+							info.artist = $('span[itemprop="byArtist"]').text();
 							info.duration = calculateDuration($('.inline_player .track_info .time').text().split('/')[1]);
 							info.name = istrack ? $(".trackTitle").first().text() : $(".track_info .title").text();
 						}
@@ -300,9 +299,9 @@ if (!isJango || isJangoPlayer) {
 			var currentsong = getCurrentSongInfo(),
 				currentsong_update_object = {};
 
-			for (attribute in ['album', 'artist', 'name']) {
-				currentsong[attribute] = $.trim(currentsong[attribute]);
-			}
+			currentsong.album = $.trim(currentsong.album);
+			currentsong.artist = $.trim(currentsong.artist);
+			currentsong.name = $.trim(currentsong.name);
 
 			if (currentsong.name != song.name || currentsong.artist != song.artist) {
 				song = currentsong;
