@@ -87,10 +87,9 @@ if (!isJango || isJangoPlayer) {
 						var info = {
 								stopped: (!$('.inline_player .playbutton').hasClass('playing'))
 							},
-							istrack = (document.location.pathname.indexOf('/track') >= 0),
-							pagetitle = $('title').text().split('|');
+							istrack = (document.location.pathname.indexOf('/track') >= 0);
 						if (!info.stopped) {
-							info.artist = pagetitle[pagetitle.length-1];
+							info.artist = $('span[itemprop="byArtist"]').text();
 							info.duration = calculateDuration($('.inline_player .track_info .time').text().split('/')[1]);
 							info.name = istrack ? $(".trackTitle").first().text() : $(".track_info .title").text();
 						}
