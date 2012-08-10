@@ -300,9 +300,9 @@ if (!isJango || isJangoPlayer) {
 			var currentsong = getCurrentSongInfo(),
 				currentsong_update_object = {};
 
-			for (attribute in ['album', 'artist', 'name']) {
-				currentsong[attribute] = $.trim(currentsong[attribute]);
-			}
+			currentsong.album = $.trim(currentsong.album);
+			currentsong.artist = $.trim(currentsong.artist);
+			currentsong.name = $.trim(currentsong.name);
 
 			if (currentsong.name != song.name || currentsong.artist != song.artist) {
 				song = currentsong;
