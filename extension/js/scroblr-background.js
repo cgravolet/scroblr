@@ -9,7 +9,7 @@ var api_key = '59c070288bfca89ca9700fde083969bb',
 
 
 /**
- * Hanldes commands sent to the background script (Safari-specific)
+ * Handles commands sent to the background script (Safari-specific)
  *
  * @param {object} event - The event that was triggered (ex. {command: 'toggleScroblr'})
  */
