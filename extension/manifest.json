@@ -22,6 +22,7 @@
 				"http://*.player.fm/*",
 				"http://*.rhapsody.com/*",
 				"http://*.songza.com/*",
+				"http://*.soundcloud.com/*",
 				"http://*.turntable.fm/*",
 				"http://*.twonky.com/*"
 			],
@@ -36,7 +37,7 @@
 				"http://*.we7.com/*"
 			],
 			"js": [
-				"js/lib/jquery-1.6.4.min.js",
+				"js/lib/jquery-1.8.0.min.js",
 				"js/scroblr-injection.js"
 			],
 			"all_frames": true
@@ -57,5 +58,6 @@
 		"tabs",
 		"http://ws.audioscrobbler.com/2.0/"
 	],
-	"version": "0.9.72"
+	"version": "0.9.72",
+	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
 }
