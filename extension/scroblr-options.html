@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>scroblr - options</title>
-	<link href='http://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
 	<link href='css/access-granted.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -84,30 +84,8 @@
 
 	</footer>
 
-	<script>
-		(function () {
-			var formElements = document.forms['scroblr-options'].elements,
-				i = formElements.length;
-			while (i--) {
-				if (localStorage[formElements[i].name] == 'false') {
-					formElements[i].checked = false;
-				}
-				else {
-					formElements[i].checked = true;
-				}
-				formElements[i].addEventListener('change', function () {
-					if (this.checked) {
-						localStorage.removeItem(this.name);
-					}
-					else {
-						localStorage[this.name] = this.checked;
-					}
-				});
-			}
-		}());
-	</script>
-
-	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="js/scroblr-options.js"></script>
+	<script type="text/javascript" src="https://platform.twitter.com/widgets.js"> </script>
 
 </body>
 </html>
