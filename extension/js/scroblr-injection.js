@@ -219,9 +219,9 @@ if (!isJango || isJangoPlayer) {
 
 
 		function getElapsedTime (data) {
-			var elapsed = data.elapsed,
-				now = (new Date()).getTime() / 1000.0;
+			var elapsed = data.elapsed;
 			if (elapsed === 0) {
+				var now = (new Date()).getTime() / 1000.0;
 				elapsed = Math.round(now - song.timestamp) * 1000;
 			}
 			return elapsed;
