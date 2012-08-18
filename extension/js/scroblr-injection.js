@@ -11,13 +11,13 @@ if (!isJango || isJangoPlayer) {
 			interval = '',
 			song = {
 				album: '',
-				artist: '',
+				artist: 'undefined',
 				duration: 0,
 				elapsed: 0,
 				host: host,
 				image: '',
 				loved: false,
-				name: '',
+				name: 'undefined',
 				score: 50,
 				stopped: false,
 				tags: [],
@@ -151,8 +151,8 @@ if (!isJango || isJangoPlayer) {
 						var timeRemainingString = $('.permaplayer .current .play-monitor .time-remaining').text();
 
 						return {
-							artist:   $('.permaplayer .meta .track-wrapper .title :first-child').text(),
-							name:     $('.permaplayer .meta .track-wrapper .title :last-child').text(),
+							artist:   $('.permaplayer .track-wrapper .current-series-link').text(),
+							name:     $('.permaplayer .track-wrapper .current-episode-link').text(),
 							elapsed:  calculateDuration(elapsedString),
 							duration: calculateDuration(elapsedString, timeRemainingString),
 							stopped:  $('.container .mainflow .playpause .icon-play').is(':visible')
