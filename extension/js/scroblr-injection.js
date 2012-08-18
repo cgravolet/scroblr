@@ -180,8 +180,25 @@ if (!isJango || isJangoPlayer) {
 					},
 
 					soundcloud: function() {
-						// TODO: support the new soundcloud
-						if (true) {
+						var soundcloudNext = $('body > #app').length > 0;
+
+						if (soundcloudNext) {
+							var playing = $('.sc-button-play.sc-button-pause'),
+									info = {
+										stopped: (playing.length == 0)
+									};
+
+							if (!info.stopped) {
+								var player = playing.parents('.sound');
+
+								info.artist = player.find('.soundTitle__username').text();
+								info.duration = calculateDuration(player.find('.timeIndicator__total').text().replace('.', ':'));
+								info.elapsed = calculateDuration(player.find('.timeIndicator__current').text().replace('.', ':'));
+								info.name = player.find('.soundTitle__title').text();
+							}
+							return info;
+						}
+						else {
 							var playing = $('.play.playing'),
 									info = {
 										stopped: (playing.length == 0)
