@@ -327,7 +327,7 @@ if (!isJango || isJangoPlayer) {
 
 		function sendMessage (name, message) {
 			if (typeof chrome != 'undefined') {
-				chrome.extension.sendRequest({
+				chrome.extension.sendMessage({
 					name: name,
 					message: message
 				});
