@@ -179,6 +179,26 @@ if (!isJango || isJangoPlayer) {
 						};
 					},
 
+					soundcloud: function() {
+						// TODO: support the new soundcloud
+						if (true) {
+							var playing = $('.play.playing'),
+									info = {
+										stopped: (playing.length == 0)
+									};
+
+							if (!info.stopped) {
+								var player = playing.parents('div.player');
+
+								info.artist = player.find('.user-name').text();
+								info.duration = calculateDuration(player.find('.timecodes span:last').text().replace('.', ':'));
+								info.elapsed = calculateDuration(player.find('.timecodes span:first').text().replace('.', ':'));
+								info.name = player.find('h3 a').text();
+							}
+							return info;
+						}
+					},
+
 					turntable: function () {
 						var info = {};
 						if ($('#songboard_artist').text().length) {
@@ -269,6 +289,9 @@ if (!isJango || isJangoPlayer) {
 				if ($('#player').length) {
 					host = 'songza';
 				}
+			}
+			else if (hostname.indexOf('soundcloud') >= 0) {
+				host = 'soundcloud';
 			}
 			else if (hostname.indexOf('turntable') >= 0) {
 				host = 'turntable';

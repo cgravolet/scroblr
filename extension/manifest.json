@@ -22,6 +22,7 @@
 				"http://*.player.fm/*",
 				"http://*.rhapsody.com/*",
 				"http://*.songza.com/*",
+				"http://*.soundcloud.com/*",
 				"http://*.turntable.fm/*",
 				"http://*.twonky.com/*"
 			],
