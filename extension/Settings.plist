@@ -122,6 +122,16 @@
 		<key>DefaultValue</key>
 		<true/>
 		<key>Key</key>
+		<string>enable_thisismyjam</string>
+		<key>Title</key>
+		<string>This Is My Jam</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
 		<string>enable_twonky</string>
 		<key>Title</key>
 		<string>Twonky</string>
