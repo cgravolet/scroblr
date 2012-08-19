@@ -86,12 +86,15 @@ if (!isJango || isJangoPlayer) {
 					bandcamp: function () {
 						var info = {
 								stopped: (!$('.inline_player .playbutton').hasClass('playing'))
-							},
-							istrack = (document.location.pathname.indexOf('/track') >= 0);
+							};
 						if (!info.stopped) {
 							info.artist = $('span[itemprop="byArtist"]').text();
-							info.duration = calculateDuration($('.inline_player .track_info .time').text().split('/')[1]);
-							info.name = istrack ? $(".trackTitle").first().text() : $(".track_info .title").text();
+							info.duration = calculateDuration($('.inline_player .track_info .time_total').text());
+							info.elapsed = calculateDuration($('.inline_player .track_info .time_elapsed').text());
+							info.name = $('.track_info .title').text();
+							if (info.name === '') {
+								info.name = $('.trackTitle').first().text();
+							}
 						}
 						return info;
 					},
@@ -178,6 +181,43 @@ if (!isJango || isJangoPlayer) {
 						};
 					},
 
+					soundcloud: function() {
+						var soundcloudNext = $('body > #app').length > 0;
+
+						if (soundcloudNext) {
+							var playing = $('.sc-button-play.sc-button-pause'),
+									info = {
+										stopped: (playing.length == 0)
+									};
+
+							if (!info.stopped) {
+								var player = playing.parents('.sound');
+
+								info.artist = player.find('.soundTitle__username').text();
+								info.duration = calculateDuration(player.find('.timeIndicator__total').text().replace('.', ':'));
+								info.elapsed = calculateDuration(player.find('.timeIndicator__current').text().replace('.', ':'));
+								info.name = player.find('.soundTitle__title').text();
+							}
+							return info;
+						}
+						else {
+							var playing = $('.play.playing'),
+									info = {
+										stopped: (playing.length == 0)
+									};
+
+							if (!info.stopped) {
+								var player = playing.parents('div.player');
+
+								info.artist = player.find('.user-name').text();
+								info.duration = calculateDuration(player.find('.timecodes span:last').text().replace('.', ':'));
+								info.elapsed = calculateDuration(player.find('.timecodes span:first').text().replace('.', ':'));
+								info.name = player.find('h3 a').text();
+							}
+							return info;
+						}
+					},
+
 					turntable: function () {
 						var info = {};
 						if ($('#songboard_artist').text().length) {
@@ -219,9 +259,9 @@ if (!isJango || isJangoPlayer) {
 
 
 		function getElapsedTime (data) {
-			var elapsed = data.elapsed,
-				now = (new Date()).getTime() / 1000.0;
+			var elapsed = data.elapsed;
 			if (elapsed === 0) {
+				var now = (new Date()).getTime() / 1000.0;
 				elapsed = Math.round(now - song.timestamp) * 1000;
 			}
 			return elapsed;
@@ -268,6 +308,9 @@ if (!isJango || isJangoPlayer) {
 				if ($('#player').length) {
 					host = 'songza';
 				}
+			}
+			else if (hostname.indexOf('soundcloud') >= 0) {
+				host = 'soundcloud';
 			}
 			else if (hostname.indexOf('turntable') >= 0) {
 				host = 'turntable';
@@ -327,7 +370,7 @@ if (!isJango || isJangoPlayer) {
 
 		function sendMessage (name, message) {
 			if (typeof chrome != 'undefined') {
-				chrome.extension.sendRequest({
+				chrome.extension.sendMessage({
 					name: name,
 					message: message
 				});

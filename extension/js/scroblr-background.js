@@ -9,7 +9,7 @@ var api_key = '59c070288bfca89ca9700fde083969bb',
 
 
 /**
- * Hanldes commands sent to the background script (Safari-specific)
+ * Handles commands sent to the background script (Safari-specific)
  *
  * @param {object} event - The event that was triggered (ex. {command: 'toggleScroblr'})
  */
@@ -122,7 +122,7 @@ function handleFailure () {
  */
 function initialize () {
 	if (typeof chrome != 'undefined') {
-		chrome.extension.onRequest.addListener(message_handler);
+		chrome.extension.onMessage.addListener(message_handler);
 	}
 	else if (typeof safari != 'undefined') {
 		safari.application.addEventListener('message', message_handler, false);
@@ -285,7 +285,7 @@ function scrobble (data) {
 function sendMessage (name, message) {
 	var bars, i;
 	if (typeof chrome != 'undefined') {
-		chrome.extension.sendRequest({
+		chrome.extension.sendMessage({
 			name: name,
 			message: message
 		});

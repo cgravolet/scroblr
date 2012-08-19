@@ -1,6 +1,6 @@
 var token = window.location.search.split('=')[1];
 if (typeof chrome != 'undefined') {
-  chrome.extension.sendRequest({
+  chrome.extension.sendMessage({
     name: 'accessGranted',
     message: token
   });
