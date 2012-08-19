@@ -23,6 +23,7 @@
 				"http://*.rhapsody.com/*",
 				"http://*.songza.com/*",
 				"http://*.soundcloud.com/*",
+				"https://*.soundcloud.com/*",
 				"http://*.turntable.fm/*",
 				"http://*.twonky.com/*"
 			],
