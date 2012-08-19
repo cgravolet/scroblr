@@ -218,6 +218,19 @@ if (!isJango || isJangoPlayer) {
 						}
 					},
 
+					thisismyjam: function () {
+						var info = {
+								stopped: $('#playPause').hasClass('paused')
+							};
+						if (!info.stopped) {
+							info.artist = $('#artist-name').text();
+							info.duration = calculateDuration($('#currentTime').text());
+							info.elapsed = calculateDuration($('#totalTime').text().substring(3));
+							info.name = $('#track-title').text();
+						}
+						return info;
+					},
+
 					turntable: function () {
 						var info = {};
 						if ($('#songboard_artist').text().length) {
@@ -311,6 +324,9 @@ if (!isJango || isJangoPlayer) {
 			}
 			else if (hostname.indexOf('soundcloud') >= 0) {
 				host = 'soundcloud';
+			}
+			else if (hostname.indexOf('thisismyjam') >= 0) {
+				host = 'thisismyjam';
 			}
 			else if (hostname.indexOf('turntable') >= 0) {
 				host = 'turntable';
