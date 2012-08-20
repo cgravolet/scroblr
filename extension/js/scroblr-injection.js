@@ -202,9 +202,9 @@ if (!isJango || isJangoPlayer) {
 						}
 						else {
 							var playing = $('.play.playing'),
-									info = {
-										stopped: (playing.length == 0)
-									};
+								info = {
+									stopped: (playing.length == 0)
+								};
 
 							if (!info.stopped) {
 								var player = playing.parents('div.player');
@@ -224,8 +224,8 @@ if (!isJango || isJangoPlayer) {
 							};
 						if (!info.stopped) {
 							info.artist = $('#artist-name').text();
-							info.duration = calculateDuration($('#currentTime').text());
-							info.elapsed = calculateDuration($('#totalTime').text().substring(3));
+							info.duration = calculateDuration($('#totalTime').text().substring(3));
+							info.elapsed = calculateDuration($('#currentTime').text());
 							info.name = $('#track-title').text();
 						}
 						return info;
