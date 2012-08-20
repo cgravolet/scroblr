@@ -59,6 +59,8 @@ section {
 		#nowPlaying.playerfm,
 		#nowPlaying.rhapsody,
 		#nowPlaying.songza,
+		#nowPlaying.soundcloud,
+		#nowPlaying.thisismyjam,
 		#nowPlaying.turntable,
 		#nowPlaying.twonky,
 		#nowPlaying.we7 {
@@ -100,6 +102,14 @@ section {
 
 		#nowPlaying.songza {
 			background-image: url(../img/icons/songza.png);
+			}
+
+		#nowPlaying.soundcloud {
+			background-image: url(../img/icons/soundcloud.png);
+			}
+
+		#nowPlaying.thisismyjam {
+			background-image: url(../img/icons/thisismyjam.png);
 			}
 
 		#nowPlaying.turntable {
