@@ -91,7 +91,7 @@ if (!isJango || isJangoPlayer) {
 							info.artist = $('span[itemprop="byArtist"]').text();
 							info.duration = calculateDuration($('.inline_player .track_info .time_total').text());
 							info.elapsed = calculateDuration($('.inline_player .track_info .time_elapsed').text());
-							info.name = $('.track_info .title').text();
+							info.name = $('.track_info .title').first().text();
 							if (info.name === '') {
 								info.name = $('.trackTitle').first().text();
 							}
