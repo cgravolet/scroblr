@@ -84,14 +84,23 @@ if (!isJango || isJangoPlayer) {
 					},
 
 					bandcamp: function () {
-						var info = {
-								stopped: (!$('.inline_player .playbutton').hasClass('playing'))
-							};
+						var discover, info;
+
+						discover = (window.location.pathname.slice(1) === "discover" ? true : false);
+						info = {
+							stopped: (!$('.inline_player .playbutton').hasClass('playing'))
+						};
+
 						if (!info.stopped) {
-							info.artist = $('span[itemprop="byArtist"]').text();
+							if (discover) {
+								info.artist = $("#detail_body_container .itemsubtext a").text();
+							} else {
+								info.artist = $('span[itemprop="byArtist"]').text();
+							}
+							info.name = $('.track_info .title').first().text();
 							info.duration = calculateDuration($('.inline_player .track_info .time_total').text());
 							info.elapsed = calculateDuration($('.inline_player .track_info .time_elapsed').text());
-							info.name = $('.track_info .title').first().text();
+
 							if (info.name === '') {
 								info.name = $('.trackTitle').first().text();
 							}
