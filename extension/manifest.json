@@ -10,33 +10,8 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"http://*.accuradio.com/*",
-				"https://*.amazon.com/gp/dmusic*",
-				"http://*.bandcamp.com/*",
-				"http://play.google.com/music/*",
-				"https://play.google.com/music/*",
-				"http://*.grooveshark.com/*",
-				"http://*.napster.de/*",
-				"http://*.pandora.com/*",
-				"https://*.pandora.com/*",
-				"http://*.player.fm/*",
-				"http://*.rhapsody.com/*",
-				"http://*.songza.com/*",
-				"http://*.soundcloud.com/*",
-				"https://*.soundcloud.com/*",
-				"http://*.thisismyjam.com/*",
-				"http://*.turntable.fm/*",
-				"http://*.twonky.com/*"
-			],
-			"js": [
-				"js/lib/jquery-1.8.0.min.js",
-				"js/scroblr-injection.js"
-			]
-		},
-		{
-			"matches": [
-				"http://*.jango.com/*",
-				"http://*.we7.com/*"
+				"http://*/*",
+				"https://*/*"
 			],
 			"js": [
 				"js/lib/jquery-1.8.0.min.js",
