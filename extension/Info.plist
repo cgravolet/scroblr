@@ -73,29 +73,10 @@
     <dict>
       <key>Website Access</key>
       <dict>
-        <key>Allowed Domains</key>
-        <array>
-          <string>*.accuradio.com</string>
-          <string>*.amazon.com</string>
-          <string>*.bandcamp.com</string>
-          <string>play.google.com</string>
-          <string>*.grooveshark.com</string>
-          <string>*.jango.com</string>
-          <string>*.napster.de</string>
-          <string>*.pandora.com</string>
-          <string>*.player.fm</string>
-          <string>*.rhapsody.com</string>
-          <string>*.songza.com</string>
-          <string>*.soundcloud.com</string>
-          <string>*.thisismyjam.com</string>
-          <string>*.turntable.fm</string>
-          <string>*.twonky.com</string>
-          <string>*.we7.com</string>
-        </array>
         <key>Include Secure Pages</key>
         <true/>
         <key>Level</key>
-        <string>Some</string>
+        <string>All</string>
       </dict>
     </dict>
     <key>Update Manifest URL</key>

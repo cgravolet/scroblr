@@ -1,10 +1,4 @@
-var isJango = (window.location.hostname.toLowerCase().indexOf('jango') >= 0 ? true : false),
-	isJangoPlayer = (isJango && $('#player_info').length ? true : false),
-	scroblr;
-
-if (!isJango || isJangoPlayer) {
-
-	scroblr = (function () {
+	var scroblr = (function () {
 
 
 		var host = '',
@@ -303,7 +297,7 @@ if (!isJango || isJangoPlayer) {
 			else if (hostname.indexOf('amazon') >= 0 && window.location.pathname.indexOf('music') >= 0) {
 				host = 'amazon';
 			}
-			else if (hostname.indexOf('bandcamp') >= 0) {
+			else if (hostname.indexOf('bandcamp') >= 0 || document.body.innerHTML.match(/src="http:\/\/bandcamp.com\/cd_ui"/)) {
 				host = 'bandcamp';
 			}
 			else if (hostname.indexOf('google') >= 0) {
@@ -312,7 +306,7 @@ if (!isJango || isJangoPlayer) {
 			else if (hostname.indexOf('grooveshark') >= 0) {
 				host = 'grooveshark';
 			}
-			else if (hostname.indexOf('jango') >= 0) {
+			else if (hostname.indexOf('jango') >= 0 && $('#player_info').length > 0) {
 				host = 'jango';
 			}
 			else if (hostname.indexOf('pandora') >= 0) {
@@ -356,10 +350,12 @@ if (!isJango || isJangoPlayer) {
 
 		function init () {
 			host = getHost();
-			if (host === false) {
+			if (host) {
+				interval = window.setInterval(pollSongInfo, 5000);
+			}
+			else {
 				return false;
 			}
-			interval = window.setInterval(pollSongInfo, 5000);
 		}
 
 
@@ -418,6 +414,3 @@ if (!isJango || isJangoPlayer) {
 
 
 	}());
-
-}
-
