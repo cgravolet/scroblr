@@ -67,24 +67,24 @@ function getOptionStatus(option) {
 /**
  * Creates the request to get song info from Last.fm.
  *
- * @param {object} data The song object (ex. {name: 'Kerosene',
- *                      artist: 'Big Black', duration: etc...})
+ * @param {object} track The song object (ex. {name: 'Kerosene',
+ *                       artist: 'Big Black', duration: etc...})
  */
-function get_song_info(data) {
+function getSongInfo(track) {
 
 	var params;
 
-	if (data.name.length && data.artist.length) {
+	if (track.title.length && track.artist.length) {
 		params = {
 			api_key: api_key,
-			artist: data.artist,
-			track: data.name
+			artist: track.artist,
+			track: track.title
 		};
 
 		if (lf_session != null && lf_session.name.length) {
 			params.username = lf_session.name;
 		}
-		sendRequest('track.getInfo', params, get_song_info_callback);
+		sendRequest('track.getInfo', params, getSongInfoCallback);
 	}
 }
 
@@ -94,7 +94,7 @@ function get_song_info(data) {
  *
  * @param {object} data The data returned from the track.getInfo API request
  */
-function get_song_info_callback(data) {
+function getSongInfoCallback(data) {
 
 	currentsong.album = $('track > album title', data).text() ||
 			currentsong.album.length ? currentsong.album : '';
@@ -196,10 +196,10 @@ function message_handler(msg) {
 		love_track(true);
 		break;
 	case "nowPlaying":
-		update_now_playing(msg.message);
-		get_song_info(msg.message);
+		updateNowPlaying(msg.message);
+		getSongInfo(msg.message);
 		break;
-	case "scrobbleThis":
+	case "scrobbleTrack":
 		scrobble(msg.message);
 		break;
 	case "unloveTrack":
@@ -251,12 +251,12 @@ function openAuthWindow() {
 	if (typeof chrome != 'undefined') {
 		chrome.tabs.create({
 			url: 'http://www.last.fm/api/auth/?api_key=' + api_key + '&cb=' +
-			     chrome.extension.getURL('scroblr-access-granted.html')
+			     chrome.extension.getURL('access-granted.html')
 		});
 	} else if (typeof safari != 'undefined') {
 		newTab = safari.application.activeBrowserWindow.openTab();
 		newTab.url = 'http://www.last.fm/api/auth/?api_key=' + api_key +
-				'&cb=' + safari.extension.baseURI + 'scroblr-access-granted.html';
+				'&cb=' + safari.extension.baseURI + 'access-granted.html';
 	}
 
 	sendMessage('initUserForm', true);
@@ -266,36 +266,26 @@ function openAuthWindow() {
  * Handles logic for determining if the last played track should be scrobbled
  * and creates the request object.
  *
- * @param {object} data The song object (ex. {name: 'Kerosene',
- *                      artist: 'Big Black', duration: etc...})
+ * @param {object} track The song object (ex. {name: 'Kerosene',
+ *                       artist: 'Big Black', duration: etc...})
  */
-function scrobble(data) {
+function scrobble(track) {
 
-	var params, greaterThan30s, listenedTo4m, listenedToMoreThanHalf,
-		hostEnabled;
+	var params, hostEnabled;
 
+	// hostEnabled = getOptionStatus(track.host);
 	params = {
 		api_key: api_key,
 		sk: lf_session != null ? lf_session.key : null,
-		artist: data.artist,
-		timestamp: data.timestamp,
-		track: data.name
+		artist: track.artist,
+		timestamp: Math.round(track.dateTime / 1000),
+		track: track.title
 	};
-	greaterThan30s = (data.duration > 30000);
-	listenedTo4m = (data.elapsed >= 240000);
-	listenedToMoreThanHalf = (data.elapsed >= data.duration / 2);
-	hostEnabled = getOptionStatus(data.host);
 
-	if (data.album.length) {
-		params.album = data.album;
+	if (track.album) {
+		params.album = track.album;
 	}
-
-	if (hostEnabled && greaterThan30s && (listenedTo4m ||
-			listenedToMoreThanHalf) && data.artist.length && data.name.length) {
-		sendRequest('track.scrobble', params);
-	} else if (hostEnabled && data.duration === 0 && data.elapsed > 30000) {
-		sendRequest('track.scrobble', params);
-	}
+	sendRequest('track.scrobble', params);
 }
 
 /**
@@ -308,6 +298,8 @@ function sendMessage(name, message) {
 
 	var bars, i;
 
+	return false;
+
 	if (typeof chrome != 'undefined') {
 		chrome.extension.sendRequest({
 			name: name,
@@ -318,7 +310,8 @@ function sendMessage(name, message) {
 		i = bars.length;
 
 		while (i--) {
-			bars[i].contentWindow.scroblrBar.messageHandler({name: name, message: message});
+			bars[i].contentWindow.scroblrBar.messageHandler({name: name,
+					message: message});
 		}
 	}
 }
@@ -358,26 +351,6 @@ function sendRequest(method, params, callback) {
 }
 
 /**
- * Toggles the Safari scroblr bar
- */
-function toggle_scroblr_bar() {
-
-	var scroblrBar, i, max;
-
-	max = safari.extension.bars.length;
-
-	for (i = 0; i < max; i += 1) {
-		scroblrBar = safari.extension.bars[i];
-
-		if (scroblrBar.visible) {
-			scroblrBar.hide();
-		} else {
-			scroblrBar.show();
-		}
-	}
-}
-
-/**
  * Updates properties in the current song object.
  *
  * @param {object} data
@@ -393,42 +366,33 @@ function update_current_song(data) {
 /**
  * Constructs the 'Now Playing' request to send to the Last.fm api
  *
- * @param {object} data
+ * @param {object} track
  */
-function update_now_playing(data) {
+function updateNowPlaying(track) {
 
 	var params, hostEnabled;
 
-	hostEnabled = getOptionStatus(data.host);
+	// hostEnabled = getOptionStatus(track.host);
 
-	if (currentsong != null) {
-		scrobble(currentsong);
-	}
-	currentsong = data;
+	currentsong = track;
+	notify({
+		message: track.artist + ' - ' + track.title,
+		title: 'Now Playing'
+	});
 
-	if (hostEnabled && data.name.length && data.artist.length) {
-		notify({
-			message: data.artist + ' - ' + data.name,
-			title: 'Now Playing'
-		});
+	if (lf_session) {
+		params = {
+			api_key: api_key,
+			artist: track.artist,
+			duration: track.duration / 1000,
+			sk: lf_session.key,
+			track: track.title
+		};
 
-		if (lf_session) {
-			params = {
-				api_key: api_key,
-				artist: data.artist,
-				sk: lf_session.key,
-				track: data.name
-			};
-
-			if (data.album) {
-				params.album = data.album;
-			}
-			params.duration = data.duration / 1000;
-
-			if (data.name.length && data.artist.length) {
-				sendRequest('track.updateNowPlaying', params);
-			}
+		if (track.album) {
+			params.album = track.album;
 		}
+		sendRequest('track.updateNowPlaying', params);
 	}
 }
 
