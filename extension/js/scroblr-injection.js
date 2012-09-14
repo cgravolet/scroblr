@@ -27,6 +27,18 @@ var scroblr = (function ($, moment) {
 	Track = function (params) {
 		$.extend(this, params);
 
+		if (this.hasOwnProperty("album")) {
+			this.album = $.trim(this.album);
+		}
+
+		if (this.hasOwnProperty("artist")) {
+			this.artist = $.trim(this.artist);
+		}
+
+		if (this.hasOwnProperty("title")) {
+			this.title = $.trim(this.title);
+		}
+
 		this.dateTime = moment().valueOf();
 		this.toString = function () {
 			if (this.artist.length && this.title.length) {
@@ -144,7 +156,7 @@ var scroblr = (function ($, moment) {
 	 */
 	function sendMessage(name, message) {
 		if (typeof chrome != "undefined") {
-			chrome.extension.sendRequest({
+			chrome.extension.sendMessage({
 				name: name,
 				message: message
 			});

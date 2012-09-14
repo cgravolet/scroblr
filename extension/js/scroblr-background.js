@@ -130,7 +130,7 @@ function handleFailure() {
  */
 function initialize() {
 	if (typeof chrome != 'undefined') {
-		chrome.extension.onRequest.addListener(message_handler);
+		chrome.extension.onMessage.addListener(message_handler);
 	} else if (typeof safari != 'undefined') {
 		safari.application.addEventListener('message', message_handler, false);
 	}
@@ -301,7 +301,7 @@ function sendMessage(name, message) {
 	return false;
 
 	if (typeof chrome != 'undefined') {
-		chrome.extension.sendRequest({
+		chrome.extension.sendMessage({
 			name: name,
 			message: message
 		});

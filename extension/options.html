@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>scroblr - options</title>
-	<link href='http://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
 	<link href='css/access-granted.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -47,11 +47,17 @@
 		<input type="checkbox" name="enable_songza" id="enable_songza" value="1" checked="checked" />
 		<label for="enable_songza">Songza</label><br />
 
-		<input type="checkbox" name="enable_twonky" id="enable_twonky" value="1" checked="checked" />
-		<label for="enable_twonky">Twonky</label><br />
+		<input type="checkbox" name="enable_soundcloud" id="enable_soundcloud" value="1" checked="checked" />
+		<label for="enable_soundcloud">SoundCloud</label><br />
+
+		<input type="checkbox" name="enable_thisismyjam" id="enable_thisismyjam" value="1" checked="checked" />
+		<label for="enable_thisismyjam">This Is My Jam</label><br />
 
 		<input type="checkbox" name="enable_turntable" id="enable_turntable" value="1" checked="checked" />
 		<label for="enable_turntable">Turntable.fm</label><br />
+
+		<input type="checkbox" name="enable_twonky" id="enable_twonky" value="1" checked="checked" />
+		<label for="enable_twonky">Twonky</label><br />
 
 		<input type="checkbox" name="enable_we7" id="enable_we7" value="1" checked="checked" />
 		<label for="enable_we7">we7</label><br />
@@ -82,29 +88,10 @@
 	</footer>
 
 	<script>
-		(function () {
-			var formElements = document.forms['scroblr-options'].elements,
-				i = formElements.length;
-			while (i--) {
-				if (localStorage[formElements[i].name] == 'false') {
-					formElements[i].checked = false;
-				}
-				else {
-					formElements[i].checked = true;
-				}
-				formElements[i].addEventListener('change', function () {
-					if (this.checked) {
-						localStorage.removeItem(this.name);
-					}
-					else {
-						localStorage[this.name] = this.checked;
-					}
-				});
-			}
-		}());
 	</script>
 
-	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="js/scroblr-options.js"></script>
+	<script type="text/javascript" src="https://platform.twitter.com/widgets.js"> </script>
 
 </body>
 </html>

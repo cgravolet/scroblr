@@ -3,19 +3,27 @@
 	var plugin = scroblr.registerHost("bandcamp");
 
 	plugin.scrape = function () {
+		var discover, info, isTrack, pageTitle;
 
-		var ingo, isTrack, pageTitle;
-
+		discover = (window.location.pathname.slice(1) === "discover" ? true : false);
 		info = {
 			stopped: (!$(".inline_player .playbutton").hasClass("playing"))
-		};
-		isTrack   = (document.location.pathname.indexOf("/track") >= 0);
-		pageTitle = $("title").text().split("|");
-
+		}
+						
 		if (!info.stopped) {
-			info.artist   = $.trim(pageTitle[pageTitle.length-1]);
-			info.duration = calculateDuration($(".inline_player .track_info .time").text().split("/")[1]);
-			info.title    = isTrack ? $(".trackTitle").first().text() : $(".track_info .title").text();
+
+			if (discover) {
+				info.artist = $("#detail_body_container .itemsubtext a").text();
+			} else {
+				info.artist = $("span[itemprop=\"byArtist\"]").text();
+			}
+			info.title    = $(".track_info .title").first().text();
+			info.duration = scroblr.utilities.calculateDuration($(".inline_player .track_info .time_total").text());
+			info.elapsed  = scroblr.utilities.calculateDuration($(".inline_player .track_info .time_elapsed").text());
+
+			if (info.title === "") {
+				info.title = $(".trackTitle").first().text();
+			}
 		}
 
 		return info;

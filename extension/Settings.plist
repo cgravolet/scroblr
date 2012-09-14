@@ -102,6 +102,26 @@
 		<key>DefaultValue</key>
 		<true/>
 		<key>Key</key>
+		<string>enable_soundcloud</string>
+		<key>Title</key>
+		<string>Soundcloud</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>enable_thisismyjam</string>
+		<key>Title</key>
+		<string>This Is My Jam</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
 		<string>enable_turntable</string>
 		<key>Title</key>
 		<string>Turntable</string>

@@ -2,12 +2,19 @@
 
 	var plugin = scroblr.registerHost("we7");
 
+	plugin.init = function () {
+		if ($('#player-section').length) {
+			return this.hostre.test(document.location.hostname);
+		}
+		return false;
+	};
+
 	plugin.scrape = function () {
 		return {
-			artist:  $("#fpw-player .artist").text(),
-			percent: parseFloat($("#fpw-player-timeline .played-bar").width() / $("#fpw-player-timeline").width()),
-			stopped: ($("#fpw-player .fpw-controls .play").length ? true : false),
-			title:   $("#fpw-player .track").text()
+			artist:   $('#track-marquee #track-title a').eq(0).text(),
+			title:    $('#track-marquee #track-title a').eq(1).text(),
+			duration: scroblr.utilities.calculateDuration($('#elapsed').text(), $('#remaining').text()),
+			elapsed:  scroblr.utilities.calculateDuration($('#elapsed').text())
 		};
 	};
 }(jQuery));
