@@ -7,6 +7,8 @@
 - TODO: Redesigned interface
 - TODO: Ability to tag/love tracks
 - TODO: Better sharing options
+- TODO: A more robust build process
+- TODO: Unit tests!
 
 ##What is scroblr?
 

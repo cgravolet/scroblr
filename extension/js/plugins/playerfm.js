@@ -3,7 +3,7 @@
 	var plugin = scroblr.registerHost("playerfm");
 
 	plugin.scrape = function () {
-		var elapsedStringm timeRemainingString;
+		var elapsedString, timeRemainingString;
 
 		elapsedString       = $('.permaplayer .current .play-monitor .time-elapsed').text();
 		timeRemainingString = $('.permaplayer .current .play-monitor .time-remaining').text();
