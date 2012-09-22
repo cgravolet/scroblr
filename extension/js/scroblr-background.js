@@ -1,20 +1,19 @@
-
 var api_key, api_sec, api_url, lf_session, lf_sessioncache, lf_auth_waiting,
 	currentsong, keepalive;
 
-api_key = '59c070288bfca89ca9700fde083969bb';
-api_sec = '0193a089b025f8cfafcc922e54b93706';
-api_url = 'http://ws.audioscrobbler.com/2.0/';
+api_key = "59c070288bfca89ca9700fde083969bb";
+api_sec = "0193a089b025f8cfafcc922e54b93706";
+api_url = "http://ws.audioscrobbler.com/2.0/";
 currentsong = null;
 keepalive = null;
 lf_auth_waiting = false;
-
 lf_session = null;
+lf_sessioncache = {};
+
 if (localStorage.lf_session) {
 	lf_session = JSON.parse(localStorage.lf_session);
 }
 
-lf_sessioncache = {};
 if (localStorage.lf_sessioncache) {
 	lf_sessioncache = JSON.parse(localStorage.lf_sessioncache);
 }
@@ -24,15 +23,15 @@ if (localStorage.lf_sessioncache) {
  * key and turns it into an md5 hash to create the API signature which Last.fm
  * requires be appended to all requests.
  *
- * @param {object} params The request parameters (ex. {artist: 'Big Black',
- *                        track: 'Kerosene', method: 'track.love'})
+ * @param {object} params The request parameters (ex. {artist: "Big Black",
+ *                        track: "Kerosene", method: "track.love"})
  */
 function getApiSignature(params) {
 
 	var key, keys, string;
 
 	keys = [];
-	string = '';
+	string = "";
 
 	for (key in params) {
 		keys.push(key);
@@ -53,13 +52,13 @@ function getApiSignature(params) {
  * default setting if not found. Options are stored differently based on the
  * browser, this function simplifies the process of accessing those preferences.
  *
- * @param {string} option The name of the option (ex. 'pandora')
+ * @param {string} option The name of the option (ex. "pandora")
  */
 function getOptionStatus(option) {
-	if (typeof chrome != 'undefined') {
-		return (localStorage['enable_' + option] == 'false' ? false : true);
-	} else if (typeof safari != 'undefined') {
-		return (safari.extension.settings['enable_' + option] == false ?
+	if (typeof chrome != "undefined") {
+		return (localStorage["enable_" + option] == "false" ? false : true);
+	} else if (typeof safari != "undefined") {
+		return (safari.extension.settings["enable_" + option] == false ?
 				false : true);
 	}
 }
@@ -67,8 +66,8 @@ function getOptionStatus(option) {
 /**
  * Creates the request to get song info from Last.fm.
  *
- * @param {object} track The song object (ex. {name: 'Kerosene',
- *                       artist: 'Big Black', duration: etc...})
+ * @param {object} track The song object (ex. {name: "Kerosene",
+ *                       artist: "Big Black", duration: etc...})
  */
 function getSongInfo(track) {
 
@@ -84,7 +83,7 @@ function getSongInfo(track) {
 		if (lf_session != null && lf_session.name.length) {
 			params.username = lf_session.name;
 		}
-		sendRequest('track.getInfo', params, getSongInfoCallback);
+		sendRequest("track.getInfo", params, getSongInfoCallback);
 	}
 }
 
@@ -96,24 +95,24 @@ function getSongInfo(track) {
  */
 function getSongInfoCallback(data) {
 
-	currentsong.album = $('track > album title', data).text() ||
-			currentsong.album ? currentsong.album : '';
-	currentsong.image = $('track > album image[size="large"]', data).text() ||
-			'';
-	currentsong.loved = $('track userloved').text() == 1 ? true : false;
+	currentsong.album = $("track > album title", data).text() ||
+			currentsong.album ? currentsong.album : "";
+	currentsong.image = $("track > album image[size=large]", data).text() ||
+			"";
+	currentsong.loved = $("track userloved").text() == 1 ? true : false;
 	currentsong.tags = [];
-	currentsong.url = $('track > url', data).text() || '';
-	currentsong.url_album = $('track > album url', data).text() || '';
-	currentsong.url_artist = $('track > artist url', data).text() || '';
+	currentsong.url = $("track > url", data).text() || "";
+	currentsong.url_album = $("track > album url", data).text() || "";
+	currentsong.url_artist = $("track > artist url", data).text() || "";
 
-	$('track tag', data).each(function () {
+	$("track tag", data).each(function () {
 		currentsong.tags.push({
-			name: $(this).find('name').text(),
-			url: $(this).find('url').text()
+			name: $(this).find("name").text(),
+			url: $(this).find("url").text()
 		});
 	});
 
-	sendMessage('songInfoRetrieved', currentsong);
+	sendMessage("songInfoRetrieved", currentsong);
 }
 
 /**
@@ -129,10 +128,10 @@ function handleFailure() {
  * window opens for the first time, or when scroblr is enabled.)
  */
 function initialize() {
-	if (typeof chrome != 'undefined') {
+	if (typeof chrome != "undefined") {
 		chrome.extension.onMessage.addListener(message_handler);
-	} else if (typeof safari != 'undefined') {
-		safari.application.addEventListener('message', message_handler, false);
+	} else if (typeof safari != "undefined") {
+		safari.application.addEventListener("message", message_handler, false);
 	}
 }
 
@@ -163,16 +162,16 @@ function love_track(love) {
 		};
 
 	if (love === false) {
-		sendRequest('track.unlove', params);
+		sendRequest("track.unlove", params);
 	} else {
-		sendRequest('track.love', params);
+		sendRequest("track.love", params);
 	}
 }
 
 /**
  * Handles all incoming event messages from other extension resources.
  *
- * @param {object} msg The message contents (ex. {name: 'keepAlive',
+ * @param {object} msg The message contents (ex. {name: "keepAlive",
  *                     message: null})
  */
 function message_handler(msg) {
@@ -181,7 +180,7 @@ function message_handler(msg) {
 		user_get_session(msg.message);
 		break;
 	case "cancelAuthLinkClicked":
-		sendMessage('initUserForm', null);
+		sendMessage("initUserForm", null);
 		break;
 	case "keepAlive":
 		keepAlive();
@@ -219,18 +218,18 @@ function message_handler(msg) {
  * starts playing, Chrome-only for the time being)
  *
  * @param {object} notification The notification to be sent (ex. {title:
- *                              'Now Playing', message: 'Big Black - Kerosene'})
+ *                              "Now Playing", message: "Big Black - Kerosene"})
  */
 function notify(notification) {
 
 	var notification;
 
-	if (window.webkitNotifications && getOptionStatus('messaging')) {
+	if (window.webkitNotifications && getOptionStatus("messaging")) {
 		notification = webkitNotifications.createNotification(
-				'img/scroblr64.png', notification.title, notification.message);
+				"img/scroblr64.png", notification.title, notification.message);
 		notification.show();
 
-		if (getOptionStatus('auto_dismiss')) {
+		if (getOptionStatus("auto_dismiss")) {
 			window.setTimeout(function () {
 				notification.cancel()
 			}, 5000);
@@ -248,26 +247,26 @@ function openAuthWindow() {
 
 	var newTab;
 
-	if (typeof chrome != 'undefined') {
+	if (typeof chrome != "undefined") {
 		chrome.tabs.create({
-			url: 'http://www.last.fm/api/auth/?api_key=' + api_key + '&cb=' +
-			     chrome.extension.getURL('access-granted.html')
+			url: "http://www.last.fm/api/auth/?api_key=" + api_key + "&cb=" +
+			     chrome.extension.getURL("access-granted.html")
 		});
-	} else if (typeof safari != 'undefined') {
+	} else if (typeof safari != "undefined") {
 		newTab = safari.application.activeBrowserWindow.openTab();
-		newTab.url = 'http://www.last.fm/api/auth/?api_key=' + api_key +
-				'&cb=' + safari.extension.baseURI + 'access-granted.html';
+		newTab.url = "http://www.last.fm/api/auth/?api_key=" + api_key +
+				"&cb=" + safari.extension.baseURI + "access-granted.html";
 	}
 
-	sendMessage('initUserForm', true);
+	sendMessage("initUserForm", true);
 }
 
 /**
  * Handles logic for determining if the last played track should be scrobbled
  * and creates the request object.
  *
- * @param {object} track The song object (ex. {name: 'Kerosene',
- *                       artist: 'Big Black', duration: etc...})
+ * @param {object} track The song object (ex. {name: "Kerosene",
+ *                       artist: "Big Black", duration: etc...})
  */
 function scrobble(track) {
 
@@ -285,7 +284,7 @@ function scrobble(track) {
 	if (track.album) {
 		params.album = track.album;
 	}
-	sendRequest('track.scrobble', params);
+	sendRequest("track.scrobble", params);
 }
 
 /**
@@ -300,12 +299,12 @@ function sendMessage(name, message) {
 
 	return false;
 
-	if (typeof chrome != 'undefined') {
+	if (typeof chrome != "undefined") {
 		chrome.extension.sendMessage({
 			name: name,
 			message: message
 		});
-	} else if (typeof safari != 'undefined') {
+	} else if (typeof safari != "undefined") {
 		bars = safari.extension.bars;
 		i = bars.length;
 
@@ -319,7 +318,7 @@ function sendMessage(name, message) {
 /**
  * Generic function that handles sending all Last.fm API requests.
  *
- * @param {string} method The method name (ex. 'track.love', 'track.scrobble',
+ * @param {string} method The method name (ex. "track.love", "track.scrobble",
  *                        etc...)
  * @param {object} params Any related parameters that are required, depending on
  *                        the method
@@ -327,11 +326,11 @@ function sendMessage(name, message) {
  */
 function sendRequest(method, params, callback) {
 
-	var type = 'GET';
+	var type = "GET";
 
-	if ($.inArray(method, ['track.love', 'track.scrobble', 'track.unlove',
-			'track.updateNowPlaying']) >= 0) {
-		type = 'POST';
+	if ($.inArray(method, ["track.love", "track.scrobble", "track.unlove",
+			"track.updateNowPlaying"]) >= 0) {
+		type = "POST";
 	}
 
 	params.method = method;
@@ -342,7 +341,7 @@ function sendRequest(method, params, callback) {
 		type: type,
 		data: params,
 		success: function (data) {
-			if (typeof callback == 'function') {
+			if (typeof callback == "function") {
 				callback(data);
 			}
 		},
@@ -364,7 +363,7 @@ function update_current_song(data) {
 }
 
 /**
- * Constructs the 'Now Playing' request to send to the Last.fm api
+ * Constructs the "Now Playing" request to send to the Last.fm api
  *
  * @param {object} track
  */
@@ -376,8 +375,8 @@ function updateNowPlaying(track) {
 
 	currentsong = track;
 	notify({
-		message: track.artist + ' - ' + track.title,
-		title: 'Now Playing'
+		message: track.artist + " - " + track.title,
+		title: "Now Playing"
 	});
 
 	if (lf_session) {
@@ -392,7 +391,7 @@ function updateNowPlaying(track) {
 		if (track.album) {
 			params.album = track.album;
 		}
-		sendRequest('track.updateNowPlaying', params);
+		sendRequest("track.updateNowPlaying", params);
 	}
 }
 
@@ -407,9 +406,9 @@ function user_get_info(user) {
 			api_key: api_key,
 			user: user
 		};
-	sendRequest('user.getInfo', params, function (data) {
-		localStorage.lf_image = $('user image[size="small"]', data).text();
-		sendMessage('initUserForm', null);
+	sendRequest("user.getInfo", params, function (data) {
+		localStorage.lf_image = $("user image[size=small]", data).text();
+		sendMessage("initUserForm", null);
 	});
 }
 
@@ -425,7 +424,7 @@ function user_get_session(token) {
 			token: token
 		};
 	if (token && token.length) {
-		sendRequest('auth.getSession', params, user_get_session_callback);
+		sendRequest("auth.getSession", params, user_get_session_callback);
 	}
 }
 
@@ -438,15 +437,15 @@ function user_get_session(token) {
 function user_get_session_callback(data, session) {
 	if (data) {
 		lf_session = {
-			name: $('session name', data).text(),
-			key: $('session key', data).text(),
-			subscriber: $('session subscriber', data).text() == '1' ? true : false
+			name: $("session name", data).text(),
+			key: $("session key", data).text(),
+			subscriber: $("session subscriber", data).text() == "1" ? true : false
 		}
 		lf_sessioncache[lf_session.name] = lf_session;
 		localStorage.lf_sessioncache = JSON.stringify(lf_sessioncache);
 	}
 	localStorage.lf_session = JSON.stringify(lf_session);
-	sendMessage('initUserForm', null);
+	sendMessage("initUserForm", null);
 }
 
 /**
@@ -458,7 +457,7 @@ function user_get_session_from_cache(user) {
 	if (lf_sessioncache.hasOwnProperty(user)) {
 		lf_session = lf_sessioncache[user];
 		localStorage.lf_session = JSON.stringify(lf_session);
-		sendMessage('initUserForm', null);
+		sendMessage("initUserForm", null);
 	} else {
 		openAuthWindow();
 	}
@@ -468,9 +467,9 @@ function user_get_session_from_cache(user) {
  * Clears the current users session from local memory
  */
 function user_logout() {
-	localStorage.removeItem('lf_session');
+	localStorage.removeItem("lf_session");
 	lf_session = null;
-	sendMessage('initUserForm', null);
+	sendMessage("initUserForm", null);
 }
 
 initialize();
