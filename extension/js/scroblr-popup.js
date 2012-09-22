@@ -129,12 +129,12 @@ var scroblrBar = (function (model) {
 		var nowPlaying = $("#nowPlaying");
 		resetBar();
 		currentTrack = data;
-		if (data.name.length && data.artist.length) {
+		if (data.title.length && data.artist.length) {
 			nowPlaying.addClass(data.host).show();
 			if (data.image.length) {
 				$("p.album", nowPlaying).html('<a href="' + data.url_album + '" target="_blank"><img src="' + data.image + '" alt="' + data.album + '" /></a>');
 			}
-			$("p.track", nowPlaying).html(data.name + ' <em>' + (data.duration > 0 ? formatDuration(data.duration) : "") + '</em>');
+			$("p.track", nowPlaying).html(data.title + ' <em>' + (data.duration > 0 ? formatDuration(data.duration) : "") + '</em>');
 			$("p.artist", nowPlaying).html(data.artist);
 			showHostControls(data);
 			updateCurrentTrack({score: data.score});

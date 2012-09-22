@@ -1,14 +1,19 @@
-var api_key, api_sec, api_url, lf_session, lf_sessioncache, lf_auth_waiting,
-	currentsong, keepalive;
+var api_key, api_sec, api_url, currentTrack, history, lf_session,
+	lf_sessioncache, lf_auth_waiting, keepalive;
 
 api_key         = "59c070288bfca89ca9700fde083969bb";
 api_sec         = "0193a089b025f8cfafcc922e54b93706";
 api_url         = "http://ws.audioscrobbler.com/2.0/";
-currentsong     = null;
+currentTrack    = null;
+history         = [];
 keepalive       = null;
 lf_auth_waiting = false;
 lf_session      = JSON.parse(localStorage.lf_session || null);
 lf_sessioncache = JSON.parse(localStorage.lf_sessioncache || null);
+
+if (lf_sessioncache === null) {
+	lf_sessioncache = {};
+}
 
 /**
  * Helper function that takes Last.fm request parameters, appends the api secret
@@ -61,7 +66,7 @@ function getOptionStatus(option) {
  * @param {object} track The song object (ex. {name: "Kerosene",
  *                       artist: "Big Black", duration: etc...})
  */
-function getSongInfo(track) {
+function getTrackInfo(track) {
 	var params;
 
 	if (track.title.length && track.artist.length) {
@@ -74,35 +79,106 @@ function getSongInfo(track) {
 		if (lf_session != null && lf_session.name.length) {
 			params.username = lf_session.name;
 		}
-		sendRequest("track.getInfo", params, getSongInfoCallback);
+		sendRequest("track.getInfo", params, getTrackInfoCallback);
 	}
 }
 
 /**
  * Callback function to handle grabbing the data returned from the track.getInfo
- * request and appending the new data to the currentsong object.
+ * request and appending the new data to the currentTrack object.
  *
  * @param {object} data The data returned from the track.getInfo API request
  */
-function getSongInfoCallback(data) {
-	currentsong.album = $("track > album title", data).text() ||
-			currentsong.album ? currentsong.album : "";
-	currentsong.image = $("track > album image[size=large]", data).text() ||
-			"";
-	currentsong.loved = $("track userloved").text() == 1 ? true : false;
-	currentsong.tags = [];
-	currentsong.url = $("track > url", data).text() || "";
-	currentsong.url_album = $("track > album url", data).text() || "";
-	currentsong.url_artist = $("track > artist url", data).text() || "";
+function getTrackInfoCallback(data) {
+	var trackParams;
+
+	trackParams  = {
+		album:      $("track > album title", data).text() || currentTrack.album || "",
+		image:      $("track > album image[size=large]", data).text() || "",
+		loved:      ($("track userloved").text() == 1),
+		tags:       [],
+		url:        $("track > url", data).text() || "",
+		url_album:  $("track > album url", data).text() || "",
+		url_artist: $("track > artist url", data).text() || ""
+	};
 
 	$("track tag", data).each(function () {
-		currentsong.tags.push({
+		trackParams.tags.push({
 			name: $(this).find("name").text(),
 			url:  $(this).find("url").text()
 		});
 	});
 
-	sendMessage("songInfoRetrieved", currentsong);
+	$.extend(currentTrack, trackParams);
+	sendMessage("songInfoRetrieved", currentTrack);
+}
+
+/**
+ * Constructs the request object to send to the Last.fm API in order to get more
+ * detailed user info
+ *
+ * @param {string} user Last.fm username
+ */
+function getUserInfo(user) {
+	var params = {
+		api_key: api_key,
+		user:    user
+	};
+	sendRequest("user.getInfo", params, function (data) {
+		localStorage.lf_image = $("user image[size=small]", data).text();
+		sendMessage("initUserForm", null);
+	});
+}
+
+/**
+ * Creates the request object to send to the Last.fm API in order to request a
+ * user session
+ *
+ * @param {string} token
+ */
+function getUserSession(token) {
+	var params = {
+		api_key: api_key,
+		token:   token
+	};
+	if (token && token.length) {
+		sendRequest("auth.getSession", params, getUserSessionCallback);
+	}
+}
+
+/**
+ * Callback function that takes the response and creates the session object to
+ * save to memory
+ *
+ * @param {object} data The XML response from the Last.fm API server
+ */
+function getUserSessionCallback(data) {
+	if (data) {
+		lf_session = {
+			name:       $("session name", data).text(),
+			key:        $("session key", data).text(),
+			subscriber: ($("session subscriber", data).text() == "1")
+		}
+		lf_sessioncache[lf_session.name] = lf_session;
+		localStorage.lf_sessioncache = JSON.stringify(lf_sessioncache);
+	}
+	localStorage.lf_session = JSON.stringify(lf_session);
+	sendMessage("initUserForm", null);
+}
+
+/**
+ * Attempts to find the user's session information in local memory, otherwise it
+ * needs to send the user to authorization in order to request a valid session
+ * token
+ */
+function getUserSessionFromCache(user) {
+	if (lf_sessioncache.hasOwnProperty(user)) {
+		lf_session = lf_sessioncache[user];
+		localStorage.lf_session = JSON.stringify(lf_session);
+		sendMessage("initUserForm", null);
+	} else {
+		openAuthWindow();
+	}
 }
 
 /**
@@ -119,9 +195,9 @@ function handleFailure() {
  */
 function initialize() {
 	if (typeof chrome != "undefined") {
-		chrome.extension.onMessage.addListener(message_handler);
+		chrome.extension.onMessage.addListener(messageHandler);
 	} else if (typeof safari != "undefined") {
-		safari.application.addEventListener("message", message_handler, false);
+		safari.application.addEventListener("message", messageHandler, false);
 	}
 }
 
@@ -133,8 +209,17 @@ function initialize() {
 function keepAlive() {
 	window.clearTimeout(keepalive);
 	keepalive = window.setTimeout(function () {
-		currentsong = null;
+		currentTrack = null;
 	}, 15000);
+}
+
+/**
+ * Clears the current users session from local memory
+ */
+function logoutUser() {
+	localStorage.removeItem("lf_session");
+	lf_session = null;
+	sendMessage("initUserForm", null);
 }
 
 /**
@@ -142,12 +227,12 @@ function keepAlive() {
  *
  * @param {boolean} love She loves me. She loves me not. (True or False)
  */
-function love_track(love) {
+function loveTrack(love) {
 	var params = {
 		api_key: api_key,
-		sk: lf_session.key,
-		artist: currentsong.artist,
-		track: currentsong.name
+		sk:      lf_session.key,
+		artist:  currentTrack.artist,
+		track:   currentTrack.name
 	};
 
 	if (love === false) {
@@ -163,10 +248,10 @@ function love_track(love) {
  * @param {object} msg The message contents (ex. {name: "keepAlive",
  *                     message: null})
  */
-function message_handler(msg) {
+function messageHandler(msg) {
 	switch (msg.name) {
 	case "accessGranted":
-		user_get_session(msg.message);
+		getUserSession(msg.message);
 		break;
 	case "cancelAuthLinkClicked":
 		sendMessage("initUserForm", null);
@@ -175,29 +260,26 @@ function message_handler(msg) {
 		keepAlive();
 		break;
 	case "loginFormSubmitted":
-		user_get_session_from_cache(msg.message);
+		getUserSessionFromCache(msg.message);
 		break;
 	case "logoutLinkClicked":
-		user_logout();
+		logoutUser();
 		break;
 	case "loveTrack":
-		love_track(true);
+		loveTrack(true);
 		break;
 	case "nowPlaying":
 		updateNowPlaying(msg.message);
-		getSongInfo(msg.message);
+		getTrackInfo(msg.message);
 		break;
 	case "scrobbleTrack":
 		scrobble(msg.message);
 		break;
 	case "unloveTrack":
-		love_track(false);
+		loveTrack(false);
 		break;
-	case "updateCurrentSong":
-		update_current_song(msg.message);
-		break;
-	case "updateScore":
-		update_score(msg.message);
+	case "updateCurrentTrack":
+		updateCurrentTrack(msg.message);
 		break;
 	}
 }
@@ -234,7 +316,9 @@ function notify(notification) {
 function openAuthWindow() {
 	var newTab;
 
+	console.log("opening auth window");
 	if (typeof chrome != "undefined") {
+		console.log("chrome");
 		chrome.tabs.create({
 			url: "http://www.last.fm/api/auth/?api_key=" + api_key + "&cb=" +
 			     chrome.extension.getURL("access-granted.html")
@@ -244,7 +328,6 @@ function openAuthWindow() {
 		newTab.url = "http://www.last.fm/api/auth/?api_key=" + api_key +
 				"&cb=" + safari.extension.baseURI + "access-granted.html";
 	}
-
 	sendMessage("initUserForm", true);
 }
 
@@ -260,17 +343,20 @@ function scrobble(track) {
 
 	// hostEnabled = getOptionStatus(track.host);
 	params = {
-		api_key: api_key,
-		sk: lf_session != null ? lf_session.key : null,
-		artist: track.artist,
+		api_key:   api_key,
+		artist:    track.artist,
+		sk:        lf_session !== null ? lf_session.key : null,
 		timestamp: Math.round(track.dateTime / 1000),
-		track: track.title
+		track:     track.title
 	};
 
 	if (track.album) {
 		params.album = track.album;
 	}
-	sendRequest("track.scrobble", params);
+
+	if (lf_session) {
+		sendRequest("track.scrobble", params);
+	}
 }
 
 /**
@@ -281,8 +367,6 @@ function scrobble(track) {
  */
 function sendMessage(name, message) {
 	var bars, i;
-
-	return false;
 
 	if (typeof chrome != "undefined") {
 		chrome.extension.sendMessage({
@@ -334,10 +418,10 @@ function sendRequest(method, params, callback) {
  *
  * @param {object} data
  */
-function update_current_song(data) {
+function updateCurrentTrack(data) {
 	for (var key in data) {
 		if (data.hasOwnProperty(key)) {
-			currentsong[key] = data[key];
+			currentTrack[key] = data[key];
 		}
 	}
 }
@@ -350,9 +434,8 @@ function update_current_song(data) {
 function updateNowPlaying(track) {
 	var params, hostEnabled;
 
-	// hostEnabled = getOptionStatus(track.host);
-
-	currentsong = track;
+	hostEnabled  = getOptionStatus(track.host);
+	currentTrack = track;
 	notify({
 		message: track.artist + " - " + track.title,
 		title:   "Now Playing"
@@ -360,11 +443,11 @@ function updateNowPlaying(track) {
 
 	if (lf_session) {
 		params = {
-			api_key: api_key,
-			artist: track.artist,
+			api_key:  api_key,
+			artist:   track.artist,
 			duration: track.duration / 1000,
-			sk: lf_session.key,
-			track: track.title
+			sk:       lf_session.key,
+			track:    track.title
 		};
 
 		if (track.album) {
@@ -372,83 +455,6 @@ function updateNowPlaying(track) {
 		}
 		sendRequest("track.updateNowPlaying", params);
 	}
-}
-
-/**
- * Constructs the request object to send to the Last.fm API in order to get more
- * detailed user info
- *
- * @param {string} user Last.fm username
- */
-function user_get_info(user) {
-	var params = {
-		api_key: api_key,
-		user:    user
-	};
-	sendRequest("user.getInfo", params, function (data) {
-		localStorage.lf_image = $("user image[size=small]", data).text();
-		sendMessage("initUserForm", null);
-	});
-}
-
-/**
- * Creates the request object to send to the Last.fm API in order to request a
- * user session
- *
- * @param {string} token
- */
-function user_get_session(token) {
-	var params = {
-		api_key: api_key,
-		token: token
-	};
-	if (token && token.length) {
-		sendRequest("auth.getSession", params, user_get_session_callback);
-	}
-}
-
-/**
- * Callback function that takes the response and creates the session object to
- * save to memory
- *
- * @param {object} data The XML response from the Last.fm API server
- */
-function user_get_session_callback(data, session) {
-	if (data) {
-		lf_session = {
-			name: $("session name", data).text(),
-			key: $("session key", data).text(),
-			subscriber: $("session subscriber", data).text() == "1" ? true : false
-		}
-		lf_sessioncache[lf_session.name] = lf_session;
-		localStorage.lf_sessioncache = JSON.stringify(lf_sessioncache);
-	}
-	localStorage.lf_session = JSON.stringify(lf_session);
-	sendMessage("initUserForm", null);
-}
-
-/**
- * Attempts to find the user's session information in local memory, otherwise it
- * needs to send the user to authorization in order to request a valid session
- * token
- */
-function user_get_session_from_cache(user) {
-	if (lf_sessioncache.hasOwnProperty(user)) {
-		lf_session = lf_sessioncache[user];
-		localStorage.lf_session = JSON.stringify(lf_session);
-		sendMessage("initUserForm", null);
-	} else {
-		openAuthWindow();
-	}
-}
-
-/**
- * Clears the current users session from local memory
- */
-function user_logout() {
-	localStorage.removeItem("lf_session");
-	lf_session = null;
-	sendMessage("initUserForm", null);
 }
 
 initialize();
