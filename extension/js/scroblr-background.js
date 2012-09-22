@@ -45,7 +45,7 @@ function getApiSignature(params) {
 		string += key + params[key];
 	}
 
-	return md5(string + api_sec);
+	return hex_md5(string + api_sec);
 }
 
 /**
@@ -97,7 +97,7 @@ function getSongInfo(track) {
 function getSongInfoCallback(data) {
 
 	currentsong.album = $('track > album title', data).text() ||
-			currentsong.album.length ? currentsong.album : '';
+			currentsong.album ? currentsong.album : '';
 	currentsong.image = $('track > album image[size="large"]', data).text() ||
 			'';
 	currentsong.loved = $('track userloved').text() == 1 ? true : false;
