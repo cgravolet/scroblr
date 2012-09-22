@@ -10,7 +10,7 @@ var scroblr = (function ($, moment) {
 	 * @private
 	 */
 	Plugin = function (name) {
-		this.hostre = new RegExp("www\\." + name + "\\.com", "i");
+		this.hostre = new RegExp(name + "\\.com", "i");
 		this.name = name;
 
 		// Init method should return true or false depending on whether this
