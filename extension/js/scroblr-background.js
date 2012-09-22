@@ -1,22 +1,14 @@
 var api_key, api_sec, api_url, lf_session, lf_sessioncache, lf_auth_waiting,
 	currentsong, keepalive;
 
-api_key = "59c070288bfca89ca9700fde083969bb";
-api_sec = "0193a089b025f8cfafcc922e54b93706";
-api_url = "http://ws.audioscrobbler.com/2.0/";
-currentsong = null;
-keepalive = null;
+api_key         = "59c070288bfca89ca9700fde083969bb";
+api_sec         = "0193a089b025f8cfafcc922e54b93706";
+api_url         = "http://ws.audioscrobbler.com/2.0/";
+currentsong     = null;
+keepalive       = null;
 lf_auth_waiting = false;
-lf_session = null;
-lf_sessioncache = {};
-
-if (localStorage.lf_session) {
-	lf_session = JSON.parse(localStorage.lf_session);
-}
-
-if (localStorage.lf_sessioncache) {
-	lf_sessioncache = JSON.parse(localStorage.lf_sessioncache);
-}
+lf_session      = JSON.parse(localStorage.lf_session || null);
+lf_sessioncache = JSON.parse(localStorage.lf_sessioncache || null);
 
 /**
  * Helper function that takes Last.fm request parameters, appends the api secret
@@ -27,24 +19,24 @@ if (localStorage.lf_sessioncache) {
  *                        track: "Kerosene", method: "track.love"})
  */
 function getApiSignature(params) {
+	var i, key, keys, max, paramString;
 
-	var key, keys, string;
-
-	keys = [];
-	string = "";
+	keys        = [];
+	paramString = "";
 
 	for (key in params) {
-		keys.push(key);
+		if (params.hasOwnProperty(key)) {
+			keys.push(key);
+		}
 	}
-
 	keys.sort();
 
-	for (var index in keys) {
-		key = keys[index];
-		string += key + params[key];
+	for (i = 0, max = keys.length; i < max; i += 1) {
+		key = keys[i];
+		paramString += key + params[key];
 	}
 
-	return hex_md5(string + api_sec);
+	return hex_md5(paramString + api_sec);
 }
 
 /**
@@ -70,14 +62,13 @@ function getOptionStatus(option) {
  *                       artist: "Big Black", duration: etc...})
  */
 function getSongInfo(track) {
-
 	var params;
 
 	if (track.title.length && track.artist.length) {
 		params = {
 			api_key: api_key,
-			artist: track.artist,
-			track: track.title
+			artist:  track.artist,
+			track:   track.title
 		};
 
 		if (lf_session != null && lf_session.name.length) {
@@ -94,7 +85,6 @@ function getSongInfo(track) {
  * @param {object} data The data returned from the track.getInfo API request
  */
 function getSongInfoCallback(data) {
-
 	currentsong.album = $("track > album title", data).text() ||
 			currentsong.album ? currentsong.album : "";
 	currentsong.image = $("track > album image[size=large]", data).text() ||
@@ -108,7 +98,7 @@ function getSongInfoCallback(data) {
 	$("track tag", data).each(function () {
 		currentsong.tags.push({
 			name: $(this).find("name").text(),
-			url: $(this).find("url").text()
+			url:  $(this).find("url").text()
 		});
 	});
 
@@ -153,13 +143,12 @@ function keepAlive() {
  * @param {boolean} love She loves me. She loves me not. (True or False)
  */
 function love_track(love) {
-
 	var params = {
-			api_key: api_key,
-			sk: lf_session.key,
-			artist: currentsong.artist,
-			track: currentsong.name
-		};
+		api_key: api_key,
+		sk: lf_session.key,
+		artist: currentsong.artist,
+		track: currentsong.name
+	};
 
 	if (love === false) {
 		sendRequest("track.unlove", params);
@@ -221,7 +210,6 @@ function message_handler(msg) {
  *                              "Now Playing", message: "Big Black - Kerosene"})
  */
 function notify(notification) {
-
 	var notification;
 
 	if (window.webkitNotifications && getOptionStatus("messaging")) {
@@ -244,7 +232,6 @@ function notify(notification) {
  * refer them back to the access granted page with a token in the URL.
  */
 function openAuthWindow() {
-
 	var newTab;
 
 	if (typeof chrome != "undefined") {
@@ -269,7 +256,6 @@ function openAuthWindow() {
  *                       artist: "Big Black", duration: etc...})
  */
 function scrobble(track) {
-
 	var params, hostEnabled;
 
 	// hostEnabled = getOptionStatus(track.host);
@@ -294,14 +280,13 @@ function scrobble(track) {
  * @param {?} message Any type of data that should be sent along with the msg
  */
 function sendMessage(name, message) {
-
 	var bars, i;
 
 	return false;
 
 	if (typeof chrome != "undefined") {
 		chrome.extension.sendMessage({
-			name: name,
+			name:    name,
 			message: message
 		});
 	} else if (typeof safari != "undefined") {
@@ -325,7 +310,6 @@ function sendMessage(name, message) {
  * @param {function} callback Any callback function to be run on success
  */
 function sendRequest(method, params, callback) {
-
 	var type = "GET";
 
 	if ($.inArray(method, ["track.love", "track.scrobble", "track.unlove",
@@ -333,19 +317,15 @@ function sendRequest(method, params, callback) {
 		type = "POST";
 	}
 
-	params.method = method;
+	params.method  = method;
 	params.api_sig = getApiSignature(params);
 
 	$.ajax({
-		url: api_url,
-		type: type,
-		data: params,
-		success: function (data) {
-			if (typeof callback == "function") {
-				callback(data);
-			}
-		},
-		failure: handleFailure
+		data:    params,
+		failure: handleFailure,
+		success: callback,
+		type:    type,
+		url:     api_url
 	});
 }
 
@@ -368,7 +348,6 @@ function update_current_song(data) {
  * @param {object} track
  */
 function updateNowPlaying(track) {
-
 	var params, hostEnabled;
 
 	// hostEnabled = getOptionStatus(track.host);
@@ -376,7 +355,7 @@ function updateNowPlaying(track) {
 	currentsong = track;
 	notify({
 		message: track.artist + " - " + track.title,
-		title: "Now Playing"
+		title:   "Now Playing"
 	});
 
 	if (lf_session) {
@@ -403,9 +382,9 @@ function updateNowPlaying(track) {
  */
 function user_get_info(user) {
 	var params = {
-			api_key: api_key,
-			user: user
-		};
+		api_key: api_key,
+		user:    user
+	};
 	sendRequest("user.getInfo", params, function (data) {
 		localStorage.lf_image = $("user image[size=small]", data).text();
 		sendMessage("initUserForm", null);
@@ -420,9 +399,9 @@ function user_get_info(user) {
  */
 function user_get_session(token) {
 	var params = {
-			api_key: api_key,
-			token: token
-		};
+		api_key: api_key,
+		token: token
+	};
 	if (token && token.length) {
 		sendRequest("auth.getSession", params, user_get_session_callback);
 	}
