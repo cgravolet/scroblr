@@ -45,7 +45,7 @@ function getApiSignature(params) {
 		string += key + params[key];
 	}
 
-	return md5(string + api_sec);
+	return hex_md5(string + api_sec);
 }
 
 /**
