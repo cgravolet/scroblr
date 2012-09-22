@@ -12,6 +12,7 @@
 			"matches": [
 				"http://*.accuradio.com/*",
 				"https://*.amazon.com/gp/dmusic*",
+				"https://*.amazon.de/gp/dmusic*",
 				"http://*.bandcamp.com/*",
 				"http://play.google.com/music/*",
 				"https://play.google.com/music/*",
@@ -60,6 +61,6 @@
 		"tabs",
 		"http://ws.audioscrobbler.com/2.0/"
 	],
-	"version": "0.9.73",
+	"version": "0.9.74",
 	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
 }
