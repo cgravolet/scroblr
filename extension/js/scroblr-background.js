@@ -97,7 +97,7 @@ function getSongInfo(track) {
 function getSongInfoCallback(data) {
 
 	currentsong.album = $('track > album title', data).text() ||
-			currentsong.album.length ? currentsong.album : '';
+			currentsong.album ? currentsong.album : '';
 	currentsong.image = $('track > album image[size="large"]', data).text() ||
 			'';
 	currentsong.loved = $('track userloved').text() == 1 ? true : false;
