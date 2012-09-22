@@ -14,7 +14,7 @@
 				"https://*/*"
 			],
 			"js": [
-				"js/lib/jquery-1.8.1.js",
+				"js/lib/jquery-1.8.2.min.js",
 				"js/lib/moment.js",
 				"js/scroblr-injection.js",
 				"js/plugins/accuradio.js",
@@ -27,6 +27,8 @@
 				"js/plugins/playerfm.js",
 				"js/plugins/rhapsody.js",
 				"js/plugins/songza.js",
+				"js/plugins/soundcloud.js",
+				"js/plugins/thisismyjam.js",
 				"js/plugins/turntable.js",
 				"js/plugins/twonky.js",
 				"js/plugins/we7.js"

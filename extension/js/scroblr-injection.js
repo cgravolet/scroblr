@@ -10,7 +10,7 @@ var scroblr = (function ($, moment) {
 	 * @private
 	 */
 	Plugin = function (name) {
-		this.hostre = new RegExp("www\\." + name + "\\.com", "i");
+		this.hostre = new RegExp(name + "\\.com", "i");
 		this.name = name;
 
 		// Init method should return true or false depending on whether this
@@ -41,7 +41,7 @@ var scroblr = (function ($, moment) {
 
 		this.dateTime = moment().valueOf();
 		this.toString = function () {
-			if (this.artist.length && this.title.length) {
+			if (this.artist && this.artist.length && this.title && this.title.length) {
 				return this.artist + " - " + this.title;
 			} else {
 				return "";
@@ -94,7 +94,7 @@ var scroblr = (function ($, moment) {
 
 	/**
 	 * Initialization method
-	 * 
+	 *
 	 * @private
 	 */
 	function init() {
@@ -125,7 +125,7 @@ var scroblr = (function ($, moment) {
 		// New track is playing
 		if (currentTrackStr.length && currentTrackStr !== prevTrackStr) {
 			updateNowPlaying(currentTrack);
-		
+
 		// A track continues to play
 		} else if (currentTrackStr.length) {
 
