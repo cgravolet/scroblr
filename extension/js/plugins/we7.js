@@ -3,10 +3,7 @@
 	var plugin = scroblr.registerHost("we7");
 
 	plugin.init = function () {
-		if ($('#player-section').length) {
-			return this.hostre.test(document.location.hostname);
-		}
-		return false;
+		return this.hostre.test(document.location.hostname) && $('#player-section').length;
 	};
 
 	plugin.scrape = function () {
