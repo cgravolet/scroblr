@@ -10,7 +10,7 @@ var scroblr = (function ($, moment) {
 	 */
 	Plugin = function (name) {
 		this.hostre = new RegExp(name + "\\.com", "i");
-		this.name = name;
+		this.name   = name;
 
 		// Init method should return true or false depending on whether this
 		// plugin matches the hostname
@@ -25,6 +25,9 @@ var scroblr = (function ($, moment) {
 	 */
 	Track = function (params) {
 		$.extend(this, params);
+
+		this.host   = host.name;
+		this.hostid = host.id;
 
 		if (this.hasOwnProperty("album")) {
 			this.album = $.trim(this.album);
@@ -95,8 +98,9 @@ var scroblr = (function ($, moment) {
 	function init() {
 		for (var key in plugins) {
 			if (plugins.hasOwnProperty(key) && plugins[key].init()) {
-				host = plugins[key];
-				poller = window.setInterval(pollTrackInfo, 5000);
+				host    = plugins[key];
+				host.id = host.name.toUpperCase() + moment().valueOf();
+				poller  = window.setInterval(pollTrackInfo, 5000);
 				break;
 			}
 		}

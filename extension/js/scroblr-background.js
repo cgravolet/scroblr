@@ -6,7 +6,7 @@ API_SEC         = "0193a089b025f8cfafcc922e54b93706";
 API_URL         = "http://ws.audioscrobbler.com/2.0/";
 LASTFM_AUTH_URL = "http://www.last.fm/api/auth/?api_key=" + API_KEY + "&cb=";
 currentTrack    = null;
-history         = [];
+history         = {};
 keepalive       = null;
 lf_auth_waiting = false;
 lf_session      = JSON.parse(localStorage.lf_session || null);
@@ -330,6 +330,16 @@ function openAuthWindow() {
 	sendMessage("initUserForm", true);
 }
 
+function pushTrackToHistory(track) {
+	if (track) {
+
+		if (!history.hasOwnProperty(track.hostid)) {
+			history[track.hostid] = [];
+		}
+		history[track.hostid].push(track);
+	}
+}
+
 /**
  * Handles logic for determining if the last played track should be scrobbled
  * and creates the request object.
@@ -361,13 +371,18 @@ function scrobble(track) {
 }
 
 function scrobbleHistory() {
-	var i, max, track;
+	var i, key, max, track;
 
-	for (i = 0, max = history.length; i < max; i += 1) {
-		track = history[i];
+	for (key in history) {
+		if (history.hasOwnProperty(key)) {
 
-		if (!track.scrobbled && trackShouldBeScrobbled(track)) {
-			scrobble(track);
+			for (i = 0, max = history[key].length; i < max; i += 1) {
+				track = history[key][i];
+
+				if (!track.scrobbled && trackShouldBeScrobbled(track)) {
+					scrobble(track);
+				}
+			}
 		}
 	}
 }
@@ -487,11 +502,9 @@ function updateNowPlaying(track) {
 		sendRequest("track.updateNowPlaying", params);
 	}
 
-	if (currentTrack) {
-		history.push(currentTrack);
-	}
-	currentTrack = track;
+	pushTrackToHistory(currentTrack);
 	scrobbleHistory();
+	currentTrack = track;
 }
 
 initialize();
