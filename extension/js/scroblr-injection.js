@@ -17,7 +17,7 @@ var scroblr = (function ($, moment) {
 		// plugin matches the hostname
 		this.init = function () {
 			return this.hostre.test(document.location.hostname);
-		}
+		};
 	};
 
 	/**
@@ -41,7 +41,7 @@ var scroblr = (function ($, moment) {
 
 		this.dateTime = moment().valueOf();
 		this.toString = function () {
-			if (this.artist && this.artist.length && this.title && this.title.length) {
+			if (this.artist && this.title) {
 				return this.artist + " - " + this.title;
 			} else {
 				return "";
@@ -61,12 +61,12 @@ var scroblr = (function ($, moment) {
 		seconds = 0;
 
 		for (i = 0, max = arguments.length; i < max; i += 1) {
-
-			if (arguments[i].toString().length) {
+			if (arguments[i].toString()) {
 				timeSegments = arguments[i].split(":");
 
-				for (j = timeSegments.length - 1, pow = 0; j >= 0 &&
-						j >= (timeSegments.length - 3); j -= 1, pow += 1) {
+				for (j = timeSegments.length - 1, pow = 0;
+						 j >= 0 && j >= (timeSegments.length - 3);
+						 j -= 1, pow += 1) {
 					seconds += parseFloat(timeSegments[j].replace("-", "")) *
 							Math.pow(60, pow);
 				}
@@ -99,7 +99,6 @@ var scroblr = (function ($, moment) {
 	 */
 	function init() {
 		for (var key in plugins) {
-
 			if (plugins.hasOwnProperty(key) && plugins[key].init()) {
 				host = plugins[key];
 				poller = window.setInterval(pollTrackInfo, 5000);
@@ -122,22 +121,20 @@ var scroblr = (function ($, moment) {
 			prevTrackStr = prevTrack.toString();
 		}
 
-		// New track is playing
-		if (currentTrackStr.length && currentTrackStr !== prevTrackStr) {
-			updateNowPlaying(currentTrack);
+		if (currentTrackStr) {
+			if (currentTrackStr !== prevTrackStr) { // New track is playing
+				updateNowPlaying(currentTrack);
+			} else { 																// A track continues to play
+				$.each(["album", "duration", "elapsed", "percent", "score", "stopped"],
+						function (i, val) {
 
-		// A track continues to play
-		} else if (currentTrackStr.length) {
-
-			$.each(["album", "duration", "elapsed", "percent", "score", "stopped"],
-					function (i, val) {
-
-				if (currentTrack.hasOwnProperty(val)) {
-					prevTrack[val] = currentTrack[val];
-				} else if (val === "elapsed") {
-					prevTrack[val] = getElapsedTime(prevTrack.dateTime);
-				}
-			});
+					if (currentTrack.hasOwnProperty(val)) {
+						prevTrack[val] = currentTrack[val];
+					} else if (val === "elapsed") {
+						prevTrack[val] = getElapsedTime(prevTrack.dateTime);
+					}
+				});
+			}
 		}
 	}
 
@@ -181,11 +178,8 @@ var scroblr = (function ($, moment) {
 		listenedToMoreThanHalf = (track.elapsed >= track.duration / 2);
 		noDurationWithElapsed  = (track.duration === 0 && track.elapsed > 30000);
 
-		if ((greaterThan30s && (listenedTo4m || listenedToMoreThanHalf)) ||
-				noDurationWithElapsed) {
-			return true;
-		}
-		return false;
+		return (greaterThan30s && (listenedTo4m || listenedToMoreThanHalf)) ||
+					 noDurationWithElapsed;
 	}
 
 	/**
@@ -211,7 +205,7 @@ var scroblr = (function ($, moment) {
 	/*
 	 * Document ready
 	 */
-	$(document).ready(function () {
+	$(function () {
 		init();
 	});
 

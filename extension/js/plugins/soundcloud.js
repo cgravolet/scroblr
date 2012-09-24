@@ -5,12 +5,12 @@
 	plugin.scrape = function () {
 		var info, player, playing, soundcloudNext;
 
-		soundcloudNext = $("body > #app").length > 0;
+		soundcloudNext = !!$("body > #app").length;
 
 		if (soundcloudNext) {
 			playing = $(".sc-button-play.sc-button-pause"),
 			info = {
-				stopped: (playing.length == 0)
+				stopped: !playing.length
 			};
 
 			if (!info.stopped) {
@@ -23,7 +23,7 @@
 		} else {
 			playing = $(".play.playing"),
 			info = {
-				stopped: (playing.length == 0)
+				stopped: !playing.length
 			};
 
 			if (!info.stopped) {

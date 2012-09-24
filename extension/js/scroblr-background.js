@@ -1,9 +1,10 @@
-var api_key, api_sec, api_url, currentTrack, history, lf_session,
-	lf_sessioncache, lf_auth_waiting, keepalive;
+var API_KEY, API_SEC, API_URL, LASTFM_AUTH_URL, currentTrack, history,
+	lf_session, lf_sessioncache, lf_auth_waiting, keepalive;
 
-api_key         = "59c070288bfca89ca9700fde083969bb";
-api_sec         = "0193a089b025f8cfafcc922e54b93706";
-api_url         = "http://ws.audioscrobbler.com/2.0/";
+API_KEY         = "59c070288bfca89ca9700fde083969bb";
+API_SEC         = "0193a089b025f8cfafcc922e54b93706";
+API_URL         = "http://ws.audioscrobbler.com/2.0/";
+LASTFM_AUTH_URL = "http://www.last.fm/api/auth/?api_key=" + API_KEY + "&cb=";
 currentTrack    = null;
 history         = [];
 keepalive       = null;
@@ -11,7 +12,7 @@ lf_auth_waiting = false;
 lf_session      = JSON.parse(localStorage.lf_session || null);
 lf_sessioncache = JSON.parse(localStorage.lf_sessioncache || null);
 
-if (lf_sessioncache === null) {
+if (!lf_sessioncache) {
 	lf_sessioncache = {};
 }
 
@@ -41,7 +42,7 @@ function getApiSignature(params) {
 		paramString += key + params[key];
 	}
 
-	return hex_md5(paramString + api_sec);
+	return hex_md5(paramString + API_SEC);
 }
 
 /**
@@ -52,12 +53,15 @@ function getApiSignature(params) {
  * @param {string} option The name of the option (ex. "pandora")
  */
 function getOptionStatus(option) {
+	var setting;
+
 	if (typeof chrome != "undefined") {
-		return (localStorage["enable_" + option] == "false" ? false : true);
+		setting = localStorage["enable_" + option];
 	} else if (typeof safari != "undefined") {
-		return (safari.extension.settings["enable_" + option] == false ?
-				false : true);
+		setting = safari.extension.settings["enable_" + option];
 	}
+
+	return setting === undefined;
 }
 
 /**
@@ -69,16 +73,17 @@ function getOptionStatus(option) {
 function getTrackInfo(track) {
 	var params;
 
-	if (track.title.length && track.artist.length) {
+	if (track.title && track.artist) {
 		params = {
-			api_key: api_key,
+			api_key: API_KEY,
 			artist:  track.artist,
 			track:   track.title
 		};
 
-		if (lf_session != null && lf_session.name.length) {
+		if (lf_session && lf_session.name) {
 			params.username = lf_session.name;
 		}
+
 		sendRequest("track.getInfo", params, getTrackInfoCallback);
 	}
 }
@@ -92,14 +97,14 @@ function getTrackInfo(track) {
 function getTrackInfoCallback(data) {
 	var trackParams;
 
-	trackParams  = {
+	trackParams = {
 		album:      $("track > album title", data).text() || currentTrack.album || "",
 		image:      $("track > album image[size=large]", data).text() || "",
-		loved:      ($("track userloved").text() == 1),
-		tags:       [],
+		loved:      $("track userloved").text() == "1",
 		url:        $("track > url", data).text() || "",
 		url_album:  $("track > album url", data).text() || "",
-		url_artist: $("track > artist url", data).text() || ""
+		url_artist: $("track > artist url", data).text() || "",
+		tags:       []
 	};
 
 	$("track tag", data).each(function () {
@@ -121,9 +126,10 @@ function getTrackInfoCallback(data) {
  */
 function getUserInfo(user) {
 	var params = {
-		api_key: api_key,
+		api_key: API_KEY,
 		user:    user
 	};
+
 	sendRequest("user.getInfo", params, function (data) {
 		localStorage.lf_image = $("user image[size=small]", data).text();
 		sendMessage("initUserForm", null);
@@ -138,10 +144,11 @@ function getUserInfo(user) {
  */
 function getUserSession(token) {
 	var params = {
-		api_key: api_key,
+		api_key: API_KEY,
 		token:   token
 	};
-	if (token && token.length) {
+
+	if (token) {
 		sendRequest("auth.getSession", params, getUserSessionCallback);
 	}
 }
@@ -157,8 +164,8 @@ function getUserSessionCallback(data) {
 		lf_session = {
 			name:       $("session name", data).text(),
 			key:        $("session key", data).text(),
-			subscriber: ($("session subscriber", data).text() == "1")
-		}
+			subscriber: $("session subscriber", data).text() == "1"
+		};
 		lf_sessioncache[lf_session.name] = lf_session;
 		localStorage.lf_sessioncache = JSON.stringify(lf_sessioncache);
 	}
@@ -229,16 +236,16 @@ function logoutUser() {
  */
 function loveTrack(love) {
 	var params = {
-		api_key: api_key,
+		api_key: API_KEY,
 		sk:      lf_session.key,
 		artist:  currentTrack.artist,
 		track:   currentTrack.name
 	};
 
-	if (love === false) {
-		sendRequest("track.unlove", params);
-	} else {
+	if (love) {
 		sendRequest("track.love", params);
+	} else {
+		sendRequest("track.unlove", params);
 	}
 }
 
@@ -288,20 +295,20 @@ function messageHandler(msg) {
  * Handles sending HTML5 window notifications (used mainly when a new song
  * starts playing, Chrome-only for the time being)
  *
- * @param {object} notification The notification to be sent (ex. {title:
- *                              "Now Playing", message: "Big Black - Kerosene"})
+ * @param {object} notificationData The notification to be sent (ex. {title:
+ *                              		"Now Playing", message: "Big Black - Kerosene"})
  */
-function notify(notification) {
+function notify(notificationData) {
 	var notification;
 
 	if (window.webkitNotifications && getOptionStatus("messaging")) {
 		notification = webkitNotifications.createNotification(
-				"img/scroblr64.png", notification.title, notification.message);
+				"img/scroblr64.png", notificationData.title, notificationData.message);
 		notification.show();
 
 		if (getOptionStatus("auto_dismiss")) {
 			window.setTimeout(function () {
-				notification.cancel()
+				notification.cancel();
 			}, 5000);
 		}
 	}
@@ -316,18 +323,15 @@ function notify(notification) {
 function openAuthWindow() {
 	var newTab;
 
-	console.log("opening auth window");
 	if (typeof chrome != "undefined") {
-		console.log("chrome");
 		chrome.tabs.create({
-			url: "http://www.last.fm/api/auth/?api_key=" + api_key + "&cb=" +
-			     chrome.extension.getURL("access-granted.html")
+			url: LASTFM_AUTH_URL + chrome.extension.getURL("access-granted.html")
 		});
 	} else if (typeof safari != "undefined") {
 		newTab = safari.application.activeBrowserWindow.openTab();
-		newTab.url = "http://www.last.fm/api/auth/?api_key=" + api_key +
-				"&cb=" + safari.extension.baseURI + "access-granted.html";
+		newTab.url = LASTFM_AUTH_URL + safari.extension.baseURI + "access-granted.html";
 	}
+
 	sendMessage("initUserForm", true);
 }
 
@@ -343,9 +347,9 @@ function scrobble(track) {
 
 	hostEnabled = getOptionStatus(track.host);
 	params = {
-		api_key:   api_key,
+		api_key:   API_KEY,
 		artist:    track.artist,
-		sk:        lf_session !== null ? lf_session.key : null,
+		sk:        lf_session ? lf_session.key : null,
 		timestamp: Math.round(track.dateTime / 1000),
 		track:     track.title
 	};
@@ -378,8 +382,10 @@ function sendMessage(name, message) {
 		i = bars.length;
 
 		while (i--) {
-			bars[i].contentWindow.scroblrBar.messageHandler({name: name,
-					message: message});
+			bars[i].contentWindow.scroblrBar.messageHandler({
+				name: name,
+				message: message
+			});
 		}
 	}
 }
@@ -394,10 +400,11 @@ function sendMessage(name, message) {
  * @param {function} callback Any callback function to be run on success
  */
 function sendRequest(method, params, callback) {
-	var type = "GET";
+	var type = "GET",
+			requirePost = ["track.love", "track.scrobble", "track.unlove",
+										 "track.updateNowPlaying"];
 
-	if ($.inArray(method, ["track.love", "track.scrobble", "track.unlove",
-			"track.updateNowPlaying"]) >= 0) {
+	if ($.inArray(method, requirePost) >= 0) {
 		type = "POST";
 	}
 
@@ -409,7 +416,7 @@ function sendRequest(method, params, callback) {
 		failure: handleFailure,
 		success: callback,
 		type:    type,
-		url:     api_url
+		url:     API_URL
 	});
 }
 
@@ -443,7 +450,7 @@ function updateNowPlaying(track) {
 
 	if (lf_session && hostEnabled) {
 		params = {
-			api_key:  api_key,
+			api_key:  API_KEY,
 			artist:   track.artist,
 			duration: track.duration / 1000,
 			sk:       lf_session.key,
@@ -453,6 +460,7 @@ function updateNowPlaying(track) {
 		if (track.album) {
 			params.album = track.album;
 		}
+
 		sendRequest("track.updateNowPlaying", params);
 	}
 }
