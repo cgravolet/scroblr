@@ -124,7 +124,9 @@ var scroblr = (function ($, moment) {
 			if (newTrackStr !== prevTrackStr) { // New track is playing
 				updateNowPlaying(newTrack);
 			} else if (!newTrack.stopped === true) { // A track continues to play
-				updateObj   = {};
+				updateObj = {
+					hostid: newTrack.hostid
+				};
 
 				$.each(["album", "duration", "elapsed", "percent", "score", "stopped"],
 						function (i, val) {
