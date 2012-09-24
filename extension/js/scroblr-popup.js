@@ -68,10 +68,6 @@ var scroblrBar = (function (model) {
 		return formatted_hour + minutes + ":" + seconds;
 	}
 
-	function getCurrentTrack () {
-		return currentTrack;
-	}
-
 	function initializeUserForm (waiting) {
 		var userImage, userLink;
 
@@ -137,11 +133,12 @@ var scroblrBar = (function (model) {
 	}
 
 	function updateNowPlaying (data) {
-		var nowPlaying = $("#nowPlaying"),
-				duration, imageTag, albumLink;
+		var albumLink, duration, imageTag, nowPlaying;
+
+		currentTrack = data;
+		nowPlaying   = $("#nowPlaying");
 
 		resetBar();
-		currentTrack = data;
 
 		if (data.title && data.artist) {
 			nowPlaying.addClass(data.host).show();

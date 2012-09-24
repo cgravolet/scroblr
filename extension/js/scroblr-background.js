@@ -95,9 +95,7 @@ function getTrackInfo(track) {
  * @param {object} data The data returned from the track.getInfo API request
  */
 function getTrackInfoCallback(data) {
-	var trackParams;
-
-	trackParams = {
+	var trackParams = {
 		album:      $("track > album title", data).text() || currentTrack.album || "",
 		image:      $("track > album image[size=large]", data).text() || "",
 		loved:      $("track userloved").text() == "1",
@@ -279,9 +277,6 @@ function messageHandler(msg) {
 		updateNowPlaying(msg.message);
 		getTrackInfo(msg.message);
 		break;
-	case "scrobbleTrack":
-		scrobble(msg.message);
-		break;
 	case "unloveTrack":
 		loveTrack(false);
 		break;
@@ -343,10 +338,10 @@ function openAuthWindow() {
  *                       artist: "Big Black", duration: etc...})
  */
 function scrobble(track) {
-	var params, hostEnabled;
+	var hostEnabled, requestParams;
 
 	hostEnabled = getOptionStatus(track.host);
-	params = {
+	requestParams = {
 		api_key:   API_KEY,
 		artist:    track.artist,
 		sk:        lf_session ? lf_session.key : null,
@@ -355,11 +350,25 @@ function scrobble(track) {
 	};
 
 	if (track.album) {
-		params.album = track.album;
+		requestParams.album = track.album;
 	}
 
 	if (lf_session && hostEnabled) {
-		sendRequest("track.scrobble", params);
+		sendRequest("track.scrobble", requestParams, function () {
+			track.scrobbled = true;
+		});
+	}
+}
+
+function scrobbleHistory() {
+	var i, max, track;
+
+	for (i = 0, max = history.length; i < max; i += 1) {
+		track = history[i];
+
+		if (!track.scrobbled && trackShouldBeScrobbled(track)) {
+			scrobble(track);
+		}
 	}
 }
 
@@ -400,13 +409,8 @@ function sendMessage(name, message) {
  * @param {function} callback Any callback function to be run on success
  */
 function sendRequest(method, params, callback) {
-	var type = "GET",
-			requirePost = ["track.love", "track.scrobble", "track.unlove",
-										 "track.updateNowPlaying"];
-
-	if ($.inArray(method, requirePost) >= 0) {
-		type = "POST";
-	}
+	var requirePost = ["track.love", "track.scrobble", "track.unlove",
+			"track.updateNowPlaying"];
 
 	params.method  = method;
 	params.api_sig = getApiSignature(params);
@@ -415,9 +419,29 @@ function sendRequest(method, params, callback) {
 		data:    params,
 		failure: handleFailure,
 		success: callback,
-		type:    type,
+		type:    (requirePost.indexOf(method) >= 0 ? "POST" : "GET"),
 		url:     API_URL
 	});
+}
+
+/**
+ * Determines if a track should be scrobbled or not.
+ *
+ * @param {Track} track
+ * @return {boolean}
+ * @private
+ */
+function trackShouldBeScrobbled(track) {
+	var greaterThan30s, listenedTo4m, listenedToMoreThanHalf,
+		noDurationWithElapsed;
+
+	greaterThan30s         = (track.duration > 30000);
+	listenedTo4m           = (track.elapsed >= 240000);
+	listenedToMoreThanHalf = (track.elapsed >= track.duration / 2);
+	noDurationWithElapsed  = (track.duration === 0 && track.elapsed > 30000);
+
+	return (greaterThan30s && (listenedTo4m || listenedToMoreThanHalf)) ||
+				 noDurationWithElapsed;
 }
 
 /**
@@ -442,7 +466,6 @@ function updateNowPlaying(track) {
 	var params, hostEnabled;
 
 	hostEnabled  = getOptionStatus(track.host);
-	currentTrack = track;
 	notify({
 		message: track.artist + " - " + track.title,
 		title:   "Now Playing"
@@ -463,6 +486,12 @@ function updateNowPlaying(track) {
 
 		sendRequest("track.updateNowPlaying", params);
 	}
+
+	if (currentTrack) {
+		history.push(currentTrack);
+	}
+	currentTrack = track;
+	scrobbleHistory();
 }
 
 initialize();

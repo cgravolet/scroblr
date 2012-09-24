@@ -106,7 +106,7 @@ var scroblr = (function ($, moment) {
 	 * @private
 	 */
 	function pollTrackInfo() {
-		var newTrack, newTrackStr, prevTrack, prevTrackStr;
+		var newTrack, newTrackStr, prevTrack, prevTrackStr, updateObj;
 
 		newTrack    = new Track(host.scrape());
 		newTrackStr = newTrack.toString();
@@ -119,16 +119,21 @@ var scroblr = (function ($, moment) {
 		if (newTrackStr) {
 			if (newTrackStr !== prevTrackStr) { // New track is playing
 				updateNowPlaying(newTrack);
-			} else { // A track continues to play
+			} else if (!newTrack.stopped === true) { // A track continues to play
+				updateObj   = {};
+
 				$.each(["album", "duration", "elapsed", "percent", "score", "stopped"],
 						function (i, val) {
 
-					if (newTrack.hasOwnProperty(val)) {
+					if (newTrack.hasOwnProperty(val) && newTrack[val] !== prevTrack[val]) {
 						prevTrack[val] = newTrack[val];
-					} else if (val === "elapsed") {
+						updateObj[val] = newTrack[val];
+					} else if (val === "elapsed" && !newTrack.hasOwnProperty(val)) {
 						prevTrack[val] = getElapsedTime(prevTrack.dateTime);
+						updateObj[val] = prevTrack[val];
 					}
 				});
+				sendMessage("updateCurrentTrack", updateObj);
 			}
 		}
 	}
@@ -158,33 +163,10 @@ var scroblr = (function ($, moment) {
 	}
 
 	/**
-	 * Determines if a track should be scrobbled or not.
-	 *
-	 * @param {Track} track
-	 * @return {boolean}
-	 * @private
-	 */
-	function trackShouldBeScrobbled(track) {
-		var greaterThan30s, listenedTo4m, listenedToMoreThanHalf,
-			noDurationWithElapsed;
-
-		greaterThan30s         = (track.duration > 30000);
-		listenedTo4m           = (track.elapsed >= 240000);
-		listenedToMoreThanHalf = (track.elapsed >= track.duration / 2);
-		noDurationWithElapsed  = (track.duration === 0 && track.elapsed > 30000);
-
-		return (greaterThan30s && (listenedTo4m || listenedToMoreThanHalf)) ||
-					 noDurationWithElapsed;
-	}
-
-	/**
 	 * @param {object} track
 	 * @private
 	 */
 	function updateNowPlaying(track) {
-		if (currentTrack && trackShouldBeScrobbled(currentTrack)) {
-			sendMessage("scrobbleTrack", currentTrack);
-		}
 		currentTrack = track;
 		sendMessage("nowPlaying", track);
 	}
