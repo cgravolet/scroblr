@@ -341,7 +341,7 @@ function openAuthWindow() {
 function scrobble(track) {
 	var params, hostEnabled;
 
-	// hostEnabled = getOptionStatus(track.host);
+	hostEnabled = getOptionStatus(track.host);
 	params = {
 		api_key:   api_key,
 		artist:    track.artist,
@@ -354,7 +354,7 @@ function scrobble(track) {
 		params.album = track.album;
 	}
 
-	if (lf_session) {
+	if (lf_session && hostEnabled) {
 		sendRequest("track.scrobble", params);
 	}
 }
@@ -441,7 +441,7 @@ function updateNowPlaying(track) {
 		title:   "Now Playing"
 	});
 
-	if (lf_session) {
+	if (lf_session && hostEnabled) {
 		params = {
 			api_key:  api_key,
 			artist:   track.artist,

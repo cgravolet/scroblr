@@ -17,31 +17,31 @@ var scroblrBar = (function (model) {
 	function attachBehaviors () {
 		$("#lastfmLoginForm").bind("submit", function (e) {
 			var user = $("#lastfmLoginName").val().toLowerCase() || "";
-			model.messageHandler({name: "loginFormSubmitted", message: user});
 			e.preventDefault();
+			model.messageHandler({name: "loginFormSubmitted", message: user});
 		});
 
 		$("#lastfmLogoutLink").click(function (e) {
-			model.messageHandler({name: "logoutLinkClicked", message: null});
 			e.preventDefault();
+			model.messageHandler({name: "logoutLinkClicked", message: null});
 		});
 
 		$("#lastfmCancelAuthLink").click(function (e) {
-			model.messageHandler({name: "cancelAuthLinkClicked", message: null});
 			e.preventDefault();
+			model.messageHandler({name: "cancelAuthLinkClicked", message: null});
 		});
 
 		$("#lastfmLoveTrackLink").click(function (e) {
+			e.preventDefault();
 			if ($(this).hasClass("loved")) {
 				model.messageHandler({name: "unloveTrack", message: null});
 			} else {
 				model.messageHandler({name: "loveTrack", message: null});
 			}
 			$(this).toggleClass("loved");
-			e.preventDefault();
 		});
 
-		chrome.extension.onRequest.addListener(message_handler);
+		chrome.extension.onMessage.addListener(message_handler);
 	}
 
 	function formatDuration (duration) {
