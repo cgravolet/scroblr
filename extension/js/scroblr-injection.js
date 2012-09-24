@@ -1,8 +1,7 @@
 var scroblr = (function ($, moment) {
 
-	var history, host, Plugin, plugins, poller, Track;
+	var currentTrack, host, Plugin, plugins, poller, Track;
 
-	history = [];
 	plugins = {};
 
 	/**
@@ -88,10 +87,6 @@ var scroblr = (function ($, moment) {
 		return now - dateTime;
 	}
 
-	function getTrackHistory() {
-		return history;
-	}
-
 	/**
 	 * Initialization method
 	 *
@@ -111,25 +106,25 @@ var scroblr = (function ($, moment) {
 	 * @private
 	 */
 	function pollTrackInfo() {
-		var currentTrack, currentTrackStr, prevTrack, prevTrackStr;
+		var newTrack, newTrackStr, prevTrack, prevTrackStr;
 
-		currentTrack    = new Track(host.scrape());
-		currentTrackStr = currentTrack.toString();
+		newTrack    = new Track(host.scrape());
+		newTrackStr = newTrack.toString();
 
-		if (history.length) {
-			prevTrack    = history[history.length - 1];
+		if (currentTrack) {
+			prevTrack    = currentTrack;
 			prevTrackStr = prevTrack.toString();
 		}
 
-		if (currentTrackStr) {
-			if (currentTrackStr !== prevTrackStr) { // New track is playing
-				updateNowPlaying(currentTrack);
-			} else { 																// A track continues to play
+		if (newTrackStr) {
+			if (newTrackStr !== prevTrackStr) { // New track is playing
+				updateNowPlaying(newTrack);
+			} else { // A track continues to play
 				$.each(["album", "duration", "elapsed", "percent", "score", "stopped"],
 						function (i, val) {
 
-					if (currentTrack.hasOwnProperty(val)) {
-						prevTrack[val] = currentTrack[val];
+					if (newTrack.hasOwnProperty(val)) {
+						prevTrack[val] = newTrack[val];
 					} else if (val === "elapsed") {
 						prevTrack[val] = getElapsedTime(prevTrack.dateTime);
 					}
@@ -187,19 +182,11 @@ var scroblr = (function ($, moment) {
 	 * @private
 	 */
 	function updateNowPlaying(track) {
-		var prevTrack;
-
-		sendMessage("nowPlaying", track);
-
-		if (history.length) {
-			prevTrack = history.pop();
-
-			if (trackShouldBeScrobbled(prevTrack)) {
-				sendMessage("scrobbleTrack", prevTrack);
-			}
+		if (currentTrack && trackShouldBeScrobbled(currentTrack)) {
+			sendMessage("scrobbleTrack", currentTrack);
 		}
-
-		history.push(track);
+		currentTrack = track;
+		sendMessage("nowPlaying", track);
 	}
 
 	/*
@@ -210,7 +197,6 @@ var scroblr = (function ($, moment) {
 	});
 
 	return {
-		getTrackHistory: getTrackHistory,
 		registerHost:    registerPlugin,
 		utilities: {
 			calculateDuration: calculateDuration
