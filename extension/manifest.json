@@ -12,6 +12,7 @@
 			"matches": [
 				"http://*.accuradio.com/*",
 				"https://*.amazon.com/gp/dmusic*",
+				"https://*.amazon.co.uk/gp/dmusic*",
 				"https://*.amazon.de/gp/dmusic*",
 				"http://*.bandcamp.com/*",
 				"http://play.google.com/music/*",

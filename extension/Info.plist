@@ -77,6 +77,7 @@
         <array>
           <string>*.accuradio.com</string>
           <string>*.amazon.com</string>
+          <string>*.amazon.co.uk</string>
           <string>*.amazon.de</string>
           <string>*.bandcamp.com</string>
           <string>play.google.com</string>
