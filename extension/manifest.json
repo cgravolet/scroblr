@@ -62,6 +62,9 @@
 		"tabs",
 		"http://ws.audioscrobbler.com/2.0/"
 	],
+	"web_accessible_resources": [
+		"img/scroblr64.png"
+	],
 	"version": "0.9.74",
 	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
 }
