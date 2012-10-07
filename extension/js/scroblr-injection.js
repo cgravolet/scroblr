@@ -128,8 +128,14 @@ if (!isJango || isJangoPlayer) {
 					},
 
 					jango: function () {
+						var artist = $("#player_info #player_current_artist").contents().not($("span")).eq(0).text();
+
+						if (artist.indexOf(String.fromCharCode(8230)) >= 0) {
+							artist = document.title.split(":")[0];
+						}
+
 						return {
-							artist: $('#player_info #player_current_artist').contents().last().text(),
+							artist: artist,
 							duration: calculateDuration($('#player_info #timer').text().substring(1)),
 							name: $('#player_info #current-song').text().replace(/^\s+/, '').replace(/\s+$/, ''),
 							stopped: $('#btn-playpause').hasClass('pause')
