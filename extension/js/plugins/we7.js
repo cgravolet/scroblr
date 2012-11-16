@@ -14,4 +14,4 @@
 			elapsed:  scroblr.utilities.calculateDuration($('#elapsed').text())
 		};
 	};
-}(jQuery));
+}(Zepto));

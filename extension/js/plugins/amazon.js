@@ -10,4 +10,4 @@
 			title:    $("#nowPlayingSection .currentSongDetails .title").text()
 		};
 	};
-}(jQuery));
+}(Zepto));

@@ -2,6 +2,7 @@
 
 	var plugin = scroblr.registerHost("playerfm");
 
+	plugin.hostre = new RegExp("player\\.fm", "i");
 	plugin.scrape = function () {
 		var elapsedString, timeRemainingString;
 
@@ -13,7 +14,7 @@
 			title:    $('.permaplayer .track-wrapper .current-episode-link').text(),
 			elapsed:  scroblr.utilities.calculateDuration(elapsedString),
 			duration: scroblr.utilities.calculateDuration(elapsedString, timeRemainingString),
-			stopped:  $('.container .mainflow .playpause .icon-play').is(':visible')
+			stopped:  $('.container .playpause .jp-play').css("display") !== "none"
 		};
 	};
-}(jQuery));
+}(Zepto));

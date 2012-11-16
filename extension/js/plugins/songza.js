@@ -10,4 +10,4 @@
 			title:   $("#player .szi-roll-song .szi-info .szi-title").text()
 		};
 	};
-}(jQuery));
+}(Zepto));

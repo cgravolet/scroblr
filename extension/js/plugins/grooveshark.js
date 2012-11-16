@@ -11,4 +11,4 @@
 			title:    $("#playerDetails_nowPlaying .currentSongLink").attr("title")
 		};
 	};
-}(jQuery));
+}(Zepto));

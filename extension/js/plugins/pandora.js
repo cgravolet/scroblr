@@ -8,7 +8,7 @@
 			artist:   cleanseArtist($("#playerBar .playerBarArtist").text()),
 			duration: scroblr.utilities.calculateDuration($("#playbackControl .elapsedTime").text(), $("#playbackControl .remainingTime").text()),
 			elapsed:  scroblr.utilities.calculateDuration($("#playbackControl .elapsedTime").text()),
-			stopped:  $("#playerBar .playButton").is(":visible"),
+			stopped:  $("#playerBar .playButton").css("display") === "block",
 			title:    $("#playerBar .playerBarSong").text()
 		};
 	};
@@ -25,4 +25,4 @@
 	function stripHolidayLabel (string) {
 		return string.replace(/\s+\(Holiday\)$/i, "");
 	}
-}(jQuery));
+}(Zepto));

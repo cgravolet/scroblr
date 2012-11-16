@@ -1,4 +1,4 @@
-var scroblr = (function ($, moment) {
+var scroblr = (function (moment) {
 
 	var currentTrack, host, Plugin, plugins, poller, Track;
 
@@ -24,21 +24,29 @@ var scroblr = (function ($, moment) {
 	 * @private
 	 */
 	Track = function (params) {
-		$.extend(this, params);
+		var key;
+
+		params = params || {};
+
+		for (key in params) {
+			if (params.hasOwnProperty(key)) {
+				this[key] = params[key];
+			}
+		}
 
 		this.host   = host.name;
 		this.hostid = host.id;
 
 		if (this.hasOwnProperty("album")) {
-			this.album = $.trim(this.album);
+			this.album = trim(this.album);
 		}
 
 		if (this.hasOwnProperty("artist")) {
-			this.artist = $.trim(this.artist);
+			this.artist = trim(this.artist);
 		}
 
 		if (this.hasOwnProperty("title")) {
-			this.title = $.trim(this.title);
+			this.title = trim(this.title);
 		}
 
 		this.dateTime = moment().valueOf();
@@ -128,8 +136,8 @@ var scroblr = (function ($, moment) {
 					hostid: newTrack.hostid
 				};
 
-				$.each(["album", "duration", "elapsed", "percent", "score", "stopped"],
-						function (i, val) {
+				["album", "duration", "elapsed", "percent", "score", "stopped"].forEach(
+						function (val, i) {
 
 					if (newTrack.hasOwnProperty(val) && newTrack[val] !== prevTrack[val]) {
 						prevTrack[val] = newTrack[val];
@@ -168,6 +176,10 @@ var scroblr = (function ($, moment) {
 		}
 	}
 
+	function trim(str) {
+		return str.replace(/^\s+/g, "").replace(/\s+$/g, "");
+	}
+
 	/**
 	 * @param {object} track
 	 * @private
@@ -177,17 +189,13 @@ var scroblr = (function ($, moment) {
 		sendMessage("nowPlaying", track);
 	}
 
-	/*
-	 * Document ready
-	 */
-	$(function () {
-		init();
-	});
-
 	return {
-		registerHost:    registerPlugin,
+		init: init,
+		registerHost: registerPlugin,
 		utilities: {
 			calculateDuration: calculateDuration
 		}
 	};
-}(jQuery, moment));
+}(moment));
+
+window.onload = scroblr.init;

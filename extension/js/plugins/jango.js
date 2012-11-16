@@ -10,4 +10,4 @@
 			title:    $("#player_info #current-song").text().replace(/^\s+/, "").replace(/\s+$/, "")
 		};
 	};
-}(jQuery));
+}(Zepto));

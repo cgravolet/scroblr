@@ -10,4 +10,4 @@
 			title:   $("#span_information_title").text()
 		};
 	};
-}(jQuery));
+}(Zepto));

@@ -11,4 +11,4 @@
 			title:    $("#player-track-link").text()
 		};
 	};
-}(jQuery));
+}(Zepto));
