@@ -42,16 +42,6 @@
 		<key>DefaultValue</key>
 		<true/>
 		<key>Key</key>
-		<string>enable_grooveshark</string>
-		<key>Title</key>
-		<string>Grooveshark</string>
-		<key>Type</key>
-		<string>CheckBox</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<true/>
-		<key>Key</key>
 		<string>enable_jango</string>
 		<key>Title</key>
 		<string>Jango</string>
