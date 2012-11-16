@@ -117,16 +117,6 @@ if (!isJango || isJangoPlayer) {
 						};
 					},
 
-					grooveshark: function () {
-						return {
-							album: $('#playerDetails_nowPlaying .album').attr('title'),
-							artist: $('#playerDetails_nowPlaying .artist').attr('title'),
-							duration: calculateDuration($('#player #player_duration').text()),
-							name: $('#playerDetails_nowPlaying .currentSongLink').attr('title'),
-							stopped: $('#player #player_play_pause').hasClass('play')
-						};
-					},
-
 					jango: function () {
 						var artist = $("#player_info #player_current_artist").contents().not($("span")).eq(0).text();
 
@@ -314,9 +304,6 @@ if (!isJango || isJangoPlayer) {
 			}
 			else if (hostname.indexOf('google') >= 0) {
 				host = 'google';
-			}
-			else if (hostname.indexOf('grooveshark') >= 0) {
-				host = 'grooveshark';
 			}
 			else if (hostname.indexOf('jango') >= 0) {
 				host = 'jango';
