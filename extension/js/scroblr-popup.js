@@ -43,6 +43,11 @@ var scroblrBar = (function (model) {
 			$(this).toggleClass("loved");
 		});
 
+		$(".navigation").on("click", "a", function (e) {
+			e.preventDefault();
+			handleNavigationClick.call(this, e);
+		});
+
 		chrome.extension.onRequest.addListener(messageHandler);
 	}
 
@@ -66,6 +71,15 @@ var scroblrBar = (function (model) {
 		}
 
 		return formatted_hour + minutes + ":" + seconds;
+	}
+
+	function handleNavigationClick(e) {
+		var $target = $(this);
+		var $parent = $target.parent();
+		$(".navigation li").removeClass();
+		$parent.addClass("is-selected");
+		$("section").hide();
+		$($target.attr("href")).show();
 	}
 
 	function initializeUserForm (waiting) {
@@ -118,53 +132,52 @@ var scroblrBar = (function (model) {
 	}
 
 	function resetBar () {
-		$("#nowPlaying").removeClass().hide().find(".artist, .album, .track").empty();
+		$(".now-playing p, .album-art").empty();
+		$(document.body).removeClass();
 		$("#lastfmWaitingAuth").hide();
-		showHostControls(false);
 		updateCurrentTrack({score: 50});
 	}
 
-	function showHostControls (data) {
-		$(".hostdata").hide();
-
-		if (data && data.host) {
-			$("#" + data.host).show();
-		}
-	}
-
 	function updateNowPlaying (data) {
-		var albumLink, duration, imageTag, nowPlaying;
+		var duration, imageTag, nowPlaying;
 
 		currentTrack = data;
-		nowPlaying   = $("#nowPlaying");
+		nowPlaying   = $(".now-playing");
 
 		resetBar();
 
 		if (data.title && data.artist) {
-			nowPlaying.addClass(data.host).show();
+			$(document.body).addClass(data.host);
 
 			if (data.image) {
-				imageTag = '<img src="' + data.image + '" alt="' + data.album + '" />';
-				albumLink = '<a href="' + data.url_album + '" target="_blank">' + imageTag + '</a>';
-				$("p.album", nowPlaying).html(albumLink);
+				$(".album-art").html("<img src=\"" + data.image + "\" />");
 			}
 
 			duration = (data.duration > 0 ? formatDuration(data.duration) : "");
-			$("p.track", nowPlaying).html(data.title + ' <em>' + duration + '</em>');
-			$("p.artist", nowPlaying).html(data.artist);
-			showHostControls(data);
+			$(".track", nowPlaying).html(data.title);
+			$(".artist", nowPlaying).html(data.artist);
+			$(".album", nowPlaying).html(data.album);
 			updateCurrentTrack({score: data.score});
 		}
 	}
 
 	function updateCurrentTrack (data) {
-		if (data.hasOwnProperty("duration")) {
-			currentTrack.duration = data.duration;
-			$("#nowPlaying .track em").text(formatDuration(data.duration));
-		}
+		var $score = $(".score").hide();
 
-		if (data.hasOwnProperty("score")) {
-			$("#turntableScore").text(data.score + "%");
+		// if (data.duration) {
+		// 	currentTrack.duration = data.duration;
+		// 	$(".now-playing .track em").text(formatDuration(data.duration));
+		// }
+
+		if (data.score) {
+			$score.removeClass("is-bad is-good");
+			$score.html(data.score + "%").show();
+
+			if (data.score > 50) {
+				$score.addClass("is-good");
+			} else if (data.score < 50) {
+				$score.addClass("is-bad");
+			}
 		}
 	}
 

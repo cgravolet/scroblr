@@ -2,35 +2,34 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<title>scroblr popup</title>
-	<style>
-		@import url(css/popup.css);
-	</style>
+	<title>scroblr</title>
+    <link href="css/popup.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body>
 
-	<header>
-		<h1>scroblr</h1>
-	</header>
+<aside>
+    <ul class="navigation">
+        <li class="is-selected"><a href="#nowPlaying">Now Playing</a></li>
+        <li><a href="#settings">Settings</a></li>
+    </ul>
+</aside>
 
-	<section id="auth">
-		<form id="lastfmLoginForm">
-			<input id="lastfmLoginName" name="lastfmLoginName" type="text" value="" placeholder="Username" />
-			<input id="lastfmLoginButton" type="submit" value="Login" />
-		</form>
-		<p id="lastfmWaitingAuth">Authenticating... (<a href="#" id="lastfmCancelAuthLink">Cancel</a>)</p>
-		<p id="lastfmAccountDetails"><span id="lastfmUserimage"></span> <span id="lastfmUsername"></span> <a href="#" id="lastfmLogoutLink">logout</a></p>
-	</section>
+<section id="nowPlaying">
+    <div class="album-art">
+        <img src="http://userserve-ak.last.fm/serve/500/74900156/A+Sun+That+Never+Sets+asunthatneversets.png" />
+    </div>
+    <div class="now-playing">
+        <p class="artist">Neurosis</p>
+        <p class="track">From Where Its Roots Run</p>
+        <p class="album">A Sun That Never Sets</p>
+    </div> <!-- .now-playing -->
+    <p class="score">68%</p>
+</section>
 
-	<section id="nowPlaying">
-		<p class="album"></p>
-		<p class="artist"></p>
-		<p class="track"></p>
-		<p id="turntable" class="hostdata"><strong>Room vote:</strong> <span id="turntableScore">50%</span></p>
-	</section>
+<section id="settings"></section>
 
-	<script src="js/lib/jquery-1.8.2.min.js"></script>
-	<script src="js/scroblr-popup.js"></script>
+<script src="js/lib/jquery-1.8.2.min.js"></script>
+<script src="js/scroblr-popup.js"></script>
 
 </body>
 </html>
