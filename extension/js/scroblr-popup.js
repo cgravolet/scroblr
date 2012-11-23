@@ -76,11 +76,13 @@ var scroblrBar = (function (model) {
 	}
 
 	function handleNavigationClick(e) {
-		var $target = $(this);
-		var $parent = $target.parent();
-		$(".navigation li").removeClass();
+		var $parent, $target;
+
+		$target = $(this);
+		$parent = $target.parent();
+
+		$(".navigation li, section").removeClass();
 		$parent.addClass("is-selected");
-		$("section").removeClass();
 		$($target.attr("href")).addClass("is-active");
 	}
 
@@ -136,6 +138,7 @@ var scroblrBar = (function (model) {
 
 	function resetBar () {
 		$(".now-playing p, .album-art").empty();
+		$(".score").empty().show();
 		$(document.body).removeClass();
 		$("#lastfmWaitingAuth").hide();
 		updateCurrentTrack({score: 50});
@@ -172,7 +175,7 @@ var scroblrBar = (function (model) {
 	}
 
 	function updateCurrentTrack (data) {
-		var $score = $(".score").hide();
+		var $score = $(".score");
 
 		// if (data.duration) {
 		// 	currentTrack.duration = data.duration;
