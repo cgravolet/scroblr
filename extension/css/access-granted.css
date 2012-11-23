@@ -14,11 +14,8 @@ body {
 	-moz-box-shadow: 0 0 5px 5px #000;
 	-webkit-box-shadow: 0 0 5px 5px #000;
 	box-shadow: 0 0 5px 5px #000;
-	left: 50%;
-	margin: -272px 0 0 -266px;
+	margin: 70px auto 0;
 	padding: 15px;
-	position: absolute;
-	top: 50%;
 	width: 500px;
 	}
 
