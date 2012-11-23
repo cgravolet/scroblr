@@ -14,6 +14,10 @@ body {
 	width: 320px;
 }
 
+a {
+	outline: none;
+}
+
 aside {
 	background-image: -webkit-linear-gradient(top, rgb(101, 101, 101), rgb(51, 51, 51));
 	-webkit-border-bottom-left-radius: 3px;
