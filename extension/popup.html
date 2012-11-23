@@ -14,19 +14,29 @@
     </ul>
 </aside>
 
-<section id="nowPlaying">
-    <div class="album-art">
-        <img src="http://userserve-ak.last.fm/serve/500/74900156/A+Sun+That+Never+Sets+asunthatneversets.png" />
-    </div>
+<section id="nowPlaying" class="is-active">
+    <div class="album-art"></div>
     <div class="now-playing">
-        <p class="artist">Neurosis</p>
-        <p class="track">From Where Its Roots Run</p>
-        <p class="album">A Sun That Never Sets</p>
+        <p class="artist"></p>
+        <p class="track"></p>
+        <p class="album"></p>
     </div> <!-- .now-playing -->
     <p class="score">68%</p>
 </section>
 
-<section id="settings"></section>
+<section id="settings">
+    <div class="auth-form">
+        <form action="" method="GET" id="loginForm">
+            <input type="text" id="userNameInput" placeholder="Last.fm username" />
+            <input type="submit" value="Login" />
+        </form>
+        <p class="is-authorizing-message">
+            Authorizing... <a href="#cancelAuth" id="cancelAuthLink">cancel</a>
+        </p>
+        <p class="is-authorized-message"><span id="userImage"></span> 
+            <span id="userName"></span> <a href="#logout" id="logoutLink">Logout</a></p>
+    </div>
+</section>
 
 <script src="js/lib/jquery-1.8.2.min.js"></script>
 <script src="js/scroblr-popup.js"></script>

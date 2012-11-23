@@ -26,15 +26,21 @@ aside {
 }
 
 section {
+	display: none;
 	height: 290px;
 	margin-left: 30px;
+	overflow: hidden;
 	position: relative;
 	width: 290px;
 }
 
-#settings {
-	display: none;
+.is-active {
+	display: block;
 }
+
+/* ==============================
+ * Sidebar navigation
+ * ============================== */
 
 .navigation {
 	margin: 0;
@@ -64,6 +70,10 @@ section {
 			text-indent: 100%;
 			white-space: nowrap;
 		}
+
+/* ==============================
+ * Now playing
+ * ============================== */
 
 .album-art {
 	background: transparent url(../img/album-art-default.png) no-repeat center center;
@@ -136,3 +146,33 @@ section {
 
 .is-bad  {color: rgba(200, 150, 150, 0.6);}
 .is-good {color: rgba(150, 200, 150, 0.6);}
+
+/* ==============================
+ * Settings
+ * ============================== */
+
+#settings {
+	background: transparent url(../img/bg-section.png) no-repeat 0 0;
+	background-size: 290px 290px;
+}
+
+.auth-form {
+	background: rgba(255, 255, 255, 0.6);
+	-webkit-border-radius: 7px;
+	display: block;
+	margin: 7px auto;
+	padding: 7px;
+	width: 90%;
+}
+
+	.auth-form p {
+		margin: 0;
+	}
+
+.is-authorized-message,
+.is-authorizing-message,
+.is-authorized form,
+.is-authorizing form {display: none;}
+
+.is-authorized .is-authorized-message,
+.is-authorizing .is-authorizing-message {display: block;}

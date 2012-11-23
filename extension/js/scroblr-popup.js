@@ -16,23 +16,25 @@ var scroblrBar = (function (model) {
 	}
 
 	function attachBehaviors () {
-		$("#lastfmLoginForm").bind("submit", function (e) {
-			var user = $("#lastfmLoginName").val().toLowerCase();
+		$("#loginForm").on("submit", function (e) {
 			e.preventDefault();
-			model.messageHandler({name: "loginFormSubmitted", message: user});
+			model.messageHandler({
+				name: "loginFormSubmitted",
+				message: $("#userNameInput").val().toLowerCase()
+			});
 		});
 
-		$("#lastfmLogoutLink").click(function (e) {
+		$("#logoutLink").on("click", function (e) {
 			e.preventDefault();
 			model.messageHandler({name: "logoutLinkClicked"});
 		});
 
-		$("#lastfmCancelAuthLink").click(function (e) {
+		$("#cancelAuthLink").on("click", function (e) {
 			e.preventDefault();
 			model.messageHandler({name: "cancelAuthLinkClicked"});
 		});
 
-		$("#lastfmLoveTrackLink").click(function (e) {
+		$("#loveTrackLink").on("click", function (e) {
 			e.preventDefault();
 			if ($(this).hasClass("loved")) {
 				model.messageHandler({name: "unloveTrack"});
@@ -48,7 +50,7 @@ var scroblrBar = (function (model) {
 			handleNavigationClick.call(this, e);
 		});
 
-		chrome.extension.onRequest.addListener(messageHandler);
+		chrome.extension.onMessage.addListener(messageHandler);
 	}
 
 	function formatDuration (duration) {
@@ -78,29 +80,30 @@ var scroblrBar = (function (model) {
 		var $parent = $target.parent();
 		$(".navigation li").removeClass();
 		$parent.addClass("is-selected");
-		$("section").hide();
-		$($target.attr("href")).show();
+		$("section").removeClass();
+		$($target.attr("href")).addClass("is-active");
 	}
 
 	function initializeUserForm (waiting) {
-		var userImage, userLink;
+		var $authForm, $userImage, $userName, userImage, userLink;
 
-		$("#auth form, #auth > p").hide();
+		$authForm  = $(".auth-form").removeClass("is-authorized is-authorizing");
+		$userImage = $("#userImage").empty();
+		$userName  = $("#userName").empty()
 
 		if (waiting) {
-			$("#lastfmWaitingAuth").show();
-		} else if (!model.lf_session) {
-			$("#lastfmLoginForm").show();
-		} else {
-			$("#lastfmAccountDetails").show();
-			$("#lastfmUsername").text(model.lf_session.name);
+			$authForm.addClass("is-authorizing");
+		} else if (model.lf_session) {
+			$authForm.addClass("is-authorized");
+			$userName.text(model.lf_session.name);
 
 			if (localStorage.lf_image) {
-				userImage = '<img height="20" width="20" src="' + localStorage.lf_image + '" alt="" />';
-				userLink = '<a href="http://last.fm/user/' + model.lf_session.name + '" target="_blank">' + userImage + '</a>';
-				$("#lastfmUserimage").html(userLink);
+				userImage = '<img height="20" width="20" src="' + localStorage.lf_image +
+						'" alt="" />';
+				userLink = '<a href="http://last.fm/user/' + model.lf_session.name +
+						'" target="_blank">' + userImage + '</a>';
+				$userImage.html(userLink);
 			} else {
-				$("#lastfmUserimage").empty();
 				model.getUserInfo(model.lf_session.name);
 			}
 		}
