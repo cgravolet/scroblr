@@ -107,6 +107,19 @@ section {
 		font-size: 13px;
 	}
 
+		.now-playing a {
+			color: #999;
+			text-decoration: none;
+		}
+
+		.now-playing a:hover {
+			text-decoration: underline;
+		}
+
+		.now-playing .track a {
+			color: #FFF;
+		}
+
 .score {
 	background: rgba(0, 0, 0, 0.8);
 	-webkit-border-top-left-radius: 7px;

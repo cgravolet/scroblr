@@ -139,7 +139,7 @@ var scroblrBar = (function (model) {
 	}
 
 	function updateNowPlaying (data) {
-		var duration, imageTag, nowPlaying;
+		var album, artist, duration, imageTag, nowPlaying, track;
 
 		currentTrack = data;
 		nowPlaying   = $(".now-playing");
@@ -153,10 +153,17 @@ var scroblrBar = (function (model) {
 				$(".album-art").html("<img src=\"" + data.image + "\" />");
 			}
 
+			album  = data.url_album ? "<a href=\"" + data.url_album +
+					"\" target=\"_blank\">" + data.album + "</a>" : data.album;
+			artist = data.url_artist ? "<a href=\"" + data.url_artist +
+					"\" target=\"_blank\">" + data.artist + "</a>" : data.artist;
+			track  = data.url ? "<a href=\"" + data.url + "\" target=\"_blank\">"
+					+ data.title + "</a>" : data.title;
+
 			duration = (data.duration > 0 ? formatDuration(data.duration) : "");
-			$(".track", nowPlaying).html(data.title);
-			$(".artist", nowPlaying).html(data.artist);
-			$(".album", nowPlaying).html(data.album);
+			$(".track", nowPlaying).html(track);
+			$(".artist", nowPlaying).html(artist);
+			$(".album", nowPlaying).html(album);
 			updateCurrentTrack({score: data.score});
 		}
 	}
