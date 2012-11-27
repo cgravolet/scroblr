@@ -154,7 +154,7 @@ var scroblrBar = (function (model) {
 		resetBar();
 
 		if (data.title && data.artist) {
-			$(document.body).addClass(data.host);
+			$(document.body).addClass(data.host, "is-listening");
 
 			if (data.image && data.image.indexOf("default_album") < 0) {
 				$(".album-art").html("<img src=\"" + data.image + "\" />");
@@ -175,6 +175,8 @@ var scroblrBar = (function (model) {
 			$(".artist", nowPlaying).html(artist);
 			$(".album", nowPlaying).html(album);
 			updateCurrentTrack({score: data.score});
+		} else {
+			$(document.body).removeClass("is-listening");
 		}
 	}
 

@@ -66,8 +66,7 @@ section {
 		background-image: -webkit-linear-gradient(top, rgb(111, 111, 111), rgb(161, 161, 161));
 	}
 
-		.nav-now-playing a,
-		.nav-settings a {
+		.navigation a {
 			background: transparent url(../img/icons/note.png) no-repeat center center;
 			background-size: 18px;
 			border-bottom: 1px solid #000;
@@ -104,12 +103,17 @@ section {
 .now-playing {
 	background-image: -webkit-linear-gradient(top, rgba(50, 50, 50, 0.8), rgba(0, 0, 0, 0.8));
 	border-bottom: 1px solid #000;
+	display: none;
 	left: 0;
 	margin: 0;
 	padding: 6px 0;
 	position: absolute;
 	top: 0;
 	width: 100%;
+}
+
+.is-listening .now-playing {
+	display: block;
 }
 
 	.now-playing p {
