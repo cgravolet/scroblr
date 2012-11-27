@@ -66,13 +66,20 @@ section {
 		background-image: -webkit-linear-gradient(top, rgb(111, 111, 111), rgb(161, 161, 161));
 	}
 
-		.navigation a {
+		.nav-now-playing a,
+		.nav-settings a {
+			background: transparent url(../img/icons/note.png) no-repeat center center;
+			background-size: 18px;
 			border-bottom: 1px solid #000;
 			display: block;
 			height: 29px;
 			overflow: hidden;
 			text-indent: 100%;
 			white-space: nowrap;
+		}
+
+		.nav-settings a {
+			background-image: url(../img/icons/gear.png);
 		}
 
 /* ==============================

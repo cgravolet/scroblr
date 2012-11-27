@@ -81,7 +81,8 @@ var scroblrBar = (function (model) {
 		$target = $(this);
 		$parent = $target.parent();
 
-		$(".navigation li, section").removeClass();
+		$(".navigation li").removeClass("is-selected");
+		$("section").removeClass();
 		$parent.addClass("is-selected");
 		$($target.attr("href")).addClass("is-active");
 	}
@@ -159,12 +160,15 @@ var scroblrBar = (function (model) {
 				$(".album-art").html("<img src=\"" + data.image + "\" />");
 			}
 
-			album  = data.url_album ? "<a href=\"" + data.url_album +
-					"\" target=\"_blank\">" + data.album + "</a>" : data.album;
+			album = data.url_album ? "<a href=\"" + data.url_album +
+					"\" target=\"_blank\" title=\"" + data.album + "\">" + data.album + 
+					"</a>" : data.album;
 			artist = data.url_artist ? "<a href=\"" + data.url_artist +
-					"\" target=\"_blank\">" + data.artist + "</a>" : data.artist;
-			track  = data.url ? "<a href=\"" + data.url + "\" target=\"_blank\">"
-					+ data.title + "</a>" : data.title;
+					"\" target=\"_blank\" title=\"" + data.artist + "\">" + data.artist +
+					"</a>" : data.artist;
+			track = data.url ? "<a href=\"" + data.url +
+					"\" target=\"_blank\" title=\"" + data.title + "\">" +
+					data.title + "</a>" : data.title;
 
 			duration = (data.duration > 0 ? formatDuration(data.duration) : "");
 			$(".track", nowPlaying).html(track);
