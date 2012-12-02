@@ -153,7 +153,7 @@ var scroblrBar = (function (model) {
 		resetBar();
 
 		if (data.title && data.artist) {
-			$(document.body).addClass(data.host, "is-listening");
+			$(document.body).addClass(data.host).addClass("is-listening");
 
 			if (data.image && data.image.indexOf("default_album") < 0) {
 				$(".album-art").html("<img src=\"" + data.image + "\" />");

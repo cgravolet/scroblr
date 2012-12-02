@@ -112,7 +112,7 @@ section {
 	width: 100%;
 }
 
-.is-active .now-playing {
+.is-listening .now-playing {
 	display: block;
 }
 
