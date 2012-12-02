@@ -86,6 +86,20 @@ var scroblr = (function (moment) {
 		return seconds * 1000;
 	}
 
+	function createGUID() {
+		var S4 = function () {
+			return Math.floor(Math.random() * 0x10000).toString(16);
+		};
+
+		return (
+			S4() + S4() + "-" +
+			S4() + "-" +
+			S4() + "-" +
+			S4() + "-" +
+			S4() + S4() + S4()
+		);
+	}
+
 	/**
 	 * Calculates the amount of milliseconds that have passed since the track
 	 * started playing.
@@ -109,6 +123,7 @@ var scroblr = (function (moment) {
 				host    = plugins[key];
 				host.id = host.name.toUpperCase() + moment().valueOf();
 				poller  = window.setInterval(pollTrackInfo, 5000);
+				plugins.length = 0;
 				break;
 			}
 		}
@@ -123,32 +138,39 @@ var scroblr = (function (moment) {
 		newTrack    = new Track(host.scrape());
 		newTrackStr = newTrack.toString();
 
+		if (!newTrackStr) {
+			return false;
+		}
+
 		if (currentTrack) {
 			prevTrack    = currentTrack;
 			prevTrackStr = prevTrack.toString();
 		}
 
-		if (newTrackStr) {
-			if (newTrackStr !== prevTrackStr) { // New track is playing
-				updateNowPlaying(newTrack);
-			} else if (!newTrack.stopped === true) { // A track continues to play
-				updateObj = {
-					hostid: newTrack.hostid
-				};
+		// A new track is playing
+		if (newTrackStr !== prevTrackStr) {
+			newTrack.id  = createGUID();
+			currentTrack = newTrack;
+			sendMessage("nowPlaying", newTrack);
 
-				["album", "duration", "elapsed", "percent", "score", "stopped"].forEach(
-						function (val, i) {
+		// A track continues to play
+		} else if (!newTrack.stopped === true) {
+			updateObj = {
+				id: newTrack.id
+			};
 
-					if (newTrack.hasOwnProperty(val) && newTrack[val] !== prevTrack[val]) {
-						prevTrack[val] = newTrack[val];
-						updateObj[val] = newTrack[val];
-					} else if (val === "elapsed" && !newTrack.hasOwnProperty(val)) {
-						prevTrack[val] = getElapsedTime(prevTrack.dateTime);
-						updateObj[val] = prevTrack[val];
-					}
-				});
-				sendMessage("updateCurrentTrack", updateObj);
-			}
+			["album", "duration", "elapsed", "percent", "score", "stopped"].forEach(
+					function (val) {
+
+				if (newTrack.hasOwnProperty(val) && newTrack[val] !== prevTrack[val]) {
+					prevTrack[val] = newTrack[val];
+					updateObj[val] = newTrack[val];
+				} else if (val === "elapsed" && !newTrack.hasOwnProperty(val)) {
+					prevTrack[val] = getElapsedTime(prevTrack.dateTime);
+					updateObj[val] = prevTrack[val];
+				}
+			});
+			sendMessage("updateCurrentTrack", updateObj);
 		}
 	}
 
@@ -180,15 +202,6 @@ var scroblr = (function (moment) {
 		return str.replace(/^\s+/g, "").replace(/\s+$/g, "");
 	}
 
-	/**
-	 * @param {object} track
-	 * @private
-	 */
-	function updateNowPlaying(track) {
-		currentTrack = track;
-		sendMessage("nowPlaying", track);
-	}
-
 	return {
 		init: init,
 		registerHost: registerPlugin,
@@ -197,5 +210,3 @@ var scroblr = (function (moment) {
 		}
 	};
 }(moment));
-
-window.onload = scroblr.init;

@@ -6,7 +6,7 @@ API_SEC         = "0193a089b025f8cfafcc922e54b93706";
 API_URL         = "http://ws.audioscrobbler.com/2.0/";
 LASTFM_AUTH_URL = "http://www.last.fm/api/auth/?api_key=" + API_KEY + "&cb=";
 currentTrack    = null;
-history         = {};
+history         = [];
 keepalive       = null;
 lf_auth_waiting = false;
 lf_session      = JSON.parse(localStorage.lf_session || null);
@@ -332,11 +332,7 @@ function openAuthWindow() {
 
 function pushTrackToHistory(track) {
 	if (track) {
-
-		if (!history.hasOwnProperty(track.hostid)) {
-			history[track.hostid] = [];
-		}
-		history[track.hostid].push(track);
+		history.push(track);
 	}
 }
 
@@ -370,19 +366,15 @@ function scrobble(track) {
 	}
 }
 
+/**
+ * Scrobbles any tracks in the history array that have not been scrobbled yet.
+ */
 function scrobbleHistory() {
-	var i, key, max, track;
-
-	for (key in history) {
-		if (history.hasOwnProperty(key)) {
-
-			for (i = 0, max = history[key].length; i < max; i += 1) {
-				track = history[key][i];
-
-				if (!track.scrobbled && trackShouldBeScrobbled(track)) {
-					scrobble(track);
-				}
-			}
+	var i, max, track;
+	for (i = 0, max = history.length; i < max; i += 1) {
+		track = history[i];
+		if (!track.scrobbled && trackShouldBeScrobbled(track)) {
+			scrobble(track);
 		}
 	}
 }

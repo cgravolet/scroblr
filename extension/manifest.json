@@ -30,7 +30,8 @@
 				"js/plugins/thisismyjam.js",
 				"js/plugins/turntable.js",
 				"js/plugins/twonky.js",
-				"js/plugins/we7.js"
+				"js/plugins/we7.js",
+				"js/scroblr-injection-init.js"
 			],
 			"all_frames": true
 		}
