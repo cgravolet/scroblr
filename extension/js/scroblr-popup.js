@@ -142,7 +142,6 @@ var scroblrBar = (function (model) {
 		$(".score").empty().show();
 		$(document.body).removeClass();
 		$("#lastfmWaitingAuth").hide();
-		updateCurrentTrack({score: 50});
 	}
 
 	function updateNowPlaying (data) {
@@ -183,19 +182,14 @@ var scroblrBar = (function (model) {
 	function updateCurrentTrack (data) {
 		var $score = $(".score");
 
-		// if (data.duration) {
-		// 	currentTrack.duration = data.duration;
-		// 	$(".now-playing .track em").text(formatDuration(data.duration));
-		// }
-
 		if (data.score) {
 			$score.removeClass("is-bad is-good");
-			$score.html(data.score + "%").show();
+			$score.html("Room score: " + data.score + "%").show();
 
-			if (data.score > 50) {
-				$score.addClass("is-good");
-			} else if (data.score < 50) {
+			if (data.score < 50) {
 				$score.addClass("is-bad");
+			} else {
+				$score.addClass("is-good");
 			}
 		}
 	}

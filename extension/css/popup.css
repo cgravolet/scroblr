@@ -112,7 +112,7 @@ section {
 	width: 100%;
 }
 
-.is-listening .now-playing {
+.is-active .now-playing {
 	display: block;
 }
 
@@ -146,21 +146,25 @@ section {
 		}
 
 .score {
-	background: rgba(0, 0, 0, 0.8);
-	-webkit-border-top-left-radius: 7px;
-	bottom: 0;
-	color: rgba(150, 150, 150, 0.6);
+	background: #BCFFC2;
+	-webkit-border-radius: 9px;
+	-webkit-box-shadow: 0 1px 5px #555;
+	bottom: 7px;
+	color: #5D7F2C;
 	display: none;
-	font-size: 32px;
 	font-weight: bold;
+	height: 16px;
+	line-height: 16px;
 	margin: 0;
-	padding: 7px;
+	padding: 1px 6px;
 	position: absolute;
-	right: 0;
+	right: 7px;
 }
 
-.is-bad  {color: rgba(200, 150, 150, 0.6);}
-.is-good {color: rgba(150, 200, 150, 0.6);}
+.is-bad  {
+	background: #FFD6D6;
+	color: #7F321D;
+}
 
 /* ==============================
  * Settings
