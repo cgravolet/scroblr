@@ -117,6 +117,16 @@ if (!isJango || isJangoPlayer) {
 						};
 					},
 
+					indieshuffle: function () {
+						return {
+							artist: $("#now-playing-title strong").text(),
+							duration: calculateDuration($("#jplayer_total_time").text()),
+							elapsed: calculateDuration($("#jplayer_play_time").text()),
+							name: $("#now-playing-title a").clone().find("strong").remove().end().text(),
+							stopped: !$("#play-pause").hasClass("playing")
+						};
+					},
+
 					jango: function () {
 						var artist = $("#player_info #player_current_artist").contents().not($("span")).eq(0).text();
 
@@ -304,6 +314,9 @@ if (!isJango || isJangoPlayer) {
 			}
 			else if (hostname.indexOf('google') >= 0) {
 				host = 'google';
+			}
+			else if (hostname.indexOf('indieshuffle') >= 0) {
+				host = 'indieshuffle';
 			}
 			else if (hostname.indexOf('jango') >= 0) {
 				host = 'jango';

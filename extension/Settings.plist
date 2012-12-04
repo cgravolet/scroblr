@@ -42,6 +42,16 @@
 		<key>DefaultValue</key>
 		<true/>
 		<key>Key</key>
+		<string>enable_indieshuffle</string>
+		<key>Title</key>
+		<string>Indie Shuffle</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
 		<string>enable_jango</string>
 		<key>Title</key>
 		<string>Jango</string>

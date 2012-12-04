@@ -14,11 +14,8 @@ body {
 	-moz-box-shadow: 0 0 5px 5px #000;
 	-webkit-box-shadow: 0 0 5px 5px #000;
 	box-shadow: 0 0 5px 5px #000;
-	left: 50%;
-	margin: -272px 0 0 -266px;
+	margin: 70px auto 0;
 	padding: 15px;
-	position: absolute;
-	top: 50%;
 	width: 500px;
 	}
 
@@ -68,6 +65,7 @@ h1 {
 				#supported li.bandcamp a { background-image: url(../img/icons/bandcamp.png); }
 				#supported li.google a { background-image: url(../img/icons/google.png); }
 				#supported li.grooveshark a { background-image: url(../img/icons/grooveshark.png); }
+				#supported li.indieshuffle a { background-image: url(../img/icons/indieshuffle.png); }
 				#supported li.jango a { background-image: url(../img/icons/jango.png); }
 				#supported li.playerfm a { background-image: url(../img/icons/playerfm.png); }
 				#supported li.rhapsody a { background-image: url(../img/icons/rhapsody.png); }
@@ -86,21 +84,3 @@ h1 {
 footer p {
 	margin-bottom: 0;
 	}
-
-@media all and (max-height: 544px) {
-	body {
-		left: auto;
-		margin: 0 auto;
-		position: static;
-		top: auto;
-	}
-}
-
-@media all and (max-width: 525px) {
-	body {
-		border: 0;
-		left: 0;
-		margin-left: 0;
-		width: auto;
-	}
-}

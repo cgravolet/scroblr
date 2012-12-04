@@ -17,6 +17,8 @@
 				"http://*.bandcamp.com/*",
 				"http://play.google.com/music/*",
 				"https://play.google.com/music/*",
+				"http://*.indieshuffle.com/*",
+				"https://*.indieshuffle.com/*",
 				"http://*.napster.de/*",
 				"http://*.pandora.com/*",
 				"https://*.pandora.com/*",
@@ -64,6 +66,6 @@
 	"web_accessible_resources": [
 		"img/scroblr64.png"
 	],
-	"version": "0.9.76",
+	"version": "0.9.77",
 	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
 }
