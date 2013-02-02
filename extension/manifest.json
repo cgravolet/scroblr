@@ -29,6 +29,7 @@
 				"https://*.soundcloud.com/*",
 				"http://*.thisismyjam.com/*",
 				"http://*.turntable.fm/*",
+				"https://*.turntable.fm/*",
 				"http://*.twonky.com/*"
 			],
 			"js": [
