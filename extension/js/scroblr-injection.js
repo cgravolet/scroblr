@@ -66,9 +66,15 @@ if (!isJango || isJangoPlayer) {
 				scrape = {
 
 					accuradio: function () {
+						var artist = $('#span_information_artist').text();
+
+						if (artist.indexOf("Click here") >= 0) {
+							artist = "";
+						}
+
 						return {
 							album: $('#span_information_album').text(),
-							artist: $('#span_information_artist').text(),
+							artist: artist,
 							name: $('#span_information_title').text(),
 							stopped: $('#player_lowest_controls_wrapper #play').length ? true : false
 						};
@@ -128,7 +134,7 @@ if (!isJango || isJangoPlayer) {
 					},
 
 					jango: function () {
-						var artist = $("#player_info #player_current_artist").contents().not($("span")).eq(0).text();
+						var artist = $("#player_info #player_current_artist a").text();
 
 						if (artist.indexOf(String.fromCharCode(8230)) >= 0) {
 							artist = document.title.split(":")[0];
