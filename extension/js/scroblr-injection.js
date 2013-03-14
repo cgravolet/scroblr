@@ -115,12 +115,13 @@ if (!isJango || isJangoPlayer) {
 					},
 
 					google: function () {
-						return {
-							artist: $('#playerArtist .fade-out-content').attr('title'),
+						var info = {
+							artist: $('#player-artist .fade-out-content').text(),
 							duration: calculateDuration($('#duration').text()),
-							name: $('#playerSongTitle .fade-out-content').attr('title'),
+							name: $('#playerSongTitle .fade-out-content').text(),
 							stopped: ($('#playPause').attr('title') == 'Play')
 						};
+						return info;
 					},
 
 					indieshuffle: function () {
