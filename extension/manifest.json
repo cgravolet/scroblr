@@ -67,6 +67,6 @@
 	"web_accessible_resources": [
 		"img/scroblr64.png"
 	],
-	"version": "0.9.79",
+	"version": "0.9.80",
 	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
 }

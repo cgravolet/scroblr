@@ -116,10 +116,11 @@ if (!isJango || isJangoPlayer) {
 
 					google: function () {
 						var info = {
-							artist: $('#player-artist .fade-out-content').text(),
-							duration: calculateDuration($('#duration').text()),
-							name: $('#playerSongTitle .fade-out-content').text(),
-							stopped: ($('#playPause').attr('title') == 'Play')
+							album: $(".player-album").text(),
+							artist: $("#player-artist").text(),
+							duration: calculateDuration($("#duration").text()),
+							name: $("#playerSongTitle .fade-out-content").text(),
+							stopped: ($("#playPause").attr("title") == 'Play')
 						};
 						return info;
 					},
