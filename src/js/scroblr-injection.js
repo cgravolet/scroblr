@@ -1,4 +1,4 @@
-var scroblr = (function (moment) {
+var scroblr = (function () {
 
 	var currentTrack, host, Plugin, plugins, poller, Track;
 
@@ -24,15 +24,8 @@ var scroblr = (function (moment) {
 	 * @private
 	 */
 	Track = function (params) {
-		var key;
-
 		params = params || {};
-
-		for (key in params) {
-			if (params.hasOwnProperty(key)) {
-				this[key] = params[key];
-			}
-		}
+		$.extend(this, params);
 
 		this.host   = host.name;
 		this.hostid = host.id;
@@ -49,7 +42,7 @@ var scroblr = (function (moment) {
 			this.title = trim(this.title);
 		}
 
-		this.dateTime = moment().valueOf();
+		this.dateTime = (new Date()).valueOf();
 		this.toString = function () {
 			if (this.artist && this.title) {
 				return this.artist + " - " + this.title;
@@ -104,11 +97,11 @@ var scroblr = (function (moment) {
 	 * Calculates the amount of milliseconds that have passed since the track
 	 * started playing.
 	 *
-	 * @param {object} dateTime A moment object
+	 * @param {Number} dateTime Datetime value
 	 * @private
 	 */
 	function getElapsedTime(dateTime) {
-		var now = moment().valueOf();
+		var now = (new Date()).valueOf();
 		return now - dateTime;
 	}
 
@@ -121,7 +114,7 @@ var scroblr = (function (moment) {
 		for (var key in plugins) {
 			if (plugins.hasOwnProperty(key) && plugins[key].init()) {
 				host    = plugins[key];
-				host.id = host.name.toUpperCase() + moment().valueOf();
+				host.id = host.name.toUpperCase() + (new Date()).valueOf();
 				poller  = window.setInterval(pollTrackInfo, 5000);
 				plugins.length = 0;
 				break;
@@ -155,6 +148,7 @@ var scroblr = (function (moment) {
 
 		// A track continues to play
 		} else if (!newTrack.stopped === true) {
+			newTrack.id = prevTrack.id;
 			updateObj = {
 				id: newTrack.id
 			};
@@ -209,4 +203,4 @@ var scroblr = (function (moment) {
 			calculateDuration: calculateDuration
 		}
 	};
-}(moment));
+}());
