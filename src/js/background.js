@@ -9,9 +9,17 @@ API_URL         = "http://ws.audioscrobbler.com/2.0/";
 LASTFM_AUTH_URL = "http://www.last.fm/api/auth/?api_key=" + API_KEY + "&cb=";
 currentTrack    = null;
 history         = [];
-keepalive       = null;
 lf_auth_waiting = false;
 lf_session      = JSON.parse(localStorage.lf_session || null);
+
+function doNotScrobbleCurrentTrack() {
+	if (currentTrack.noscrobble) {
+		currentTrack.noscrobble = false;
+	} else {
+		currentTrack.noscrobble = true;
+	}
+	sendMessage("trackNoScrobbleSet");
+}
 
 /**
  * Helper function that takes Last.fm request parameters, appends the api secret
@@ -179,18 +187,6 @@ function initialize() {
 }
 
 /**
- * Function that gets run every couple seconds while a song is playing and
- * resets the keepAlive timeout. This is how the extension understands when a
- * scrobbling window gets closed or the song stops playing.
- */
-function keepAlive() {
-	window.clearTimeout(keepalive);
-	keepalive = window.setTimeout(function () {
-		currentTrack = null;
-	}, 15000);
-}
-
-/**
  * Clears the current users session from local memory
  */
 function logoutUser() {
@@ -204,19 +200,23 @@ function logoutUser() {
  *
  * @param {boolean} love She loves me. She loves me not. (True or False)
  */
-function loveTrack(love) {
+function loveTrack() {
 	var params = {
 		api_key: API_KEY,
 		sk:      lf_session.key,
 		artist:  currentTrack.artist,
-		track:   currentTrack.name
+		track:   currentTrack.title
 	};
 
-	if (love) {
+	if (currentTrack.loved === false) {
+		currentTrack.loved = true;
 		sendRequest("track.love", params);
-	} else {
+	} else if (currentTrack.loved === true) {
+		currentTrack.loved = false;
 		sendRequest("track.unlove", params);
 	}
+
+	sendMessage("trackLoved");
 }
 
 /**
@@ -233,21 +233,18 @@ function messageHandler(msg) {
 	case "authButtonClicked":
 		openAuthWindow();
 		break;
-	case "keepAlive":
-		keepAlive();
+	case "doNotScrobbleButtonClicked":
+		doNotScrobbleCurrentTrack();
 		break;
 	case "logoutLinkClicked":
 		logoutUser();
 		break;
-	case "loveTrack":
-		loveTrack(true);
+	case "loveTrackButtonClicked":
+		loveTrack();
 		break;
 	case "nowPlaying":
 		updateNowPlaying(msg.message);
 		getTrackInfo(msg.message);
-		break;
-	case "unloveTrack":
-		loveTrack(false);
 		break;
 	case "updateCurrentTrack":
 		updateCurrentTrack(msg.message);
@@ -416,8 +413,8 @@ function trackShouldBeScrobbled(track) {
 	listenedToMoreThanHalf = (track.elapsed >= track.duration / 2);
 	noDurationWithElapsed  = (track.duration === 0 && track.elapsed > 30000);
 
-	return (greaterThan30s && (listenedTo4m || listenedToMoreThanHalf)) ||
-				 noDurationWithElapsed;
+	return !track.noscrobble && ((greaterThan30s && (listenedTo4m ||
+			listenedToMoreThanHalf)) || noDurationWithElapsed);
 }
 
 /**
@@ -426,6 +423,12 @@ function trackShouldBeScrobbled(track) {
  * @param {object} data
  */
 function updateCurrentTrack(data) {
+	window.clearTimeout(keepalive);
+	keepalive = window.setTimeout(function () {
+		currentTrack = null;
+		sendMessage("keepAliveExpired");
+	}, 15000);
+
 	for (var key in data) {
 		if (data.hasOwnProperty(key)) {
 			currentTrack[key] = data[key];

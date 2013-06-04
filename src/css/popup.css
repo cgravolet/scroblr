@@ -165,6 +165,7 @@ header {
 	height: 100px;
 	float: left;
 	margin: 10px;
+	position: relative;
 	width: 100px;
 }
 
@@ -174,8 +175,27 @@ header {
 		width: 100px;
 	}
 
+	.turntable-score {
+		background: #BAFDC2;
+		-webkit-border-radius: 9px;
+		        border-radius: 9px;
+		bottom: 5px;
+		color: #5D7F2C;
+		display: block;
+		height: 16px;
+		left: 5px;
+		line-height: 16px;
+		position: absolute;
+		text-align: center;
+		width: 38px;
+	}
+
+	.bad-score {
+		background-color: #FFD6D6;
+		color: #7F321D;
+	}
+
 .track-info {
-	font-size: 13px;
 	line-height: 18px;
 	margin: 20px 0 0 120px;
 	overflow: hidden;
@@ -224,9 +244,13 @@ header {
 			opacity: 1;
 		}
 
-		.track-actions a[href="#doNotScrobble"] {
+		.track-actions #doNotScrobbleBtn {
 			background-image: url(../img/icon-negative.png);
 			background-size: 16px 16px;
+		}
+
+		.track-actions a.track-loved {
+			background-image: url(../img/icon-love-active.png);
 		}
 
 /* ==============================

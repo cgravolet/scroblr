@@ -19,11 +19,34 @@ var scroblrView = (function (model, Mustache) {
 			openNewTab($(this).attr("href"));
 		});
 
+		$body.on("click", "#doNotScrobbleBtn", function (e) {
+			e.preventDefault();
+			model.messageHandler({
+				name: "doNotScrobbleButtonClicked"
+			});
+		});
+
+		$body.on("click", "#loveTrackBtn", function (e) {
+			e.preventDefault();
+			model.messageHandler({
+				name: "loveTrackButtonClicked"
+			});
+		});
+
 		chrome.extension.onMessage.addListener(messageHandler);
 	}
 
 	function displaySection(section) {
 		$body.removeClass().addClass("show-" + section);
+	}
+
+	function doNotScrobbleTrack() {
+		if (model.currentTrack.dontscrobble) {
+			model.currentTrack.dontscrobble = false;
+		} else {
+			model.currentTrack.dontscrobble = true;
+		}
+		renderNowPlaying();
 	}
 
 	function initialize() {
@@ -39,6 +62,21 @@ var scroblrView = (function (model, Mustache) {
 
 	function messageHandler (msg) {
 		switch (msg.name) {
+		case "keepAliveExpired": // intentional fall-through
+		case "trackLoved":
+		case "trackNoScrobbleSet":
+		case "songInfoRetrieved":
+			window.setTimeout(function () {
+				renderNowPlaying();
+			}, 500);
+			break;
+		case "updateCurrentTrack":
+			if (msg.message.hasOwnProperty("score")) {
+				window.setTimeout(function () {
+					renderNowPlaying();
+				}, 500);
+			}
+			break;
 		}
 		console.log(msg.name, msg.message);
 	}
@@ -55,13 +93,20 @@ var scroblrView = (function (model, Mustache) {
 	}
 
 	function renderNowPlaying() {
-		var $nowPlaying, data, template, track;
+		var $nowPlaying, template;
 
 		$nowPlaying = $("section.now-playing");
 		template    = $.trim($("#tmplNowPlaying").html());
-		track       = model.currentTrack || {};
 
-		$nowPlaying.html(Mustache.render(template, track));
+		if (model.currentTrack.hasOwnProperty("score")) {
+			if (model.currentTrack.score <= 50) {
+				model.currentTrack.badscore = true;
+			} else {
+				model.currentTrack.badscore = false;
+			}
+		}
+
+		$nowPlaying.html(Mustache.render(template, model.currentTrack));
 	}
 
 	initialize();

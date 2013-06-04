@@ -38,32 +38,38 @@
                 {{#image}}
                     <img src="{{image}}" width="100" height="100" alt="" />
                 {{/image}}
+                {{#score}}
+                <strong class="turntable-score {{#badscore}}bad-score{{/badscore}}">{{score}}%</strong>
+                {{/score}}
             </div>
             <div class="track-info">
                 {{#url_artist}}
-                    <a href="{{url_artist}}" class="goto-link">{{artist}}</a><br />
+                    <a href="{{url_artist}}" class="goto-link" title="{{artist}}">{{artist}}</a><br />
                 {{/url_artist}}
                 {{^url_artist}}
                     {{artist}}<br />
                 {{/url_artist}}
 
                 {{#url_track}}
-                    <strong><a href="{{url_track}}" class="goto-link">{{title}}</a></strong><br />
+                    <strong><a href="{{url_track}}" class="goto-link" title="{{title}}">{{title}}</a></strong><br />
                 {{/url_track}}
                 {{^url_track}}
                     <strong>{{title}}</strong><br />
                 {{/url_track}}
 
                 {{#url_album}}
-                    <em><a href="{{url_album}}" class="goto-link">{{album}}</a></em>
+                    <em><a href="{{url_album}}" class="goto-link" title="{{album}}">{{album}}</a></em>
                 {{/url_album}}
                 {{^url_album}}
                     <em>{{album}}</em>
                 {{/url_album}}
             </div>
             <ul class="track-actions">
-                <li><a href="#loveTrack">Love this track?</a></li>
-                <li><a href="#doNotScrobble">Don't scrobble this track?</a></li>
+                <li><a href="#loveTrack" id="loveTrackBtn" class="{{#loved}}track-loved{{/loved}}"
+                        title="Love this track?">Love this track?</a></li>
+                <li><a href="#doNotScrobble" id="doNotScrobbleBtn"
+                        class="{{#noscrobble}}do-not-scrobble{{/noscrobble}}"
+                        title="Don't scrobble this track?">Don't scrobble this track?</a></li>
             </ul>
         {{/title}}
         {{^title}}
