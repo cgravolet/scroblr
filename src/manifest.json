@@ -24,6 +24,7 @@
 				"js/plugins/soundcloud.js",
 				"js/plugins/songza.js",
 				"js/plugins/accuradio.js",
+				"js/plugins/indieshuffle.js",
 				"js/plugins/jango.js",
 				"js/plugins/playerfm.js",
 				"js/plugins/rhapsody.js",
