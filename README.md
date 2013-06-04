@@ -8,7 +8,6 @@
 - TODO: Ability to tag/love tracks
 - TODO: Better sharing options
 - TODO: A more robust build process
-- TODO: Unit tests!
 
 ##What is scroblr?
 
@@ -16,20 +15,19 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 
 ##Currently supports scrobbling from:
 
-- Pandora
-- Turntable.fm
-- Google Music Beta
-- Amazon Cloud Player
 - AccuRadio
+- Amazon Cloud Player
 - Bandcamp
-- Grooveshark
+- Google Play
 - Jango
+- Pandora
 - Player.fm
 - Rhapsody
+- Songza
 - Soundcloud
 - This Is My Jam
+- Turntable.fm
 - Twonky
-- we7
 
 ##What's "scrobbling?"
 

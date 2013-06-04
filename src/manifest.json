@@ -43,7 +43,6 @@
 		"128": "img/scroblr128.png"
 	},
 	"name": "scroblr",
-	"options_page": "options.html",
 	"permissions": [
 		"notifications",
 		"tabs",

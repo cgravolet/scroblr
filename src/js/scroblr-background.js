@@ -1,5 +1,7 @@
+"use strict";
+
 var API_KEY, API_SEC, API_URL, LASTFM_AUTH_URL, currentTrack, history,
-	lf_session, lf_sessioncache, lf_auth_waiting, keepalive;
+	lf_session, lf_auth_waiting, keepalive;
 
 API_KEY         = "59c070288bfca89ca9700fde083969bb";
 API_SEC         = "0193a089b025f8cfafcc922e54b93706";
@@ -10,11 +12,6 @@ history         = [];
 keepalive       = null;
 lf_auth_waiting = false;
 lf_session      = JSON.parse(localStorage.lf_session || null);
-lf_sessioncache = JSON.parse(localStorage.lf_sessioncache || null);
-
-if (!lf_sessioncache) {
-	lf_sessioncache = {};
-}
 
 /**
  * Helper function that takes Last.fm request parameters, appends the api secret
@@ -53,15 +50,7 @@ function getApiSignature(params) {
  * @param {string} option The name of the option (ex. "pandora")
  */
 function getOptionStatus(option) {
-	var setting;
-
-	if (typeof chrome != "undefined") {
-		setting = localStorage["enable_" + option];
-	} else if (typeof safari != "undefined") {
-		setting = safari.extension.settings["enable_" + option];
-	}
-
-	return setting === undefined;
+	return !localStorage["disable_" + option];
 }
 
 /**
@@ -99,9 +88,9 @@ function getTrackInfoCallback(data) {
 		album:      $("track > album title", data).text() || currentTrack.album || "",
 		image:      $("track > album image[size=large]", data).text() || "",
 		loved:      $("track userloved").text() == "1",
-		url:        $("track > url", data).text() || "",
 		url_album:  $("track > album url", data).text() || "",
 		url_artist: $("track > artist url", data).text() || "",
+		url_track:  $("track > url", data).text() || "",
 		tags:       []
 	};
 
@@ -164,26 +153,9 @@ function getUserSessionCallback(data) {
 			key:        $("session key", data).text(),
 			subscriber: $("session subscriber", data).text() == "1"
 		};
-		lf_sessioncache[lf_session.name] = lf_session;
-		localStorage.lf_sessioncache = JSON.stringify(lf_sessioncache);
 	}
 	localStorage.lf_session = JSON.stringify(lf_session);
 	sendMessage("initUserForm", null);
-}
-
-/**
- * Attempts to find the user's session information in local memory, otherwise it
- * needs to send the user to authorization in order to request a valid session
- * token
- */
-function getUserSessionFromCache(user) {
-	if (lf_sessioncache.hasOwnProperty(user)) {
-		lf_session = lf_sessioncache[user];
-		localStorage.lf_session = JSON.stringify(lf_session);
-		sendMessage("initUserForm", null);
-	} else {
-		openAuthWindow();
-	}
 }
 
 /**
@@ -258,14 +230,11 @@ function messageHandler(msg) {
 	case "accessGranted":
 		getUserSession(msg.message);
 		break;
-	case "cancelAuthLinkClicked":
-		sendMessage("initUserForm", null);
+	case "authButtonClicked":
+		openAuthWindow();
 		break;
 	case "keepAlive":
 		keepAlive();
-		break;
-	case "loginFormSubmitted":
-		getUserSessionFromCache(msg.message);
 		break;
 	case "logoutLinkClicked":
 		logoutUser();
@@ -344,9 +313,9 @@ function pushTrackToHistory(track) {
  *                       artist: "Big Black", duration: etc...})
  */
 function scrobble(track) {
-	var hostEnabled, requestParams;
+	var requestParams, scrobblingEnabled;
 
-	hostEnabled = getOptionStatus(track.host);
+	scrobblingEnabled = getOptionStatus("scrobbling");
 	requestParams = {
 		api_key:   API_KEY,
 		artist:    track.artist,
@@ -359,7 +328,7 @@ function scrobble(track) {
 		requestParams.album = track.album;
 	}
 
-	if (lf_session && hostEnabled) {
+	if (lf_session && scrobblingEnabled) {
 		sendRequest("track.scrobble", requestParams, function () {
 			track.scrobbled = true;
 		});
@@ -398,7 +367,7 @@ function sendMessage(name, message) {
 		i = bars.length;
 
 		while (i--) {
-			bars[i].contentWindow.scroblrBar.messageHandler({
+			bars[i].contentWindow.scroblrView.messageHandler({
 				name: name,
 				message: message
 			});
@@ -470,15 +439,15 @@ function updateCurrentTrack(data) {
  * @param {object} track
  */
 function updateNowPlaying(track) {
-	var params, hostEnabled;
+	var params, scrobblingEnabled;
 
-	hostEnabled  = getOptionStatus(track.host);
+	scrobblingEnabled = getOptionStatus("scrobbling");
 	notify({
 		message: track.artist + " - " + track.title,
 		title:   "Now Playing"
 	});
 
-	if (lf_session && hostEnabled) {
+	if (lf_session && scrobblingEnabled) {
 		params = {
 			api_key:  API_KEY,
 			artist:   track.artist,
