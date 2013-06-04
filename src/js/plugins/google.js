@@ -8,10 +8,11 @@
 
 	plugin.scrape = function () {
 		return {
-			artist:   $("#playerArtist .fade-out-content").attr("title"),
+			album: $(".player-album").text(),
+			artist: $("#player-artist").text(),
 			duration: scroblr.utilities.calculateDuration($("#duration").text()),
-			stopped:  $("#playPause").attr("title") === "Play",
-			title:    $("#playerSongTitle .fade-out-content").attr("title")
+			title: $("#playerSongTitle .fade-out-content").text(),
+			stopped: ($("#playPause").attr("title") == "Play")
 		};
 	};
 }(Zepto));
