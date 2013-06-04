@@ -59,13 +59,9 @@ var scroblrView = (function (model, Mustache) {
 
 		$nowPlaying = $("section.now-playing");
 		template    = $.trim($("#tmplNowPlaying").html());
-		track       = model.currentTrack;
-		data        = {
-			host:    track ? track.host : null,
-			playing: track ? true : false
-		};
+		track       = model.currentTrack || {};
 
-		$nowPlaying.html(Mustache.render(template, data));
+		$nowPlaying.html(Mustache.render(template, track));
 	}
 
 	initialize();

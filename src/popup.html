@@ -25,18 +25,48 @@
 
     <script type="text/template" id="tmplNowPlaying">
         <header>
-            {{#playing}}
+            {{#host}}
                 <span class="player-icon {{host}}">NOW PLAYING</span>
-            {{/playing}}
-            {{^playing}}
+            {{/host}}
+            {{^host}}
                 WHERE'S THE MUSIC?
-            {{/playing}}
+            {{/host}}
             <a href="#settings" class="settings-button goto-section">Settings</a>
         </header>
-        {{#playing}}
-            Playing some music now...
-        {{/playing}}
-        {{^playing}}
+        {{#title}}
+            <div class="album-art">
+                {{#image}}
+                    <img src="{{image}}" width="100" height="100" alt="" />
+                {{/image}}
+            </div>
+            <div class="track-info">
+                {{#url_artist}}
+                    <a href="{{url_artist}}" class="goto-link">{{artist}}</a><br />
+                {{/url_artist}}
+                {{^url_artist}}
+                    {{artist}}<br />
+                {{/url_artist}}
+
+                {{#url_track}}
+                    <strong><a href="{{url_track}}" class="goto-link">{{title}}</a></strong><br />
+                {{/url_track}}
+                {{^url_track}}
+                    <strong>{{title}}</strong><br />
+                {{/url_track}}
+
+                {{#url_album}}
+                    <em><a href="{{url_album}}" class="goto-link">{{album}}</a></em>
+                {{/url_album}}
+                {{^url_album}}
+                    <em>{{album}}</em>
+                {{/url_album}}
+            </div>
+            <ul class="track-actions">
+                <li><a href="#loveTrack">Love this track?</a></li>
+                <li><a href="#doNotScrobble">Don't scrobble this track?</a></li>
+            </ul>
+        {{/title}}
+        {{^title}}
             <ul class="launcher">
                 <li><a href="http://accuradio.com"
                     class="player-icon goto-link accuradio">AccuRadio</a></li>
@@ -67,7 +97,7 @@
                 <li><a href="http://my.twonky.com"
                     class="player-icon goto-link twonky">Twonky</a></li>
             </ul>
-        {{/playing}}
+        {{/title}}
     </script>
 
     <script src="js/lib/jquery-2.0.2.js"></script>

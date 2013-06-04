@@ -114,7 +114,7 @@ header {
 			color: #333;
 			display: inline-block;
 			font-size: 11px;
-			margin-bottom: 3px;
+			margin-bottom: 5px;
 			text-decoration: none;
 			width: 100px;
 		}
@@ -128,11 +128,11 @@ header {
  * ============================== */
 
 .now-playing header {
-	color: #999;
+	color: #666;
 }
 
 .player-icon:before {
-	background: transparent url(../img/icons/pandora.png) no-repeat center center;
+	background: transparent url(../img/icons/now-playing.png) no-repeat center center;
 	bottom: 1px;
 	content: "";
 	display: inline-block;
@@ -150,6 +150,7 @@ header {
 .google:before       { background-image: url(../img/icons/google.png); }
 .indieshuffle:before { background-image: url(../img/icons/indieshuffle.png); }
 .jango:before        { background-image: url(../img/icons/jango.png); }
+.pandora:before      { background-image: url(../img/icons/pandora.png); }
 .playerfm:before     { background-image: url(../img/icons/playerfm.png); }
 .rhapsody:before     { background-image: url(../img/icons/rhapsody.png); }
 .songza:before       { background-image: url(../img/icons/songza.png); }
@@ -157,6 +158,76 @@ header {
 .thisismyjam:before  { background-image: url(../img/icons/thisismyjam.png); }
 .turntable:before    { background-image: url(../img/icons/turntable.png); }
 .twonky:before       { background-image: url(../img/icons/twonky.png); }
+
+.album-art {
+	background: transparent url(../img/album-art-default.png) no-repeat center center;
+	background-size: 100px 100px;
+	height: 100px;
+	float: left;
+	margin: 10px;
+	width: 100px;
+}
+
+	.album-art img {
+		-webkit-box-shadow: 0 0 3px 0 #999;
+		height: 100px;
+		width: 100px;
+	}
+
+.track-info {
+	font-size: 13px;
+	line-height: 18px;
+	margin: 20px 0 0 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 190px;
+}
+
+	.track-info a {
+		color: #000;
+		text-decoration: none;
+	}
+
+	.track-info a:hover {
+		text-decoration: underline;
+	}
+
+.track-actions {
+	display: block;
+	margin: 5px 0 0 120px;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	width: 190px;
+}
+
+	.track-actions li {
+		display: inline;
+		list-style: none;
+	}
+
+		.track-actions a {
+			background: transparent url(../img/icon-love.png) no-repeat center center;
+			color: #000;
+			display: inline-block;
+			height: 22px;
+			opacity: 0.5;
+			overflow: hidden;
+			text-decoration: none;
+			text-indent: 100%;
+			white-space: nowrap;
+			width: 22px;
+		}
+
+		.track-actions a:hover {
+			opacity: 1;
+		}
+
+		.track-actions a[href="#doNotScrobble"] {
+			background-image: url(../img/icon-negative.png);
+			background-size: 16px 16px;
+		}
 
 /* ==============================
  * Edit track info section
