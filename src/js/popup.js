@@ -33,31 +33,38 @@ var scroblrView = (function (model, Mustache) {
 			});
 		});
 
+		$body.on("click", "#logoutLink", function (e) {
+			e.preventDefault();
+			model.messageHandler({
+				name: "logoutLinkClicked"
+			});
+		});
+
+		$(".settings-options input").on("change", function (e) {
+			changeSettingsOption.call(this, e);
+		});
+
 		chrome.extension.onMessage.addListener(messageHandler);
+	}
+
+	function changeSettingsOption(e) {
+		var id = $(this).attr("id");
+
+		if (this.checked) {
+			localStorage.removeItem(id);
+		} else {
+			localStorage[id] = "true";
+		}
 	}
 
 	function displaySection(section) {
 		$body.removeClass().addClass("show-" + section);
 	}
 
-	function doNotScrobbleTrack() {
-		if (model.currentTrack.dontscrobble) {
-			model.currentTrack.dontscrobble = false;
-		} else {
-			model.currentTrack.dontscrobble = true;
-		}
-		renderNowPlaying();
-	}
-
 	function initialize() {
 		attachBehaviors();
-
-		if (!model.lf_session) {
-			$body.addClass("show-authenticate");
-		} else {
-			renderNowPlaying();
-			$body.addClass("show-now-playing");
-		}
+		populateSettingsOptions();
+		showStartScreen();
 	}
 
 	function messageHandler (msg) {
@@ -77,8 +84,10 @@ var scroblrView = (function (model, Mustache) {
 				}, 500);
 			}
 			break;
+		case "userLoggedOut":
+			showStartScreen();
+			break;
 		}
-		console.log(msg.name, msg.message);
 	}
 
 	function openNewTab(url) {
@@ -92,13 +101,32 @@ var scroblrView = (function (model, Mustache) {
 		}
 	}
 
+	function populateSettingsOptions() {
+		var i, max, options;
+
+		options = [
+			"disable_scrobbling",
+			"disable_notifications",
+			"disable_autodismiss"
+		];
+
+		for (i = 0, max = options.length; i < max; i += 1) {
+			if (localStorage[options[i]] === "true") {
+				$("#" + options[i]).prop("checked", false);
+			}
+		}
+
+		$("#userProfile").text(model.lf_session.name).attr("href",
+				"http://last.fm/user/" + model.lf_session.name);
+	}
+
 	function renderNowPlaying() {
 		var $nowPlaying, template;
 
 		$nowPlaying = $("section.now-playing");
 		template    = $.trim($("#tmplNowPlaying").html());
 
-		if (model.currentTrack.hasOwnProperty("score")) {
+		if (model.currentTrack && model.currentTrack.hasOwnProperty("score")) {
 			if (model.currentTrack.score <= 50) {
 				model.currentTrack.badscore = true;
 			} else {
@@ -107,6 +135,17 @@ var scroblrView = (function (model, Mustache) {
 		}
 
 		$nowPlaying.html(Mustache.render(template, model.currentTrack));
+	}
+
+	function showStartScreen() {
+		$body.removeClass();
+
+		if (!model.lf_session) {
+			$body.addClass("show-authenticate");
+		} else {
+			renderNowPlaying();
+			$body.addClass("show-now-playing");
+		}
 	}
 
 	initialize();

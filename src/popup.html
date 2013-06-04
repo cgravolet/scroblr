@@ -19,8 +19,21 @@
 
     <section class="settings">
         <header>
+            SETTINGS
             <a href="#now-playing" class="back-button goto-section">Back</a>
         </header>
+        <p class="settings-user">
+            You are logged in as: <a href="" id="userProfile" class="goto-link user-profile"></a>
+            (<a href="#logout" id="logoutLink">logout</a>)
+        </p>
+        <p class="settings-options">
+            <input type="checkbox" checked="checked" id="disable_scrobbling" value="0" />
+            <label for="disable_scrobbling">Enable scrobbling</label><br />
+            <input type="checkbox" checked="checked" id="disable_notifications" value="0" />
+            <label for="disable_notifications">Enable notifications</label><br />
+            <input type="checkbox" checked="checked" id="disable_autodismiss" value="0" />
+            <label for="disable_autodismiss">Auto-dismiss notifications after 5 seconds</label>
+        </p>
     </section>
 
     <script type="text/template" id="tmplNowPlaying">
@@ -39,7 +52,7 @@
                     <img src="{{image}}" width="100" height="100" alt="" />
                 {{/image}}
                 {{#score}}
-                <strong class="turntable-score {{#badscore}}bad-score{{/badscore}}">{{score}}%</strong>
+                    <strong class="turntable-score {{#badscore}}bad-score{{/badscore}}">{{score}}%</strong>
                 {{/score}}
             </div>
             <div class="track-info">

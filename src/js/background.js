@@ -192,7 +192,7 @@ function initialize() {
 function logoutUser() {
 	localStorage.removeItem("lf_session");
 	lf_session = null;
-	sendMessage("initUserForm", null);
+	sendMessage("userLoggedOut", null);
 }
 
 /**
@@ -262,12 +262,12 @@ function messageHandler(msg) {
 function notify(notificationData) {
 	var notification;
 
-	if (window.webkitNotifications && getOptionStatus("messaging")) {
+	if (window.webkitNotifications && getOptionStatus("notifications")) {
 		notification = webkitNotifications.createNotification(
 				"img/scroblr64.png", notificationData.title, notificationData.message);
 		notification.show();
 
-		if (getOptionStatus("auto_dismiss")) {
+		if (getOptionStatus("autodismiss")) {
 			window.setTimeout(function () {
 				notification.cancel();
 			}, 5000);

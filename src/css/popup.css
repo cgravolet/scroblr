@@ -260,3 +260,40 @@ header {
 /* ==============================
  * Settings section
  * ============================== */
+
+.back-button {
+	background: transparent url(../img/icon-close.png) no-repeat center center;
+	display: inline-block;
+	height: 20px;
+	opacity: 0.5;
+	overflow: hidden;
+	position: absolute;
+	right: 5px;
+	text-indent: 100%;
+	top: 5px;
+	vertical-align: middle;
+	white-space: nowrap;
+	width: 20px;
+}
+
+.back-button:hover {
+	opacity: 1;
+}
+
+.settings-user {
+	margin: 20px 10px 10px;
+}
+
+	.user-profile {
+		color: #000;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	.user-profile:hover {
+		text-decoration: underline;
+	}
+
+.settings-options {
+	margin: 10px;
+}
