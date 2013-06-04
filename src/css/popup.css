@@ -1,197 +1,167 @@
 html {
-	background: #F6F9FB;
-	font: normal 12px helvetica,arial,sans-serif;
+	background-image: -webkit-linear-gradient(top, rgb(254, 254, 254) 65%, rgb(216, 216, 216) 100%);
+	font: normal 12px arial,helvetica,verdana,sans-serif;
 	margin: 0;
-	padding: 7px;
+	min-height: 150px;
+	min-width: 320px;
+	padding: 0;
 }
 
 body {
-	background-image: -webkit-linear-gradient(top, rgb(253, 253, 253), rgb(233, 233, 235));
-	height: 290px;
-	margin: 0 auto;
+	height: 130px;
+	margin: 0;
 	overflow: hidden;
-	padding: 0;
-	width: 320px;
+	padding: 10px;
+	width: 300px;
 }
 
 a {
 	outline: none;
 }
 
-aside {
-	background-image: -webkit-linear-gradient(top, rgb(101, 101, 101), rgb(51, 51, 51));
-	-webkit-border-bottom-left-radius: 3px;
-	-webkit-border-top-left-radius:    3px;
-	float: left;
-	height: 290px;
-	margin: 0;
-	padding: 0;
-	width: 30px;
-}
-
 section {
 	display: none;
-	height: 290px;
-	margin-left: 30px;
+	height: 150px;
+	left: 0;
 	overflow: hidden;
-	position: relative;
-	width: 290px;
+	position: absolute;
+	top: 0;
+	width: 320px;
 }
 
-.is-active {
+.show-authenticate section.authenticate,
+.show-default section.default,
+.show-edit-track section.edit-track,
+.show-now-playing section.now-playing,
+.show-settings section.settings {
 	display: block;
 }
 
+/* Shared */
+
+header {
+	background-image: -webkit-linear-gradient(top, rgb(254, 254, 254), rgb(230, 230, 230));
+	border-bottom: 1px solid #CCC;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+}
+
+.settings-button {
+	background: transparent url(../img/icon-settings.png) no-repeat center center;
+	height: 20px;
+	opacity: 0.5;
+	overflow: hidden;
+	position: absolute;
+	right: 5px;
+	text-indent: 100%;
+	top: 5px;
+	white-space: nowrap;
+	width: 20px;
+}
+
+.settings-button:hover {
+	opacity: 1;
+}
+
 /* ==============================
- * Sidebar navigation
+ * Authentication section
  * ============================== */
 
-.navigation {
-	margin: 0;
+.authenticate p {
+	margin: 0 auto;
+	width: 230px;
+}
+
+.authenticate .description {
+	margin-bottom: 20px;
+	margin-top: 38px;
+}
+
+	.authenticate button {
+		background-image: -webkit-linear-gradient(top, rgb(153, 153, 153), rgb(0, 0, 0));
+		border: 1px solid #333;
+		-webkit-border-radius: 3px;
+		color: #FFF;
+		cursor: pointer;
+		font-size: 14px;
+		height: 26px;
+		line-height: 18px;
+		margin: 0;
+		padding: 3px 0;
+		text-align: center;
+		vertical-align: middle;
+		width: 230px;
+	}
+
+/* ==============================
+ * Default section
+ * ============================== */
+
+.launcher {
+	margin: 10px 0 10px 10px;
 	padding: 0;
 }
 
-	.navigation li {
-		border-bottom: 1px solid #999;
+	.launcher li {
+		display: inline;
 		list-style: none;
 		margin: 0;
 		padding: 0;
 	}
 
-	.navigation li:first-child {
-		-webkit-border-top-left-radius: 3px;
-	}
-	
-	.navigation .is-selected {
-		background-image: -webkit-linear-gradient(top, rgb(111, 111, 111), rgb(161, 161, 161));
-	}
-
-		.navigation a {
-			background: transparent url(../img/icons/note.png) no-repeat center center;
-			background-size: 18px;
-			border-bottom: 1px solid #000;
-			display: block;
-			height: 29px;
-			overflow: hidden;
-			text-indent: 100%;
-			white-space: nowrap;
-		}
-
-		.nav-settings a {
-			background-image: url(../img/icons/gear.png);
-		}
-
-/* ==============================
- * Now playing
- * ============================== */
-
-.album-art {
-	background: transparent url(../img/album-art-default.png) no-repeat center center;
-	background-size: 290px 290px;
-	height: 100%;
-	width: 100%;
-}
-
-	.album-art img {
-		border: 0;
-		height: 100%;
-		margin: 0;
-		padding: 0;
-		width: 100%;
-	}
-
-.now-playing {
-	background-image: -webkit-linear-gradient(top, rgba(50, 50, 50, 0.8), rgba(0, 0, 0, 0.8));
-	border-bottom: 1px solid #000;
-	display: none;
-	left: 0;
-	margin: 0;
-	padding: 6px 0;
-	position: absolute;
-	top: 0;
-	width: 100%;
-}
-
-.is-listening .now-playing {
-	display: block;
-}
-
-	.now-playing p {
-		color: #999;
-		font-weight: bold;
-		line-height: 16px;
-		margin: 0 6px;
-		overflow: hidden;
-		text-align: left;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.now-playing .track {
-		color: #FFF;
-		font-size: 13px;
-	}
-
-		.now-playing a {
-			color: #999;
+		.launcher a {
+			color: #333;
+			display: inline-block;
+			font-size: 11px;
+			margin-bottom: 3px;
 			text-decoration: none;
+			width: 100px;
 		}
 
-		.now-playing a:hover {
+		.launcher a:hover {
 			text-decoration: underline;
 		}
 
-		.now-playing .track a {
-			color: #FFF;
-		}
-
-.score {
-	background: #BCFFC2;
-	-webkit-border-radius: 9px;
-	-webkit-box-shadow: 0 1px 5px #555;
-	bottom: 7px;
-	color: #5D7F2C;
-	display: none;
-	font-weight: bold;
-	height: 16px;
-	line-height: 16px;
-	margin: 0;
-	padding: 1px 6px;
-	position: absolute;
-	right: 7px;
-}
-
-.is-bad  {
-	background: #FFD6D6;
-	color: #7F321D;
-}
-
 /* ==============================
- * Settings
+ * Now playing section
  * ============================== */
 
-#settings {
-	background: transparent url(../img/bg-section.png) no-repeat 0 0;
-	background-size: 290px 290px;
+.now-playing header {
+	color: #999;
 }
 
-.auth-form {
-	background: rgba(255, 255, 255, 0.6);
-	-webkit-border-radius: 7px;
-	display: block;
-	margin: 7px auto;
-	padding: 7px;
-	width: 90%;
+.player-icon:before {
+	background: transparent url(../img/icons/pandora.png) no-repeat center center;
+	bottom: 1px;
+	content: "";
+	display: inline-block;
+	height: 16px;
+	margin-right: 5px;
+	overflow: hidden;
+	position: relative;
+	vertical-align: middle;
+	width: 16px;
 }
 
-	.auth-form p {
-		margin: 0;
-	}
+.accuradio:before    { background-image: url(../img/icons/accuradio.png); }
+.amazon:before       { background-image: url(../img/icons/amazon.png); }
+.bandcamp:before     { background-image: url(../img/icons/bandcamp.png); }
+.google:before       { background-image: url(../img/icons/google.png); }
+.indieshuffle:before { background-image: url(../img/icons/indieshuffle.png); }
+.jango:before        { background-image: url(../img/icons/jango.png); }
+.playerfm:before     { background-image: url(../img/icons/playerfm.png); }
+.rhapsody:before     { background-image: url(../img/icons/rhapsody.png); }
+.songza:before       { background-image: url(../img/icons/songza.png); }
+.soundcloud:before   { background-image: url(../img/icons/soundcloud.png); }
+.thisismyjam:before  { background-image: url(../img/icons/thisismyjam.png); }
+.turntable:before    { background-image: url(../img/icons/turntable.png); }
+.twonky:before       { background-image: url(../img/icons/twonky.png); }
 
-.is-authorized-message,
-.is-authorizing-message,
-.is-authorized form,
-.is-authorizing form {display: none;}
+/* ==============================
+ * Edit track info section
+ * ============================== */
 
-.is-authorized .is-authorized-message,
-.is-authorizing .is-authorizing-message {display: block;}
+/* ==============================
+ * Settings section
+ * ============================== */

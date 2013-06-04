@@ -1,48 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<title>scroblr</title>
-    <link href="css/popup.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/popup.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 
-<aside>
-    <ul class="navigation">
-        <li class="nav-now-playing is-selected">
-            <a href="#nowPlaying" title="Now Playing">Now Playing</a></li>
-        <li class="nav-settings">
-            <a href="#settings" title="Settings">Settings</a></li>
-    </ul>
-</aside>
+    <section class="authenticate">
+        <p class="description"><strong>scroblr</strong> requires
+            authorization from last.fm to post track information on your
+            behalf.</p>
+        <p class="username-input">
+            <button id="authorizeBtn">AUTHORIZE WITH LAST.FM</button></p>
+    </section>
 
-<section id="nowPlaying" class="is-active">
-    <div class="album-art"></div>
-    <div class="now-playing">
-        <p class="artist"></p>
-        <p class="track"></p>
-        <p class="album"></p>
-    </div> <!-- .now-playing -->
-    <p class="score">68%</p>
-</section>
+    <section class="now-playing"></section>
 
-<section id="settings">
-    <div class="auth-form">
-        <form action="" method="GET" id="loginForm">
-            <input type="text" id="userNameInput" placeholder="Last.fm username" />
-            <input type="submit" value="Login" />
-        </form>
-        <p class="is-authorizing-message">
-            Authorizing... <a href="#cancelAuth" id="cancelAuthLink">cancel</a>
-        </p>
-        <p class="is-authorized-message"><span id="userImage"></span> 
-            <span id="userName"></span> <a href="#logout" id="logoutLink">Logout</a></p>
-    </div>
-</section>
+    <section class="settings">
+        <header>
+            <a href="#now-playing" class="back-button goto-section">Back</a>
+        </header>
+    </section>
 
-<script src="js/lib/jquery-1.8.2.min.js"></script>
-<script src="js/scroblr-popup.js"></script>
+    <script type="text/template" id="tmplNowPlaying">
+        <header>
+            {{#playing}}
+                <span class="player-icon {{host}}">NOW PLAYING</span>
+            {{/playing}}
+            {{^playing}}
+                WHERE'S THE MUSIC?
+            {{/playing}}
+            <a href="#settings" class="settings-button goto-section">Settings</a>
+        </header>
+        {{#playing}}
+            Playing some music now...
+        {{/playing}}
+        {{^playing}}
+            <ul class="launcher">
+                <li><a href="http://accuradio.com"
+                    class="player-icon goto-link accuradio">AccuRadio</a></li>
+                <li><a href="http://www.amazon.com/b?ie=UTF8&node=2658409011"
+                    class="player-icon goto-link amazon">Amazon</a></li>
+                <li><a href="http://bandcamp.com"
+                    class="player-icon goto-link bandcamp">Bandcamp</a></li>
+                <li><a href="https://play.google.com/music/listen"
+                    class="player-icon goto-link google">Google Play</a></li>
+                <li><a href="http://jango.com"
+                    class="player-icon goto-link jango">Jango</a></li>
+                <li><a href="http://indieshuffle.com"
+                    class="player-icon goto-link indieshuffle">Indie Shuffle</a></li>
+                <li><a href="http://pandora.com"
+                    class="player-icon goto-link pandora">Pandora</a></li>
+                <li><a href="http://player.fm"
+                    class="player-icon goto-link playerfm">Player.fm</a></li>
+                <li><a href="http://rhapsody.com"
+                    class="player-icon goto-link rhapsody">Rhapsody</a></li>
+                <li><a href="http://songza.com"
+                    class="player-icon goto-link songza">Songza</a></li>
+                <li><a href="http://soundcloud.com"
+                    class="player-icon goto-link soundcloud">Soundcloud</a></li>
+                <li><a href="http://thisismyjam.com"
+                    class="player-icon goto-link thisismyjam">This is my Jam</a></li>
+                <li><a href="http://turntable.fm"
+                    class="player-icon goto-link turntable">Turntable.fm</a></li>
+                <li><a href="http://my.twonky.com"
+                    class="player-icon goto-link twonky">Twonky</a></li>
+            </ul>
+        {{/playing}}
+    </script>
+
+    <script src="js/lib/jquery-2.0.2.js"></script>
+    <script src="js/lib/mustache.js"></script>
+    <script src="js/popup.js"></script>
 
 </body>
 </html>
-
