@@ -294,6 +294,20 @@ header {
 		text-decoration: underline;
 	}
 
+	.logout-link {
+		color: #3572CF;
+		text-decoration: none;
+	}
+
+	.logout-link:hover {
+		text-decoration: underline;
+	}
+
 .settings-options {
 	margin: 10px;
 }
+
+	.settings-options label:hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}
