@@ -26,7 +26,6 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 - Rhapsody
 - Songza
 - Soundcloud
-- This Is My Jam
 - Turntable.fm
 - Twonky
 
