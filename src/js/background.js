@@ -102,6 +102,10 @@ function getTrackInfoCallback(data) {
 		tags:       []
 	};
 
+	if (!currentTrack.duration) {
+		trackParams.duration = parseFloat($("track > duration", data).text());
+	}
+
 	$("track tag", data).each(function () {
 		trackParams.tags.push({
 			name: $(this).find("name").text(),
@@ -454,10 +458,13 @@ function updateNowPlaying(track) {
 		params = {
 			api_key:  API_KEY,
 			artist:   track.artist,
-			duration: track.duration / 1000,
 			sk:       lf_session.key,
 			track:    track.title
 		};
+
+		if (track.duration) {
+			params.duration = track.duration / 1000;
+		}
 
 		if (track.album) {
 			params.album = track.album;

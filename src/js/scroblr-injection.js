@@ -30,16 +30,16 @@ var scroblr = (function () {
 		this.host   = host.name;
 		this.hostid = host.id;
 
-		if (this.hasOwnProperty("album")) {
-			this.album = trim(this.album);
+		if (this.hasOwnProperty("album") && this.album !== null) {
+			this.album = $.trim(this.album);
 		}
 
-		if (this.hasOwnProperty("artist")) {
-			this.artist = trim(this.artist);
+		if (this.hasOwnProperty("artist") && this.artist !== null) {
+			this.artist = $.trim(this.artist);
 		}
 
-		if (this.hasOwnProperty("title")) {
-			this.title = trim(this.title);
+		if (this.hasOwnProperty("title") && this.title !== null) {
+			this.title = $.trim(this.title);
 		}
 
 		this.dateTime = (new Date()).valueOf();
@@ -190,10 +190,6 @@ var scroblr = (function () {
 		} else if (typeof safari != "undefined") {
 			safari.self.tab.dispatchMessage(name, message);
 		}
-	}
-
-	function trim(str) {
-		return str.replace(/^\s+/g, "").replace(/\s+$/g, "");
 	}
 
 	return {
