@@ -156,7 +156,6 @@ header {
 .songza:before       { background-image: url(../img/icons/songza.png); }
 .soundcloud:before   { background-image: url(../img/icons/soundcloud.png); }
 .turntable:before    { background-image: url(../img/icons/turntable.png); }
-.twonky:before       { background-image: url(../img/icons/twonky.png); }
 
 .album-art {
 	background: transparent url(../img/album-art-default.png) no-repeat center center;

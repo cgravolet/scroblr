@@ -28,7 +28,6 @@
 				"js/plugins/jango.js",
 				"js/plugins/playerfm.js",
 				"js/plugins/rhapsody.js",
-				"js/plugins/twonky.js",
 				"js/scroblr-injection-init.js"
 			],
 			"all_frames": true
