@@ -249,8 +249,13 @@ header {
 			background-size: 16px 16px;
 		}
 
+		.track-actions a.do-not-scrobble {
+			opacity: 1;
+		}
+
 		.track-actions a.track-loved {
 			background-image: url(../img/icon-love-active.png);
+			opacity: 1;
 		}
 
 /* ==============================
