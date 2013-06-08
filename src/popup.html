@@ -19,7 +19,7 @@
 
     <section class="settings">
         <header>
-            SETTINGS
+            Settings
             <a href="#now-playing" class="back-button goto-section">Back</a>
         </header>
         <p class="settings-user">
@@ -36,13 +36,31 @@
         </p>
     </section>
 
+    <section class="edit-track">
+        <header>
+            Edit track
+            <a href="#now-playing" class="back-button goto-section">Back</a>
+        </header>
+        <p class="edit-track-settings">
+            <label for="artist">Artist</label>
+                <input type="text" value="" name="artist" /><br />
+            <label for="title"><strong>Track</strong></label>
+                <input type="text" value="" name="title" /><br />
+            <label for="album"><em>Album</em></label>
+                <input type="text" value="" name="album" /><br />
+        </p>
+        <p class="edit-track-button-container">
+            <button id="submitTrackEditBtn">SAVE</button>
+        </p>
+    </section>
+
     <script type="text/template" id="tmplNowPlaying">
         <header>
             {{#host}}
-                <span class="player-icon {{host}}">NOW PLAYING</span>
+                <span class="player-icon {{host}}">Now Playing</span>
             {{/host}}
             {{^host}}
-                WHERE'S THE MUSIC?
+                Where's the Music?
             {{/host}}
             <a href="#settings" class="settings-button goto-section">Settings</a>
         </header>
@@ -80,6 +98,8 @@
             <ul class="track-actions">
                 <li><a href="#loveTrack" id="loveTrackBtn" class="{{#loved}}track-loved{{/loved}}"
                         title="Love this track?">Love this track?</a></li>
+                <li><a href="#edit-track" id="editTrackBtn" class="goto-section"
+                        title="Edit track">Edit track</a></li>
                 <li><a href="#doNotScrobble" id="doNotScrobbleBtn"
                         class="{{#noscrobble}}do-not-scrobble{{/noscrobble}}"
                         title="Don't scrobble this track?">Don't scrobble this track?</a></li>

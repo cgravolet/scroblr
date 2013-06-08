@@ -1,7 +1,7 @@
 "use strict";
 
 var API_KEY, API_SEC, API_URL, LASTFM_AUTH_URL, currentTrack, history,
-	lf_session, lf_auth_waiting, keepalive;
+	lf_session, keepalive;
 
 API_KEY         = "59c070288bfca89ca9700fde083969bb";
 API_SEC         = "0193a089b025f8cfafcc922e54b93706";
@@ -9,7 +9,6 @@ API_URL         = "http://ws.audioscrobbler.com/2.0/";
 LASTFM_AUTH_URL = "http://www.last.fm/api/auth/?api_key=" + API_KEY + "&cb=";
 currentTrack    = null;
 history         = [];
-lf_auth_waiting = false;
 lf_session      = JSON.parse(localStorage.lf_session || null);
 
 function doNotScrobbleCurrentTrack() {
@@ -167,7 +166,7 @@ function getUserSessionCallback(data) {
 		};
 	}
 	localStorage.lf_session = JSON.stringify(lf_session);
-	sendMessage("initUserForm", null);
+	sendMessage("userSessionRetrieved");
 }
 
 /**
@@ -249,6 +248,10 @@ function messageHandler(msg) {
 	case "nowPlaying":
 		updateNowPlaying(msg.message);
 		getTrackInfo(msg.message);
+		break;
+	case "trackEdited":
+		updateCurrentTrack(msg.message);
+		sendMessage("trackEditSaved");
 		break;
 	case "updateCurrentTrack":
 		updateCurrentTrack(msg.message);
@@ -475,7 +478,7 @@ function updateNowPlaying(track) {
 
 	pushTrackToHistory(currentTrack);
 	scrobbleHistory();
-	currentTrack = track;
+	currentTrack = $.extend({}, track);
 }
 
 initialize();

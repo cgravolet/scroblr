@@ -1,4 +1,12 @@
-var scroblrView = (function (model, Mustache) {
+var model;
+
+if (typeof chrome != "undefined") {
+	model = chrome.extension.getBackgroundPage();
+} else if (typeof safari != "undefined") {
+	model = safari.extension.globalPage.contentWindow;
+}
+
+(function (model, Mustache) {
 	var $body = $("body");
 
 	function attachBehaviors () {
@@ -40,11 +48,28 @@ var scroblrView = (function (model, Mustache) {
 			});
 		});
 
+		$body.on("click", "#submitTrackEditBtn", function (e) {
+			e.preventDefault();
+			model.messageHandler({
+				name: "trackEdited",
+				message: {
+					artist: $(".edit-track input[name=artist]").val(),
+					title:  $(".edit-track input[name=title]").val(),
+					album:  $(".edit-track input[name=album]").val()
+				}
+			});
+		});
+
 		$(".settings-options input").on("change", function (e) {
 			changeSettingsOption.call(this, e);
 		});
 
-		chrome.extension.onMessage.addListener(messageHandler);
+		if (typeof chrome != "undefined") {
+			chrome.extension.onMessage.addListener(messageHandler);
+		} else if (typeof safari != "undefined") {
+			safari.application.addEventListener("validate", validateHandler, true);
+			safari.application.addEventListener("message", messageHandler, false);
+		}
 	}
 
 	function changeSettingsOption(e) {
@@ -58,6 +83,9 @@ var scroblrView = (function (model, Mustache) {
 	}
 
 	function displaySection(section) {
+		if (section === "edit-track") {
+			populateEditTrackForm();
+		}
 		$body.removeClass().addClass("show-" + section);
 	}
 
@@ -84,7 +112,9 @@ var scroblrView = (function (model, Mustache) {
 				}, 500);
 			}
 			break;
+		case "trackEditSaved": // intentional fall-through
 		case "userLoggedOut":
+		case "userSessionRetrieved":
 			showStartScreen();
 			break;
 		}
@@ -99,6 +129,12 @@ var scroblrView = (function (model, Mustache) {
 			newTab = safari.application.activeBrowserWindow.openTab();
 			newTab.url = url;
 		}
+	}
+
+	function populateEditTrackForm() {
+		$(".edit-track input").each(function () {
+			$(this).val(model.currentTrack[$(this).attr("name")]);
+		});
 	}
 
 	function populateSettingsOptions() {
@@ -116,8 +152,10 @@ var scroblrView = (function (model, Mustache) {
 			}
 		}
 
-		$("#userProfile").text(model.lf_session.name).attr("href",
-				"http://last.fm/user/" + model.lf_session.name);
+		if (model.lf_session) {
+			$("#userProfile").text(model.lf_session.name).attr("href",
+					"http://last.fm/user/" + model.lf_session.name);
+		}
 	}
 
 	function renderNowPlaying() {
@@ -148,5 +186,9 @@ var scroblrView = (function (model, Mustache) {
 		}
 	}
 
+	function validateHandler() {
+		showStartScreen();
+	}
+
 	initialize();
-}(chrome.extension.getBackgroundPage(), Mustache));
+}(model, Mustache));
