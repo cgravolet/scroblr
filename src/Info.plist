@@ -67,18 +67,20 @@
 			<array>
 				<string>js/lib/zepto.js</string>
 				<string>js/scroblr-injection.js</string>
-				<string>js/plugins/rhapsody.js</string>
 				<string>js/plugins/pandora.js</string>
-				<string>js/plugins/indieshuffle.js</string>
-				<string>js/plugins/accuradio.js</string>
-				<string>js/plugins/jango.js</string>
-				<string>js/plugins/playerfm.js</string>
-				<string>js/plugins/bandcamp.js</string>
-				<string>js/plugins/soundcloud.js</string>
 				<string>js/plugins/turntable.js</string>
 				<string>js/plugins/google.js</string>
 				<string>js/plugins/amazon.js</string>
+				<string>js/plugins/bandcamp.js</string>
+				<string>js/plugins/soundcloud.js</string>
+				<string>js/plugins/piki.js</string>
 				<string>js/plugins/songza.js</string>
+				<string>js/plugins/rhapsody.js</string>
+				<string>js/plugins/indieshuffle.js</string>
+				<string>js/plugins/accuradio.js</string>
+				<string>js/plugins/accujazz.js</string>
+				<string>js/plugins/jango.js</string>
+				<string>js/plugins/playerfm.js</string>
 			</array>
 		</dict>
 	</dict>

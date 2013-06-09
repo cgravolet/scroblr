@@ -134,6 +134,7 @@ button {
 
 .player-icon:before {
 	background: transparent url(../img/icons/now-playing.png) no-repeat center center;
+	background-size: 16px 16px;
 	bottom: 1px;
 	content: "";
 	display: inline-block;
@@ -145,6 +146,7 @@ button {
 	width: 16px;
 }
 
+.accujazz:before     { background-image: url(../img/icons/accujazz.png); }
 .accuradio:before    { background-image: url(../img/icons/accuradio.png); }
 .amazon:before       { background-image: url(../img/icons/amazon.png); }
 .bandcamp:before     { background-image: url(../img/icons/bandcamp.png); }
@@ -152,6 +154,7 @@ button {
 .indieshuffle:before { background-image: url(../img/icons/indieshuffle.png); }
 .jango:before        { background-image: url(../img/icons/jango.png); }
 .pandora:before      { background-image: url(../img/icons/pandora.png); }
+.piki:before         { background-image: url(../img/icons/piki.png); }
 .playerfm:before     { background-image: url(../img/icons/playerfm.png); }
 .rhapsody:before     { background-image: url(../img/icons/rhapsody.png); }
 .songza:before       { background-image: url(../img/icons/songza.png); }
