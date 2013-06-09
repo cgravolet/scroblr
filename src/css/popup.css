@@ -267,6 +267,7 @@ button {
  * ============================== */
 
 .edit-track-settings {
+	line-height: 24px;
 	margin: 10px 10px 5px;
 }
 
