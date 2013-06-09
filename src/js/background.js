@@ -359,7 +359,7 @@ function scrobbleHistory() {
  * @param {?} message Any type of data that should be sent along with the msg
  */
 function sendMessage(name, message) {
-	var bars, i;
+	var popovers, i;
 
 	if (typeof chrome != "undefined") {
 		chrome.extension.sendMessage({
@@ -367,11 +367,11 @@ function sendMessage(name, message) {
 			message: message
 		});
 	} else if (typeof safari != "undefined") {
-		bars = safari.extension.bars;
-		i = bars.length;
+		popovers = safari.extension.popovers;
+		i = popovers.length;
 
 		while (i--) {
-			bars[i].contentWindow.scroblrView.messageHandler({
+			popovers[i].contentWindow.scroblrView.messageHandler({
 				name: name,
 				message: message
 			});

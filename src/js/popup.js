@@ -1,4 +1,6 @@
-var model;
+"use strict";
+
+var model, scroblrView;
 
 if (typeof chrome != "undefined") {
 	model = chrome.extension.getBackgroundPage();
@@ -6,7 +8,7 @@ if (typeof chrome != "undefined") {
 	model = safari.extension.globalPage.contentWindow;
 }
 
-(function (model, Mustache) {
+scroblrView = (function (model, Mustache) {
 	var $body = $("body");
 
 	function attachBehaviors () {
@@ -67,8 +69,8 @@ if (typeof chrome != "undefined") {
 		if (typeof chrome != "undefined") {
 			chrome.extension.onMessage.addListener(messageHandler);
 		} else if (typeof safari != "undefined") {
-			safari.application.addEventListener("validate", validateHandler, true);
 			safari.application.addEventListener("message", messageHandler, false);
+			safari.application.addEventListener("popover", popoverHandler, true);
 		}
 	}
 
@@ -131,6 +133,10 @@ if (typeof chrome != "undefined") {
 		}
 	}
 
+	function popoverHandler() {
+		showStartScreen();
+	}
+
 	function populateEditTrackForm() {
 		$(".edit-track input").each(function () {
 			$(this).val(model.currentTrack[$(this).attr("name")]);
@@ -186,9 +192,9 @@ if (typeof chrome != "undefined") {
 		}
 	}
 
-	function validateHandler() {
-		showStartScreen();
-	}
-
 	initialize();
+
+	return {
+		messageHandler: messageHandler
+	};
 }(model, Mustache));
