@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>scroblr</title>
-    <link href="css/popup.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/popup.css">
 </head>
 <body>
 
@@ -23,8 +25,8 @@
             <a href="#now-playing" class="back-button goto-section">Back</a>
         </header>
         <p class="settings-user">
-            You are logged in as: <a href="" id="userProfile" class="goto-link user-profile"></a>
-            (<a href="#logout" id="logoutLink" class="logout-link">logout</a>)
+            You are signed in as '<a href="" id="userProfile" class="goto-link user-profile"></a>'.
+            <a href="#logout" id="logoutLink" class="logout-link">Sign out</a>
         </p>
         <p class="settings-options">
             <input type="checkbox" checked="checked" id="disable_scrobbling" value="0" />
