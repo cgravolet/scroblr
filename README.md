@@ -4,8 +4,8 @@
 ## What's different in scroblr2?
 - New plugin architecture
 - Domain-agnostic
-- TODO: Redesigned interface
-- TODO: Ability to tag/love tracks
+- Redesigned interface
+- Ability to tag/love tracks
 - TODO: Better sharing options
 - TODO: A more robust build process
 
