@@ -134,6 +134,7 @@ scroblrView = (function (model, Mustache) {
 	}
 
 	function popoverHandler() {
+		populateSettingsOptions();
 		showStartScreen();
 	}
 
