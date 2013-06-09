@@ -1,6 +1,3 @@
 *.swp
 *.DS_Store
-build/scroblr.safariextension*
-build/scroblr-chrome*
-build/*.crx
-build/*.zip
+build/*
