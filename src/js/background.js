@@ -239,6 +239,9 @@ function messageHandler(msg) {
 	case "doNotScrobbleButtonClicked":
 		doNotScrobbleCurrentTrack();
 		break;
+	case "popupSettingsChanged":
+		sendMessage("localSettingsChanged");
+		break;
 	case "logoutLinkClicked":
 		logoutUser();
 		break;

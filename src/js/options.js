@@ -29,6 +29,8 @@
 		} else {
 			localStorage[id] = "true";
 		}
+
+		sendMessage("localSettingsChanged");
 	}
 
 	function initialize() {
@@ -39,6 +41,9 @@
 
 	function messageHandler (msg) {
 		switch (msg.name) {
+		case "localSettingsChanged":
+			populateSettingsOptions();
+			break;
 		case "userLoggedOut":
 		case "userSessionRetrieved":
 			toggleAuthState();
@@ -58,6 +63,8 @@
 		for (i = 0, max = options.length; i < max; i += 1) {
 			if (localStorage[options[i]] === "true") {
 				$("#" + options[i]).prop("checked", false);
+			} else {
+				$("#" + options[i]).prop("checked", true);
 			}
 		}
 	}

@@ -327,14 +327,10 @@ button {
 
 	.logout-link {
 		color: #3572CF;
-		text-decoration: none;
-	}
-
-	.logout-link:hover {
-		text-decoration: underline;
 	}
 
 .settings-options {
+	line-height: 18px;
 	margin: 10px;
 }
 

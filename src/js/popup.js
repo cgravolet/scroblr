@@ -14,9 +14,7 @@ scroblrView = (function (model, Mustache) {
 	function attachBehaviors () {
 		$body.on("click", "#authorizeBtn", function (e) {
 			e.preventDefault();
-			model.messageHandler({
-				name: "authButtonClicked"
-			});
+			sendMessage("authButtonClicked");
 		});
 
 		$body.on("click", ".goto-section", function (e) {
@@ -31,34 +29,25 @@ scroblrView = (function (model, Mustache) {
 
 		$body.on("click", "#doNotScrobbleBtn", function (e) {
 			e.preventDefault();
-			model.messageHandler({
-				name: "doNotScrobbleButtonClicked"
-			});
+			sendMessage("doNotScrobbleButtonClicked");
 		});
 
 		$body.on("click", "#loveTrackBtn", function (e) {
 			e.preventDefault();
-			model.messageHandler({
-				name: "loveTrackButtonClicked"
-			});
+			sendMessage("loveTrackButtonClicked");
 		});
 
 		$body.on("click", "#logoutLink", function (e) {
 			e.preventDefault();
-			model.messageHandler({
-				name: "logoutLinkClicked"
-			});
+			sendMessage("logoutLinkClicked");
 		});
 
 		$body.on("click", "#submitTrackEditBtn", function (e) {
 			e.preventDefault();
-			model.messageHandler({
-				name: "trackEdited",
-				message: {
-					artist: $(".edit-track input[name=artist]").val(),
-					title:  $(".edit-track input[name=title]").val(),
-					album:  $(".edit-track input[name=album]").val()
-				}
+			sendMessage("trackEdited", {
+				artist: $(".edit-track input[name=artist]").val(),
+				title:  $(".edit-track input[name=title]").val(),
+				album:  $(".edit-track input[name=album]").val()
 			});
 		});
 
@@ -82,6 +71,8 @@ scroblrView = (function (model, Mustache) {
 		} else {
 			localStorage[id] = "true";
 		}
+
+		sendMessage("popupSettingsChanged");
 	}
 
 	function displaySection(section) {
@@ -180,6 +171,13 @@ scroblrView = (function (model, Mustache) {
 		}
 
 		$nowPlaying.html(Mustache.render(template, model.currentTrack));
+	}
+
+	function sendMessage(name, message) {
+		model.messageHandler({
+			name: name,
+			message: message
+		});
 	}
 
 	function showStartScreen() {
