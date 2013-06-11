@@ -19,6 +19,7 @@
     "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-compress": "~0.5.2",
     "grunt-contrib-cssmin": "~0.6.1",
-    "grunt-contrib-clean": "~0.4.1"
+    "grunt-contrib-clean": "~0.4.1",
+    "plist": "~0.4.3"
   }
 }
