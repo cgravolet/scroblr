@@ -313,44 +313,33 @@ function pushTrackToHistory(track) {
 }
 
 /**
- * Handles logic for determining if the last played track should be scrobbled
- * and creates the request object.
- *
- * @param {object} track The song object (ex. {name: "Kerosene",
- *                       artist: "Big Black", duration: etc...})
- */
-function scrobble(track) {
-	var requestParams, scrobblingEnabled;
-
-	scrobblingEnabled = getOptionStatus("scrobbling");
-	requestParams = {
-		api_key:   API_KEY,
-		artist:    track.artist,
-		sk:        lf_session ? lf_session.key : null,
-		timestamp: Math.round(track.dateTime / 1000),
-		track:     track.title
-	};
-
-	if (track.album) {
-		requestParams.album = track.album;
-	}
-
-	if (lf_session && scrobblingEnabled) {
-		sendRequest("track.scrobble", requestParams, function () {
-			track.scrobbled = true;
-		});
-	}
-}
-
-/**
  * Scrobbles any tracks in the history array that have not been scrobbled yet.
  */
 function scrobbleHistory() {
-	var i, max, track;
+	var i, max, requestParams, track;
+
 	for (i = 0, max = history.length; i < max; i += 1) {
 		track = history[i];
-		if (!track.scrobbled && trackShouldBeScrobbled(track)) {
-			scrobble(track);
+
+		if (!track.scrobbled && lf_session && getOptionStatus("scrobbling") &&
+				trackShouldBeScrobbled(track)) {
+			requestParams = {
+				api_key:   API_KEY,
+				artist:    track.artist,
+				sk:        lf_session.key,
+				timestamp: Math.round(track.dateTime / 1000),
+				track:     track.title
+			};
+
+			if (track.album) {
+				requestParams.album = track.album;
+			}
+
+			(function (thisTrack, params) {
+				sendRequest("track.scrobble", params, function () {
+					thisTrack.scrobbled = true;
+				});
+			}(track, requestParams));
 		}
 	}
 }
@@ -435,6 +424,8 @@ function trackShouldBeScrobbled(track) {
 function updateCurrentTrack(data) {
 	window.clearTimeout(keepalive);
 	keepalive = window.setTimeout(function () {
+		pushTrackToHistory(currentTrack);
+		scrobbleHistory();
 		currentTrack = null;
 		sendMessage("keepAliveExpired");
 	}, 15000);
