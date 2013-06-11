@@ -64,15 +64,17 @@ module.exports = function(grunt) {
 						dest: 'build/<%= pkg.name %>.safariextension/'
 					},
 					{
-						expand: true,
-						cwd: 'src/',
-						src: ['*.plist','*.png'],
-						dest: 'build/<%= pkg.name %>.safariextension/'
+						src: 'src/icon-48.png',
+						dest: 'build/<%= pkg.name %>.safariextension/icon-48.png'
+					},
+					{
+						src: 'src/Info-build.plist',
+						dest: 'build/<%= pkg.name %>.safariextension/Info.plist'
 					}
 				]
 			},
 			chrome: {
-				src: 'src/manifest.json',
+				src: 'src/manifest-build.json',
 				dest: 'build/<%= pkg.name %>.chrome/manifest.json'
 			}
 		},

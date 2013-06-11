@@ -14,23 +14,7 @@
 				"https://*/*"
 			],
 			"js": [
-				"js/lib/zepto.js",
-				"js/scroblr-injection.js",
-				"js/plugins/pandora.js",
-				"js/plugins/turntable.js",
-				"js/plugins/google.js",
-				"js/plugins/amazon.js",
-				"js/plugins/bandcamp.js",
-				"js/plugins/soundcloud.js",
-				"js/plugins/piki.js",
-				"js/plugins/songza.js",
-				"js/plugins/rhapsody.js",
-				"js/plugins/accuradio.js",
-				"js/plugins/accujazz.js",
-				"js/plugins/indieshuffle.js",
-				"js/plugins/jango.js",
-				"js/plugins/playerfm.js",
-				"js/scroblr-injection-init.js"
+				"js/scroblr.js"
 			],
 			"all_frames": true
 		}

@@ -1,14 +1,6 @@
 #scroblr
 [http://scroblr.fm](http://scroblr.fm "scroblr homepage")
 
-## What's different in scroblr2?
-- New plugin architecture
-- Domain-agnostic
-- Redesigned interface
-- Ability to tag/love tracks
-- TODO: Better sharing options
-- TODO: A more robust build process
-
 ##What is scroblr?
 
 scroblr is a lightweight browser extension that scrobbles the music you listen to on the web to your [Last.fm](http://last.fm "Last.fm") account.
