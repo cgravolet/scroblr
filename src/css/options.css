@@ -1,0 +1,58 @@
+.container {
+	margin: 0 auto;
+	padding: 0 15px;
+	width: auto;
+}
+
+h1 {
+	border-bottom: 1px solid #EEE;
+	font-family: 'Lucida Grande', sans-serif;
+	font-size: 18px;
+	font-weight: normal;
+	margin: 0 0 24px;
+	padding: 21px 0 13px;
+}
+
+p {
+	font-family: 'Lucida Grande', sans-serif;
+	font-size: 12px;
+}
+
+label:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+button {
+	background-image: -webkit-linear-gradient(top, rgb(153, 153, 153), rgb(0, 0, 0));
+	border: 1px solid #333;
+	-webkit-border-radius: 3px;
+	color: #FFF;
+	cursor: pointer;
+	font-size: 14px;
+	height: 26px;
+	line-height: 18px;
+	margin: 5px 0 0;
+	padding: 3px 0;
+	text-align: center;
+	vertical-align: middle;
+	width: 230px;
+}
+
+.settings-options {
+	line-height: 20px;
+}
+
+footer p {
+	border-top: 1px solid #EEE;
+	margin: 24px 0 0;
+	padding-top: 13px;
+}
+
+@media only screen and (min-width: 768px) {
+
+	.container {
+		width: 738px;
+	}
+
+}

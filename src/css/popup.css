@@ -1,0 +1,344 @@
+html {
+	background-image: -webkit-linear-gradient(top, rgb(254, 254, 254) 65%, rgb(216, 216, 216) 100%);
+	font: normal 12px arial,helvetica,verdana,sans-serif;
+	margin: 0;
+	min-height: 150px;
+	min-width: 320px;
+	padding: 0;
+}
+
+body {
+	height: 130px;
+	margin: 0;
+	overflow: hidden;
+	padding: 10px;
+	width: 300px;
+}
+
+a {
+	outline: none;
+}
+
+section {
+	display: none;
+	height: 150px;
+	left: 0;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	width: 320px;
+}
+
+.show-authenticate section.authenticate,
+.show-default section.default,
+.show-edit-track section.edit-track,
+.show-now-playing section.now-playing,
+.show-settings section.settings {
+	display: block;
+}
+
+/* Shared */
+
+header {
+	background-image: -webkit-linear-gradient(top, rgb(254, 254, 254), rgb(230, 230, 230));
+	border-bottom: 1px solid #CCC;
+	color: #999;
+	font-size: 16px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+}
+
+.settings-button {
+	background: transparent url(../img/icon-settings.png) no-repeat center center;
+	height: 20px;
+	opacity: 0.5;
+	overflow: hidden;
+	position: absolute;
+	right: 5px;
+	text-indent: 100%;
+	top: 5px;
+	white-space: nowrap;
+	width: 20px;
+}
+
+.settings-button:hover {
+	opacity: 1;
+}
+
+button {
+	background-image: -webkit-linear-gradient(top, rgb(153, 153, 153), rgb(0, 0, 0));
+	border: 1px solid #333;
+	-webkit-border-radius: 3px;
+	color: #FFF;
+	cursor: pointer;
+	font-size: 14px;
+	height: 26px;
+	line-height: 18px;
+	margin: 0;
+	padding: 3px 0;
+	text-align: center;
+	vertical-align: middle;
+}
+
+/* ==============================
+ * Authentication section
+ * ============================== */
+
+.authenticate p {
+	margin: 0 auto;
+	width: 230px;
+}
+
+.authenticate .description {
+	margin-bottom: 20px;
+	margin-top: 38px;
+}
+
+	.authenticate button {
+		width: 230px;
+	}
+
+/* ==============================
+ * Default section
+ * ============================== */
+
+.launcher {
+	margin: 10px 0 10px 10px;
+	padding: 0;
+}
+
+	.launcher li {
+		display: inline;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+		.launcher a {
+			color: #333;
+			display: inline-block;
+			font-size: 11px;
+			margin-bottom: 10px;
+			text-decoration: none;
+			width: 100px;
+		}
+
+		.launcher a:hover {
+			text-decoration: underline;
+		}
+
+/* ==============================
+ * Now playing section
+ * ============================== */
+
+.player-icon:before {
+	background: transparent url(../img/icons/now-playing.png) no-repeat center center;
+	background-size: 16px 16px;
+	bottom: 1px;
+	content: "";
+	display: inline-block;
+	height: 16px;
+	margin-right: 5px;
+	overflow: hidden;
+	position: relative;
+	vertical-align: middle;
+	width: 16px;
+}
+
+.accujazz:before     { background-image: url(../img/icons/accujazz.png); }
+.accuradio:before    { background-image: url(../img/icons/accuradio.png); }
+.amazon:before       { background-image: url(../img/icons/amazon.png); }
+.bandcamp:before     { background-image: url(../img/icons/bandcamp.png); }
+.google:before       { background-image: url(../img/icons/google.png); }
+.indieshuffle:before { background-image: url(../img/icons/indieshuffle.png); }
+.jango:before        { background-image: url(../img/icons/jango.png); }
+.pandora:before      { background-image: url(../img/icons/pandora.png); }
+.piki:before         { background-image: url(../img/icons/piki.png); }
+.playerfm:before     { background-image: url(../img/icons/playerfm.png); }
+.rhapsody:before     { background-image: url(../img/icons/rhapsody.png); }
+.songza:before       { background-image: url(../img/icons/songza.png); }
+.soundcloud:before   { background-image: url(../img/icons/soundcloud.png); }
+.turntable:before    { background-image: url(../img/icons/turntable.png); }
+
+.album-art {
+	background: transparent url(../img/album-art-default.png) no-repeat center center;
+	background-size: 100px 100px;
+	height: 100px;
+	float: left;
+	margin: 10px;
+	position: relative;
+	width: 100px;
+}
+
+	.album-art img {
+		-webkit-box-shadow: 0 0 3px 0 #999;
+		height: 100px;
+		width: 100px;
+	}
+
+	.turntable-score {
+		background: #BAFDC2;
+		-webkit-border-radius: 9px;
+		        border-radius: 9px;
+		bottom: 5px;
+		color: #5D7F2C;
+		display: block;
+		height: 16px;
+		left: 5px;
+		line-height: 16px;
+		position: absolute;
+		text-align: center;
+		width: 38px;
+	}
+
+	.bad-score {
+		background-color: #FFD6D6;
+		color: #7F321D;
+	}
+
+.track-info {
+	line-height: 18px;
+	margin: 20px 0 0 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 190px;
+}
+
+	.track-info a {
+		color: #000;
+		text-decoration: none;
+	}
+
+	.track-info a:hover {
+		text-decoration: underline;
+	}
+
+.track-actions {
+	display: block;
+	margin: 5px 0 0 120px;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	width: 190px;
+}
+
+	.track-actions li {
+		display: inline;
+		list-style: none;
+	}
+
+		.track-actions a {
+			background: transparent url(../img/icon-love.png) no-repeat center center;
+			color: #000;
+			display: inline-block;
+			height: 22px;
+			opacity: 0.5;
+			overflow: hidden;
+			text-decoration: none;
+			text-indent: 100%;
+			white-space: nowrap;
+			width: 22px;
+		}
+
+		.track-actions a:hover {
+			opacity: 1;
+		}
+
+		.track-actions #doNotScrobbleBtn {
+			background-image: url(../img/icon-negative.png);
+			background-size: 16px 16px;
+		}
+
+		.track-actions #editTrackBtn {
+			background-image: url(../img/icon-edit.png);
+			background-size: 18px 18px;
+		}
+
+		.track-actions a.do-not-scrobble {
+			opacity: 1;
+		}
+
+		.track-actions a.track-loved {
+			background-image: url(../img/icon-love-active.png);
+			opacity: 1;
+		}
+
+/* ==============================
+ * Edit track info section
+ * ============================== */
+
+.edit-track-settings {
+	line-height: 24px;
+	margin: 10px 10px 5px;
+}
+
+	.edit-track-settings label {
+		display: inline-block;
+		width: 55px;
+	}
+
+	.edit-track-settings input {
+		width: 235px;
+	}
+
+	.edit-track-button-container {
+		margin: 5px 10px 0 0;
+		text-align: right;
+	}
+
+		#submitTrackEditBtn {
+			width: 100px;
+		}
+
+/* ==============================
+ * Settings section
+ * ============================== */
+
+.back-button {
+	background: transparent url(../img/icon-close.png) no-repeat center center;
+	display: inline-block;
+	height: 20px;
+	opacity: 0.5;
+	overflow: hidden;
+	position: absolute;
+	right: 5px;
+	text-indent: 100%;
+	top: 5px;
+	vertical-align: middle;
+	white-space: nowrap;
+	width: 20px;
+}
+
+.back-button:hover {
+	opacity: 1;
+}
+
+.settings-user {
+	margin: 20px 10px 10px;
+}
+
+	.user-profile {
+		color: #000;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	.user-profile:hover {
+		text-decoration: underline;
+	}
+
+	.logout-link {
+		color: #3572CF;
+	}
+
+.settings-options {
+	line-height: 18px;
+	margin: 10px;
+}
+
+	.settings-options label:hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}

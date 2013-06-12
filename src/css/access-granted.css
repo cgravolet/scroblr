@@ -1,0 +1,104 @@
+html {
+	background: #000 url(../img/bg_speaker.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	color: #F4F4F4;
+	font: normal 16px 'Metrophobic', sans-serif;
+	}
+
+body {
+	background: rgba(0,0,0,0.9);
+	border: 1px solid #999;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	-moz-box-shadow: 0 0 5px 5px #000;
+	-webkit-box-shadow: 0 0 5px 5px #000;
+	box-shadow: 0 0 5px 5px #000;
+	margin: 70px auto 0;
+	padding: 15px;
+	width: 500px;
+	}
+
+a, a:link, a:visited, a:hover, a:active, label {
+	color: #F5EBBE;
+	cursor: pointer;
+	text-decoration: underline;
+	}
+
+a:hover {
+	color: #C4C78D;
+	}
+
+a:active {
+	color: #566037;
+	}
+
+h1 {
+	background: transparent url(../img/scroblr-logo.png) no-repeat 0 0;
+	height: 125px;
+	margin: 0;
+	text-indent: -9999px;
+	}
+
+#supported {
+	margin-bottom: 0;
+	padding: 0;
+	}
+
+		#supported li {
+			list-style: none;
+			height: 26px;
+			}
+
+				#supported li a {
+					background: transparent url(../img/icons/pandora.png) no-repeat 0 5px;
+					background-size: 16px 16px;
+					clear: both;
+					display: block;
+					float: left;
+					height: 26px;
+					line-height: 26px;
+					padding-left: 20px;
+					}
+
+				#supported li.accujazz a { background-image: url(../img/icons/accujazz.png); }
+				#supported li.accuradio a { background-image: url(../img/icons/accuradio.png); }
+				#supported li.amazon a { background-image: url(../img/icons/amazon.png); }
+				#supported li.bandcamp a { background-image: url(../img/icons/bandcamp.png); }
+				#supported li.google a { background-image: url(../img/icons/google.png); }
+				#supported li.grooveshark a { background-image: url(../img/icons/grooveshark.png); }
+				#supported li.indieshuffle a { background-image: url(../img/icons/indieshuffle.png); }
+				#supported li.jango a { background-image: url(../img/icons/jango.png); }
+				#supported li.piki a { background-image: url(../img/icons/piki.png); }
+				#supported li.playerfm a { background-image: url(../img/icons/playerfm.png); }
+				#supported li.rhapsody a { background-image: url(../img/icons/rhapsody.png); }
+				#supported li.songza a { background-image: url(../img/icons/songza.png); }
+				#supported li.soundcloud a { background-image: url(../img/icons/soundcloud.png); }
+				#supported li.turntable a { background-image: url(../img/icons/turntable.png); }
+
+.tweet {
+	float: right;
+	margin: 0;
+	}
+
+footer p {
+	margin-bottom: 0;
+	}
+
+@media all and (max-height: 544px) {
+	body {
+		left: auto;
+		margin: 0 auto;
+		position: static;
+		top: auto;
+	}
+}
+
+@media all and (max-width: 525px) {
+	body {
+		border: 0;
+		left: 0;
+		margin-left: 0;
+		width: auto;
+	}
+}

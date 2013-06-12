@@ -1,0 +1,55 @@
+{
+	"manifest_version": 2,
+	"background": {
+		"page": "background.html"
+	},
+	"browser_action": {
+		"default_icon": "img/icons/lastfm16.png",
+		"default_popup": "popup.html"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"http://*/*",
+				"https://*/*"
+			],
+			"js": [
+				"js/lib/zepto.js",
+				"js/scroblr-injection.js",
+				"js/plugins/pandora.js",
+				"js/plugins/turntable.js",
+				"js/plugins/google.js",
+				"js/plugins/amazon.js",
+				"js/plugins/bandcamp.js",
+				"js/plugins/soundcloud.js",
+				"js/plugins/piki.js",
+				"js/plugins/songza.js",
+				"js/plugins/rhapsody.js",
+				"js/plugins/accuradio.js",
+				"js/plugins/accujazz.js",
+				"js/plugins/indieshuffle.js",
+				"js/plugins/jango.js",
+				"js/plugins/playerfm.js",
+				"js/scroblr-injection-init.js"
+			],
+			"all_frames": true
+		}
+	],
+	"description": "A lightweight browser extension that scrobbles the music you listen to on the web.",
+	"icons": {
+		"16": "img/scroblr16.png",
+		"24": "img/scroblr24.png",
+		"48": "img/scroblr48.png",
+		"64": "img/scroblr64.png",
+		"128": "img/scroblr128.png"
+	},
+	"name": "scroblr",
+	"options_page": "options.html",
+	"permissions": [
+		"notifications",
+		"tabs",
+		"http://ws.audioscrobbler.com/2.0/"
+	],
+	"version": "2.0",
+	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
+}
