@@ -104,7 +104,7 @@ module.exports = function(grunt) {
 		doc.Content.Scripts.End = ["js/scroblr.js"];
 		doc = plist.build(doc);
 		doc = doc.replace(/<(\/)?integer>/g, "<$1real>");
-		doc = doc.replace(/<string>\s+<\/string>/g, "<string \/>");
+		doc = doc.replace(/>\s+<\//g, "><\/");
 		fs.writeFileSync('./build/scroblr.safariextension/Info.plist', doc);
 	});
 
