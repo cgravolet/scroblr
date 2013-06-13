@@ -8,7 +8,7 @@ html {
 }
 
 body {
-	height: 154px;
+	height: 130px;
 	margin: 0;
 	overflow: hidden;
 	padding: 10px;
@@ -21,7 +21,7 @@ a {
 
 section {
 	display: none;
-	height: 174px;
+	height: 150px;
 	left: 0;
 	overflow: hidden;
 	position: absolute;
@@ -150,7 +150,7 @@ button {
 .accuradio:before    { background-image: url(../img/icons/accuradio.png); }
 .amazon:before       { background-image: url(../img/icons/amazon.png); }
 .bandcamp:before     { background-image: url(../img/icons/bandcamp.png); }
-.eight-tracks:before { background-image: url(../img/icons/8tracks.png); }
+.eighttracks:before { background-image: url(../img/icons/eighttracks.png); }
 .google:before       { background-image: url(../img/icons/google.png); }
 .indieshuffle:before { background-image: url(../img/icons/indieshuffle.png); }
 .jango:before        { background-image: url(../img/icons/jango.png); }

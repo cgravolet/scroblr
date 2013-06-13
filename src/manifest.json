@@ -30,7 +30,7 @@
 				"js/plugins/indieshuffle.js",
 				"js/plugins/jango.js",
 				"js/plugins/playerfm.js",
-				"js/plugins/8tracks.js",
+				"js/plugins/eighttracks.js",
 				"js/scroblr-injection-init.js"
 			],
 			"all_frames": true

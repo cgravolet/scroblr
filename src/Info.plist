@@ -28,7 +28,7 @@
 				<key>Filename</key>
 				<string>popup.html</string>
 				<key>Height</key>
-				<real>174</real>
+				<real>150</real>
 				<key>Identifier</key>
 				<string>scroblrPopup</string>
 				<key>Width</key>
@@ -77,7 +77,7 @@
 				<string>js/plugins/accujazz.js</string>
 				<string>js/plugins/jango.js</string>
 				<string>js/plugins/playerfm.js</string>
-				<string>js/plugins/8tracks.js</string>
+				<string>js/plugins/eighttracks.js</string>
 				<string>js/scroblr-injection-init.js</string>
 			</array>
 		</dict>
