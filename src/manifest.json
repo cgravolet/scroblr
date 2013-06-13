@@ -28,6 +28,7 @@
 				"js/plugins/accuradio.js",
 				"js/plugins/accujazz.js",
 				"js/plugins/indieshuffle.js",
+				"js/plugins/plugdj.js",
 				"js/plugins/jango.js",
 				"js/plugins/playerfm.js",
 				"js/plugins/eighttracks.js",
@@ -36,6 +37,7 @@
 			"all_frames": true
 		}
 	],
+	"default_locale": "en",
 	"description": "A lightweight Last.fm scrobbler that scrobbles the music you listen to on the web.",
 	"icons": {
 		"16": "img/scroblr16.png",

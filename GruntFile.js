@@ -70,6 +70,16 @@ module.exports = function(grunt) {
 						dest: 'build/scroblr.safariextension/icon-48.png'
 					}
 				]
+			},
+			chrome: {
+				files: [
+					{
+						expand: true,
+						cwd: 'src/',
+						src: ['_locales/**/*.json'],
+						dest: 'build/scroblr.chrome/'
+					}
+				]
 			}
 		},
 

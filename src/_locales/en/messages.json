@@ -1,0 +1,74 @@
+{
+	"AUTHORIZE_BUTTON_LABEL": {
+		"message": "AUTHORIZE WITH LAST.FM",
+		"description": "Authorize button text"
+	},
+	"AUTHORIZE_DESCRIPTION": {
+		"message": "scroblr requires authorization from last.fm to post track information on your behalf.",
+		"description": "Authorize description"
+	},
+	"LAUNCHER_LABEL": {
+		"message": "Where's the Music?",
+		"description": "Launcher section label"
+	},
+	"NOW_PLAYING_LABEL": {
+		"message": "Now Playing",
+		"description": "Now playing section label"
+	},
+	"EDIT_TRACK_TITLE": {
+		"message": "Edit track information",
+		"description": "Edit track title text"
+	},
+	"LOVE_TRACK_TITLE": {
+		"message": "Love this track?",
+		"description": "Love track title text"
+	},
+	"DONTSCROBBLE_TRACK_TITLE": {
+		"message": "Don't scrobble this track?",
+		"description": "Don't scrobble track title text"
+	},
+	"EDIT_TRACK_LABEL": {
+		"message": "Edit Track Information",
+		"description": "Edit track section label"
+	},
+	"SAVE_BUTTON_LABEL": {
+		"message": "SAVE",
+		"description": "Save button text label"
+	},
+	"EDIT_TRACK_ALBUM_TEXT": {
+		"message": "Album",
+		"description": "Album text label"
+	},
+	"EDIT_TRACK_ARTIST_TEXT": {
+		"message": "Artist",
+		"description": "Artist text label"
+	},
+	"EDIT_TRACK_TITLE_TEXT": {
+		"message": "Track",
+		"description": "Title text label"
+	},
+	"SETTINGS_LABEL": {
+		"message": "Settings",
+		"description": "Settings section label"
+	},
+	"SETTINGS_SIGNED_IN": {
+		"message": "You are signed in as '{name}'.",
+		"description": "Signed in text"
+	},
+	"SETTINGS_SIGN_OUT": {
+		"message": "Sign out",
+		"description": "Sign out text label"
+	},
+	"SETTINGS_OPTION_SCROBBLING": {
+		"message": "Enable scrobbling",
+		"description": "Scrobbling option text"
+	},
+	"SETTINGS_OPTION_NOTIFICATIONS": {
+		"message": "Enable notifications",
+		"description": "Notifications option text"
+	},
+	"SETTINGS_OPTION_AUTODISMISS": {
+		"message": "Auto-dismiss notifications after 5 seconds",
+		"description": "Autodismiss option text"
+	}
+}
