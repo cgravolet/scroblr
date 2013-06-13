@@ -2,7 +2,7 @@
 
 	var plugin = scroblr.registerHost("accujazz");
 
-	plugin.init = function () {
+	plugin.test = function () {
 		return document.location.href.indexOf("slipstreamradio.com/pop_player/") >= 0;
 	};
 

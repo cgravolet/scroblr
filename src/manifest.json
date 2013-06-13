@@ -36,7 +36,7 @@
 			"all_frames": true
 		}
 	],
-	"description": "A lightweight browser extension that scrobbles the music you listen to on the web.",
+	"description": "A lightweight Last.fm scrobbler that scrobbles the music you listen to on the web.",
 	"icons": {
 		"16": "img/scroblr16.png",
 		"24": "img/scroblr24.png",

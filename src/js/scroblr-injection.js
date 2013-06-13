@@ -12,9 +12,11 @@ var scroblr = (function () {
 		this.hostre = new RegExp(name + "\\.com", "i");
 		this.name   = name;
 
-		// Init method should return true or false depending on whether this
-		// plugin matches the hostname
-		this.init = function () {
+		/*
+		 * The test method should return true or false depending on whether this
+		 * plugin should be active or not based on the URL
+		 */
+		this.test = function () {
 			return this.hostre.test(document.location.hostname);
 		};
 	};
@@ -112,11 +114,17 @@ var scroblr = (function () {
 	 */
 	function init() {
 		for (var key in plugins) {
-			if (plugins.hasOwnProperty(key) && plugins[key].init()) {
+
+			if (plugins.hasOwnProperty(key) && plugins[key].test()) {
 				host    = plugins[key];
 				host.id = host.name.toUpperCase() + (new Date()).valueOf();
-				poller  = window.setInterval(pollTrackInfo, 5000);
 				plugins.length = 0;
+
+				if (typeof host.init === "function") {
+					host.init();
+				}
+
+				poller  = window.setInterval(pollTrackInfo, 5000);
 				break;
 			}
 		}

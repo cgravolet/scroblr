@@ -2,7 +2,7 @@
 
 	var plugin = scroblr.registerHost("google");
 
-	plugin.init = function () {
+	plugin.test = function () {
 		return document.location.href.indexOf("play.google.com/music/listen") >= 0;
 	};
 
