@@ -410,7 +410,7 @@ function trackShouldBeScrobbled(track) {
 	greaterThan30s         = (track.duration > 30000);
 	listenedTo4m           = (track.elapsed >= 240000);
 	listenedToMoreThanHalf = (track.elapsed >= track.duration / 2);
-	noDurationWithElapsed  = (track.duration === 0 && track.elapsed > 30000);
+	noDurationWithElapsed  = (!track.duration && track.elapsed > 30000);
 
 	return !track.noscrobble && ((greaterThan30s && (listenedTo4m ||
 			listenedToMoreThanHalf)) || noDurationWithElapsed);
