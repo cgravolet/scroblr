@@ -1,7 +1,8 @@
 (function ($) {
 
-	var plugin = scroblr.registerHost("8tracks");
+	var plugin = scroblr.registerHost("eighttracks");
 
+	plugin.hostre = new RegExp("8tracks\\.com", "i");
 	plugin.scrape = function () {
 		return {
 			album:   $("#player .track_metadata .album > .detail").text(),
