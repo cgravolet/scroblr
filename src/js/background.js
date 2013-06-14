@@ -114,12 +114,13 @@ function getTrackInfoCallback(data) {
 	});
 
 	$.extend(currentTrack, trackParams);
+	sendNowPlayingRequest();
+	sendMessage("songInfoRetrieved", currentTrack);
 	notify({
 		image:   currentTrack.image,
 		message: currentTrack.artist + " - " + currentTrack.title,
 		title:   "Now Playing"
 	});
-	sendMessage("songInfoRetrieved", currentTrack);
 }
 
 function getTrackInfoFailure() {
@@ -128,11 +129,12 @@ function getTrackInfoFailure() {
 		currentTrack.editrequired = true;
 		sendMessage("trackEditRequired");
 	} else {
+		sendNowPlayingRequest();
+		sendMessage("songInfoRetrieved", currentTrack);
 		notify({
 			message: currentTrack.artist + " - " + currentTrack.title,
 			title:   "Now Playing"
 		});
-		sendMessage("songInfoRetrieved", currentTrack);
 	}
 }
 
@@ -396,6 +398,31 @@ function sendMessage(name, message) {
 	}
 }
 
+function sendNowPlayingRequest() {
+	var params, scrobblingEnabled;
+
+	scrobblingEnabled = getOptionStatus("scrobbling");
+
+	if (lf_session && scrobblingEnabled) {
+		params = {
+			api_key:  API_KEY,
+			artist:   currentTrack.artist,
+			sk:       lf_session.key,
+			track:    currentTrack.title
+		};
+
+		if (currentTrack.duration) {
+			params.duration = currentTrack.duration / 1000;
+		}
+
+		if (currentTrack.album) {
+			params.album = currentTrack.album;
+		}
+
+		sendRequest("track.updateNowPlaying", params);
+	}
+}
+
 /**
  * Generic function that handles sending all Last.fm API requests.
  *
@@ -425,6 +452,7 @@ function trackEditResponse() {
 	if (currentTrack.editrequired) {
 		currentTrack.editrequired = false;
 		currentTrack.noscrobble   = false;
+		sendNowPlayingRequest();
 		notify({
 			message: currentTrack.artist + " - " + currentTrack.title,
 			title:   "Now Playing"
@@ -479,29 +507,6 @@ function updateCurrentTrack(data) {
  * @param {object} track
  */
 function updateNowPlaying(track) {
-	var params, scrobblingEnabled;
-
-	scrobblingEnabled = getOptionStatus("scrobbling");
-
-	if (lf_session && scrobblingEnabled) {
-		params = {
-			api_key:  API_KEY,
-			artist:   track.artist,
-			sk:       lf_session.key,
-			track:    track.title
-		};
-
-		if (track.duration) {
-			params.duration = track.duration / 1000;
-		}
-
-		if (track.album) {
-			params.album = track.album;
-		}
-
-		sendRequest("track.updateNowPlaying", params);
-	}
-
 	pushTrackToHistory(currentTrack);
 	scrobbleHistory();
 	currentTrack = $.extend({}, track);
