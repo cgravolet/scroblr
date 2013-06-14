@@ -22,6 +22,7 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 - Songza
 - Soundcloud
 - Turntable.fm
+- YouTube
 
 ##What's "scrobbling?"
 
