@@ -173,6 +173,10 @@ var scroblr = (function () {
 				}
 			});
 			sendMessage("updateCurrentTrack", updateObj);
+
+		// A track is paused
+		} else if (newTrack.stopped) {
+			sendMessage("updateCurrentTrack", {});
 		}
 	}
 
