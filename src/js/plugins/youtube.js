@@ -9,7 +9,7 @@
 	plugin.scrape = function () {
 		var parsedTitle, title;
 
-		title       = $.trim($("#watch-headline-title").text());
+		title       = $("#watch-headline-title").text();
 		parsedTitle = title.replace(/^(.+)\s*[-–:]\s*(.+)$/, "$1_,_$2").split("_,_");
 
 		if (parsedTitle.length > 1) {
@@ -45,6 +45,7 @@
 	 * @param {String} title
 	 */
 	function cleanseTrack(artist, title) {
+		title = $.trim(title);
 		title = title.replace(/\s*\*+\s?\S+\s?\*+$/, ''); // **NEW**
 		title = title.replace(/\s*\[[^\]]+\]$/, ''); // [whatever]
 		title = title.replace(/\s*\([^\)]*version\)$/i, ''); // (whatever version)
@@ -58,6 +59,8 @@
 		title = title.replace(/\s*video\s*clip/i, ''); // video clip
 		title = title.replace(/\s+\(?live\)?$/i, ''); // live
 		title = title.replace(/\(\s*\)/, ''); // Leftovers after e.g. (official video)
+		title = title.replace(/\(.*lyrics?\)/i, ''); // (with lyrics)
+		title = title.replace(/\s*with\s+lyrics?\s*$/i, ''); // with lyrics
 		title = title.replace(/^(|.*\s)"(.*)"(\s.*|)$/, '$2'); // Artist - The new "Track title" featuring someone
 		title = title.replace(/^(|.*\s)'(.*)'(\s.*|)$/, '$2'); // 'Track title'
 		title = title.replace(/^[\/\s,:;~-\s"]+/, ''); // trim starting white chars and dash

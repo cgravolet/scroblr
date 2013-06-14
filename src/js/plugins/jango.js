@@ -29,8 +29,8 @@
 		return {
 			artist:   $("#scroblr-artist").val(),
 			album:    $.trim($("#player_info #player_current_artist").contents().last().text()),
-			duration: $("#scroblr-duration").val(),
-			elapsed:  $("#scroblr-elapsed").val(),
+			duration: parseFloat($("#scroblr-duration").val()),
+			elapsed:  parseFloat($("#scroblr-elapsed").val()),
 			stopped:  !$("#btn-playpause").hasClass("pause"),
 			title:    $("#scroblr-title").val()
 		};

@@ -412,7 +412,7 @@ function sendNowPlayingRequest() {
 		};
 
 		if (currentTrack.duration) {
-			params.duration = currentTrack.duration / 1000;
+			params.duration = Math.round(currentTrack.duration / 1000);
 		}
 
 		if (currentTrack.album) {
@@ -486,17 +486,19 @@ function trackShouldBeScrobbled(track) {
  * @param {object} data
  */
 function updateCurrentTrack(data) {
-	window.clearTimeout(keepalive);
-	keepalive = window.setTimeout(function () {
-		pushTrackToHistory(currentTrack);
-		scrobbleHistory();
-		currentTrack = null;
-		sendMessage("keepAliveExpired");
-	}, 15000);
+	if (data.id === currentTrack.id) {
+		window.clearTimeout(keepalive);
+		keepalive = window.setTimeout(function () {
+			pushTrackToHistory(currentTrack);
+			scrobbleHistory();
+			currentTrack = null;
+			sendMessage("keepAliveExpired");
+		}, 15000);
 
-	for (var key in data) {
-		if (data.hasOwnProperty(key)) {
-			currentTrack[key] = data[key];
+		for (var key in data) {
+			if (data.hasOwnProperty(key)) {
+				currentTrack[key] = data[key];
+			}
 		}
 	}
 }
