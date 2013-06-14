@@ -2,13 +2,63 @@
 
 	var plugin = scroblr.registerHost("jango");
 
+	plugin.init = function () {
+		var script;
+
+		$('<input type="hidden" id="scroblr-artist" value="" />').appendTo(document.body);
+		$('<input type="hidden" id="scroblr-duration" value="" />').appendTo(document.body);
+		$('<input type="hidden" id="scroblr-elapsed" value="" />').appendTo(document.body);
+		$('<input type="hidden" id="scroblr-title" value="" />').appendTo(document.body);
+
+		script = document.createElement("script");
+		script.appendChild(document.createTextNode("(" + injectScript + "());"));
+		document.body.appendChild(script);
+	};
+
+	plugin.test = function () {
+		var hostMatch = this.hostre.test(document.location.hostname);
+
+		if (hostMatch && document.getElementById("player-outer-box")) {
+			return true;
+		}
+
+		return false;
+	};
+
 	plugin.scrape = function () {
 		return {
-			artist:   $("#player_info #player_current_artist > *").not("span").text(),
-			album:    $("#player_info #player_current_artist").contents().last().text(),
-			duration: scroblr.utilities.calculateDuration($("#player_info #timer").text().substring(1)),
+			artist:   $("#scroblr-artist").val(),
+			album:    $.trim($("#player_info #player_current_artist").contents().last().text()),
+			duration: $("#scroblr-duration").val(),
+			elapsed:  $("#scroblr-elapsed").val(),
 			stopped:  !$("#btn-playpause").hasClass("pause"),
-			title:    $("#player_info #current-song").text()
+			title:    $("#scroblr-title").val()
 		};
 	};
+
+	/**
+	 * Injection script that gets appended to the page so it can access the
+	 * jango API methods and update the hidden scroblr form fields for keeping
+	 * track of the currently playing track.
+	 */
+	function injectScript() {
+
+		function updateMedia() {
+			var manager, media, sound;
+
+			manager = _jp.soundManager;
+			media   = _jm.song_info;
+			sound   = manager.sounds[manager.soundIDs[manager.soundIDs.length - 1]];
+
+			document.getElementById("scroblr-artist").value = media.artist || "";
+			document.getElementById("scroblr-duration").value = sound.duration || 0;
+			document.getElementById("scroblr-elapsed").value = sound.position || 0;
+			document.getElementById("scroblr-title").value = media.song || "";
+		}
+
+		window.setTimeout(function () {
+			updateMedia();
+			window.setInterval(updateMedia, 5000);
+		}, 3000);
+	}
 }(Zepto));
