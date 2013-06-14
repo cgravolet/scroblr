@@ -31,6 +31,10 @@
 		"message": "Edit Track Information",
 		"description": "Edit track section label"
 	},
+	"EDIT_TRACK_REQUIRED_LABEL": {
+		"message": "Confirm Track Information",
+		"description": "Edit track required section label"
+	},
 	"SAVE_BUTTON_LABEL": {
 		"message": "SAVE",
 		"description": "Save button text label"

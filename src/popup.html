@@ -18,6 +18,7 @@
     </section>
 
     <section class="now-playing"></section>
+    <section class="edit-track"></section>
 
     <section class="settings">
         <header>
@@ -38,23 +39,28 @@
         </p>
     </section>
 
-    <section class="edit-track">
+    <script type="text/template" id="tmplEditTrack">
         <header>
-            Edit Track Information
-            <a href="#now-playing" class="back-button goto-section">Back</a>
+            {{#editrequired}}
+                Confirm Track Information
+            {{/editrequired}}
+            {{^editrequired}}
+                Edit Track Information
+                <a href="#now-playing" class="back-button goto-section">Back</a>
+            {{/editrequired}}
         </header>
         <p class="edit-track-settings">
             <label for="artist">Artist</label>
-                <input type="text" value="" name="artist" /><br />
+                <input type="text" value="{{artist}}" name="artist" /><br />
             <label for="title"><strong>Track</strong></label>
-                <input type="text" value="" name="title" /><br />
+                <input type="text" value="{{title}}" name="title" /><br />
             <label for="album"><em>Album</em></label>
-                <input type="text" value="" name="album" /><br />
+                <input type="text" value="{{album}}" name="album" /><br />
         </p>
         <p class="edit-track-button-container">
             <button id="submitTrackEditBtn">SAVE</button>
         </p>
-    </section>
+    </script>
 
     <script type="text/template" id="tmplNowPlaying">
         <header>

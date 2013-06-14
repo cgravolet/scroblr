@@ -7,18 +7,34 @@
 	}
 
 	plugin.scrape = function () {
-		var title;
+		var parsedTitle, title;
 
-		title = $.trim($("#watch-headline-title").text());
-		title = title.replace(/^(.+)(\s*[-–:]\s*)(.+)$/i, "$1_,_$3").split("_,_");
+		title       = $.trim($("#watch-headline-title").text());
+		parsedTitle = title.replace(/^(.+)\s*[-–:]\s*(.+)$/, "$1_,_$2").split("_,_");
 
-		if (title.length > 1) {
-			return cleanseTrack(title[0], title[1]);
-		} else {
-			return {
-				title: title[0]
-			};
+		if (parsedTitle.length > 1) {
+			return cleanseTrack(parsedTitle[0], parsedTitle[1]);
 		}
+
+		if (title.indexOf("by") >= 0) {
+			parsedTitle = title.replace(/^(.+)\s*by\s*(.+)$/, "$1_,_$2").split("_,_");
+
+			if (parsedTitle.length > 1) {
+				return cleanseTrack(parsedTitle[1], parsedTitle[0]);
+			}
+		}
+
+		if (title.indexOf("\"") >= 0) {
+			parsedTitle = title.replace(/^([^"]+)(".+)$/, "$1_,_$2").split("_,_");
+
+			if (parsedTitle.length > 1) {
+				return cleanseTrack(parsedTitle[0], parsedTitle[1]);
+			}
+		}
+
+		return {
+			title: title
+		};
 	};
 
 	/**

@@ -77,7 +77,7 @@ scroblrView = (function (model, Mustache) {
 
 	function displaySection(section) {
 		if (section === "edit-track") {
-			populateEditTrackForm();
+			renderEditTrackForm();
 		}
 		$body.removeClass().addClass("show-" + section);
 	}
@@ -90,8 +90,7 @@ scroblrView = (function (model, Mustache) {
 
 	function messageHandler (msg) {
 		switch (msg.name) {
-		case "keepAliveExpired": // intentional fall-through
-		case "trackLoved":
+		case "trackLoved": // intentional fall-through
 		case "trackNoScrobbleSet":
 		case "songInfoRetrieved":
 			window.setTimeout(function () {
@@ -105,7 +104,8 @@ scroblrView = (function (model, Mustache) {
 				}, 500);
 			}
 			break;
-		case "trackEditRequired": // intentional fall-through
+		case "keepAliveExpired": // intentional fall-through
+		case "trackEditRequired":
 		case "trackEditSaved":
 		case "userLoggedOut":
 		case "userSessionRetrieved":
@@ -130,12 +130,6 @@ scroblrView = (function (model, Mustache) {
 		showStartScreen();
 	}
 
-	function populateEditTrackForm() {
-		$(".edit-track input").each(function () {
-			$(this).val(model.currentTrack[$(this).attr("name")]);
-		});
-	}
-
 	function populateSettingsOptions() {
 		var i, max, options;
 
@@ -157,11 +151,20 @@ scroblrView = (function (model, Mustache) {
 		}
 	}
 
-	function renderNowPlaying() {
-		var $nowPlaying, template;
+	function renderEditTrackForm() {
+		var $container, data, template;
 
-		$nowPlaying = $("section.now-playing");
-		template    = $.trim($("#tmplNowPlaying").html());
+		$container = $("section.edit-track");
+		template   = $.trim($("#tmplEditTrack").html());
+
+		$container.html(Mustache.render(template, model.currentTrack));
+	}
+
+	function renderNowPlaying() {
+		var $container, template;
+
+		$container = $("section.now-playing");
+		template   = $.trim($("#tmplNowPlaying").html());
 
 		if (model.currentTrack && model.currentTrack.hasOwnProperty("score")) {
 			if (model.currentTrack.score <= 50) {
@@ -171,7 +174,7 @@ scroblrView = (function (model, Mustache) {
 			}
 		}
 
-		$nowPlaying.html(Mustache.render(template, model.currentTrack));
+		$container.html(Mustache.render(template, model.currentTrack));
 	}
 
 	function sendMessage(name, message) {
@@ -187,9 +190,8 @@ scroblrView = (function (model, Mustache) {
 		if (!model.lf_session) {
 			$body.addClass("show-authenticate");
 		} else if (model.currentTrack && model.currentTrack.editrequired) {
-			renderNowPlaying();
-			populateEditTrackForm();
-			$body.addClass("show-edit-track edit-required");
+			renderEditTrackForm();
+			$body.addClass("show-edit-track");
 		} else {
 			renderNowPlaying();
 			$body.addClass("show-now-playing");
