@@ -39,31 +39,25 @@
 	 * track of the currently playing track.
 	 */
 	function plugScrape() {
-		API.addEventListener(API.DJ_ADVANCE, function (obj) {
-			updateMedia(obj.media);
-		});
-		API.addEventListener(API.ROOM_SCORE_UPDATE, function (obj) {
-			updateMedia(null, Math.round(obj.score * 100));
-		});
 
-		function updateMedia(media, score) {
-			if (!media && !score) {
-				media = API.getMedia();
-			}
+		function updateMedia() {
+			var media, score;
 
-			if (!score) {
-				score = Math.round(API.getRoomScore().score * 100);
-			}
-			document.getElementById("scroblr-score").value = score || 50;
+			media = API.getMedia();
+			score = Math.round(API.getRoomScore().score * 100);
 
 			if (media) {
 				document.getElementById("scroblr-artist").value = media.author;
 				document.getElementById("scroblr-duration").value = media.duration * 1000;
+				document.getElementById("scroblr-score").value = score || 50;
 				document.getElementById("scroblr-title").value = media.title;
 			}
 		}
 
-		window.setTimeout(updateMedia, 3000);
+		window.setTimeout(function () {
+			updateMedia();
+			window.setInterval(updateMedia, 5000);
+		}, 3000);
 	}
 
 }(Zepto));
