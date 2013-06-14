@@ -8,8 +8,9 @@
 		var script;
 
 		$('<input type="hidden" id="scroblr-artist" value="" />').appendTo(document.body);
-		$('<input type="hidden" id="scroblr-title" value="" />').appendTo(document.body);
 		$('<input type="hidden" id="scroblr-duration" value="" />').appendTo(document.body);
+		$('<input type="hidden" id="scroblr-score" value="" />').appendTo(document.body);
+		$('<input type="hidden" id="scroblr-title" value="" />').appendTo(document.body);
 
 		script = document.createElement("script");
 		script.appendChild(document.createTextNode("(" + plugScrape + "());"));
@@ -22,6 +23,7 @@
 		info = {
 			artist:   $("#scroblr-artist").val(),
 			duration: parseFloat($("#scroblr-duration").val()),
+			score:    $("#scroblr-score").val(),
 			title:    $("#scroblr-title").val()
 		};
 
@@ -40,17 +42,28 @@
 		API.addEventListener(API.DJ_ADVANCE, function (obj) {
 			updateMedia(obj.media);
 		});
+		API.addEventListener(API.ROOM_SCORE_UPDATE, function (obj) {
+			updateMedia(null, Math.round(obj.score * 100));
+		});
 
-		function updateMedia(media) {
-			if (!media) {
+		function updateMedia(media, score) {
+			if (!media && !score) {
 				media = API.getMedia();
 			}
-			document.getElementById("scroblr-artist").value = media.author;
-			document.getElementById("scroblr-duration").value = media.duration * 1000;
-			document.getElementById("scroblr-title").value = media.title;
+
+			if (!score) {
+				score = Math.round(API.getRoomScore().score * 100);
+			}
+			document.getElementById("scroblr-score").value = score || 50;
+
+			if (media) {
+				document.getElementById("scroblr-artist").value = media.author;
+				document.getElementById("scroblr-duration").value = media.duration * 1000;
+				document.getElementById("scroblr-title").value = media.title;
+			}
 		}
 
-		window.setTimeout(updateMedia, 1000);
+		window.setTimeout(updateMedia, 3000);
 	}
 
 }(Zepto));
