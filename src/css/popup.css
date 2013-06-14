@@ -162,6 +162,7 @@ button {
 .songza:before       { background-image: url(../img/icons/songza.png); }
 .soundcloud:before   { background-image: url(../img/icons/soundcloud.png); }
 .turntable:before    { background-image: url(../img/icons/turntable.png); }
+.youtube:before      { background-image: url(../img/icons/youtube.png); }
 
 .album-art {
 	background: transparent url(../img/album-art-default.png) no-repeat center center;
@@ -293,6 +294,10 @@ button {
 		#submitTrackEditBtn {
 			width: 100px;
 		}
+
+.edit-required .edit-track .back-button {
+	display: none;
+}
 
 /* ==============================
  * Settings section

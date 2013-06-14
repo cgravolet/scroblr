@@ -105,7 +105,8 @@ scroblrView = (function (model, Mustache) {
 				}, 500);
 			}
 			break;
-		case "trackEditSaved": // intentional fall-through
+		case "trackEditRequired": // intentional fall-through
+		case "trackEditSaved":
 		case "userLoggedOut":
 		case "userSessionRetrieved":
 			showStartScreen();
@@ -185,6 +186,10 @@ scroblrView = (function (model, Mustache) {
 
 		if (!model.lf_session) {
 			$body.addClass("show-authenticate");
+		} else if (model.currentTrack && model.currentTrack.editrequired) {
+			renderNowPlaying();
+			populateEditTrackForm();
+			$body.addClass("show-edit-track edit-required");
 		} else {
 			renderNowPlaying();
 			$body.addClass("show-now-playing");

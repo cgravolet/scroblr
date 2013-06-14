@@ -19,6 +19,7 @@
 				"js/plugins/pandora.js",
 				"js/plugins/turntable.js",
 				"js/plugins/google.js",
+				"js/plugins/youtube.js",
 				"js/plugins/amazon.js",
 				"js/plugins/bandcamp.js",
 				"js/plugins/soundcloud.js",

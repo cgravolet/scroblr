@@ -66,6 +66,7 @@
 				<string>js/plugins/pandora.js</string>
 				<string>js/plugins/turntable.js</string>
 				<string>js/plugins/google.js</string>
+				<string>js/plugins/youtube.js</string>
 				<string>js/plugins/amazon.js</string>
 				<string>js/plugins/bandcamp.js</string>
 				<string>js/plugins/soundcloud.js</string>

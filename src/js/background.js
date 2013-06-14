@@ -80,7 +80,8 @@ function getTrackInfo(track) {
 			params.username = lf_session.name;
 		}
 
-		sendRequest("track.getInfo", params, getTrackInfoCallback);
+		sendRequest("track.getInfo", params, getTrackInfoCallback,
+				getTrackInfoFailure);
 	}
 }
 
@@ -113,7 +114,26 @@ function getTrackInfoCallback(data) {
 	});
 
 	$.extend(currentTrack, trackParams);
+	notify({
+		image:   currentTrack.image,
+		message: currentTrack.artist + " - " + currentTrack.title,
+		title:   "Now Playing"
+	});
 	sendMessage("songInfoRetrieved", currentTrack);
+}
+
+function getTrackInfoFailure() {
+	if (currentTrack.host === "youtube") {
+		currentTrack.noscrobble   = true;
+		currentTrack.editrequired = true;
+		sendMessage("trackEditRequired");
+	} else {
+		notify({
+			message: currentTrack.artist + " - " + currentTrack.title,
+			title:   "Now Playing"
+		});
+		sendMessage("songInfoRetrieved", currentTrack);
+	}
 }
 
 /**
@@ -254,6 +274,7 @@ function messageHandler(msg) {
 		break;
 	case "trackEdited":
 		updateCurrentTrack(msg.message);
+		trackEditResponse();
 		sendMessage("trackEditSaved");
 		break;
 	case "updateCurrentTrack":
@@ -266,15 +287,19 @@ function messageHandler(msg) {
  * Handles sending HTML5 window notifications (used mainly when a new song
  * starts playing, Chrome-only for the time being)
  *
- * @param {object} notificationData The notification to be sent (ex. {title:
- *                              		"Now Playing", message: "Big Black - Kerosene"})
+ * @param {object} message The notification to be sent (ex. {title:
+ *                         "Now Playing", message: "Big Black - Kerosene"})
  */
-function notify(notificationData) {
+function notify(message) {
 	var notification;
+
+	if (!(message.image && message.image.length)) {
+		message.image = "img/scroblr64.png";
+	}
 
 	if (window.webkitNotifications && getOptionStatus("notifications")) {
 		notification = webkitNotifications.createNotification(
-				"img/scroblr64.png", notificationData.title, notificationData.message);
+				message.image, message.title, message.message);
 		notification.show();
 
 		if (getOptionStatus("autodismiss")) {
@@ -380,7 +405,7 @@ function sendMessage(name, message) {
  *                        the method
  * @param {function} callback Any callback function to be run on success
  */
-function sendRequest(method, params, callback) {
+function sendRequest(method, params, success, error) {
 	var requirePost = ["track.love", "track.scrobble", "track.unlove",
 			"track.updateNowPlaying"];
 
@@ -389,11 +414,22 @@ function sendRequest(method, params, callback) {
 
 	$.ajax({
 		data:    params,
-		failure: handleFailure,
-		success: callback,
+		error:   error || handleFailure,
+		success: success,
 		type:    (requirePost.indexOf(method) >= 0 ? "POST" : "GET"),
 		url:     API_URL
 	});
+}
+
+function trackEditResponse() {
+	if (currentTrack.editrequired) {
+		currentTrack.editrequired = false;
+		currentTrack.noscrobble   = false;
+		notify({
+			message: currentTrack.artist + " - " + currentTrack.title,
+			title:   "Now Playing"
+		});
+	}
 }
 
 /**
@@ -446,10 +482,6 @@ function updateNowPlaying(track) {
 	var params, scrobblingEnabled;
 
 	scrobblingEnabled = getOptionStatus("scrobbling");
-	notify({
-		message: track.artist + " - " + track.title,
-		title:   "Now Playing"
-	});
 
 	if (lf_session && scrobblingEnabled) {
 		params = {
