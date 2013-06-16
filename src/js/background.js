@@ -139,24 +139,6 @@ function getTrackInfoFailure() {
 }
 
 /**
- * Constructs the request object to send to the Last.fm API in order to get more
- * detailed user info
- *
- * @param {string} user Last.fm username
- */
-function getUserInfo(user) {
-	var params = {
-		api_key: API_KEY,
-		user:    user
-	};
-
-	sendRequest("user.getInfo", params, function (data) {
-		localStorage.lf_image = $("user image[size=small]", data).text();
-		sendMessage("initUserForm", null);
-	});
-}
-
-/**
  * Creates the request object to send to the Last.fm API in order to request a
  * user session
  *
