@@ -3,7 +3,7 @@
 	var plugin = scroblr.registerHost("youtube");
 
 	plugin.test = function () {
-		return document.location.href.indexOf("youtube.com/watch") >= 0;
+		return /youtube\.[A-Z\.]{2,}\/watch/i.test(document.location.href);
 	}
 
 	plugin.scrape = function () {
