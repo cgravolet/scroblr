@@ -46,6 +46,7 @@ scroblrView = (function (model, Mustache) {
 			e.preventDefault();
 			sendMessage("trackEdited", {
 				artist: $(".edit-track input[name=artist]").val(),
+				id:     model.currentTrack.id,
 				title:  $(".edit-track input[name=title]").val(),
 				album:  $(".edit-track input[name=album]").val()
 			});

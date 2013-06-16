@@ -337,6 +337,10 @@ function pushTrackToHistory(track) {
 	if (track) {
 		history.push(track);
 	}
+
+	if (history.length > 25) {
+		history.splice(0, 1);
+	}
 }
 
 /**
@@ -399,11 +403,12 @@ function sendMessage(name, message) {
 }
 
 function sendNowPlayingRequest() {
-	var params, scrobblingEnabled;
+	var artistTitlePresent, params, scrobblingEnabled;
 
-	scrobblingEnabled = getOptionStatus("scrobbling");
+	artistTitlePresent = (currentTrack.artist && currentTrack.title ? true : false);
+	scrobblingEnabled  = getOptionStatus("scrobbling");
 
-	if (lf_session && scrobblingEnabled) {
+	if (lf_session && scrobblingEnabled && artistTitlePresent) {
 		params = {
 			api_key:  API_KEY,
 			artist:   currentTrack.artist,
@@ -468,16 +473,17 @@ function trackEditResponse() {
  * @private
  */
 function trackShouldBeScrobbled(track) {
-	var greaterThan30s, listenedTo4m, listenedToMoreThanHalf,
+	var artistTitlePresent, greaterThan30s, listenedTo4m, listenedToMoreThanHalf,
 		noDurationWithElapsed;
 
+	artistTitlePresent     = (track.artist && track.title ? true : false);
 	greaterThan30s         = (track.duration > 30000);
 	listenedTo4m           = (track.elapsed >= 240000);
 	listenedToMoreThanHalf = (track.elapsed >= track.duration / 2);
 	noDurationWithElapsed  = (!track.duration && track.elapsed > 30000);
 
-	return !track.noscrobble && ((greaterThan30s && (listenedTo4m ||
-			listenedToMoreThanHalf)) || noDurationWithElapsed);
+	return !track.noscrobble && artistTitlePresent && ((greaterThan30s &&
+			(listenedTo4m || listenedToMoreThanHalf)) || noDurationWithElapsed);
 }
 
 /**
@@ -511,6 +517,13 @@ function updateCurrentTrack(data) {
 function updateNowPlaying(track) {
 	pushTrackToHistory(currentTrack);
 	scrobbleHistory();
+
+	if (!track.artist) {
+		track.editrequired = true;
+		track.noscrobble   = true;
+		sendMessage("trackEditRequired");
+	}
+
 	currentTrack = $.extend({}, track);
 }
 

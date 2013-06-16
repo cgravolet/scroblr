@@ -48,6 +48,8 @@ var scroblr = (function () {
 		this.toString = function () {
 			if (this.artist && this.title) {
 				return this.artist + " - " + this.title;
+			} else if (this.title && this.host === "youtube") {
+				return this.title;
 			} else {
 				return "";
 			}
