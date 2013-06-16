@@ -9,8 +9,8 @@
 	plugin.scrape = function () {
 		var parsedTitle, title;
 
-		title       = $("#watch-headline-title").text();
-		parsedTitle = title.replace(/^(.+)\s*[-–:]\s*(.+)$/, "$1_,_$2").split("_,_");
+		title       = $.trim($("#watch-headline-title").text());
+		parsedTitle = title.replace(/^(.+)\s*[-–:]+\s*(.+)$/, "$1_,_$2").split("_,_");
 
 		if (parsedTitle.length > 1) {
 			return cleanseTrack(parsedTitle[0], parsedTitle[1]);
