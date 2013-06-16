@@ -517,6 +517,7 @@ function updateCurrentTrack(data) {
 function updateNowPlaying(track) {
 	pushTrackToHistory(currentTrack);
 	scrobbleHistory();
+	window.clearTimeout(keepalive);
 
 	if (!track.artist) {
 		track.editrequired = true;
