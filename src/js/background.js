@@ -211,6 +211,16 @@ function initialize() {
 	}
 }
 
+function keepTrackAlive() {
+	window.clearTimeout(keepalive);
+	keepalive = window.setTimeout(function () {
+		pushTrackToHistory(currentTrack);
+		scrobbleHistory();
+		currentTrack = null;
+		sendMessage("keepAliveExpired");
+	}, 15000);
+}
+
 /**
  * Clears the current users session from local memory
  */
@@ -493,13 +503,7 @@ function trackShouldBeScrobbled(track) {
  */
 function updateCurrentTrack(data) {
 	if (data.id === currentTrack.id) {
-		window.clearTimeout(keepalive);
-		keepalive = window.setTimeout(function () {
-			pushTrackToHistory(currentTrack);
-			scrobbleHistory();
-			currentTrack = null;
-			sendMessage("keepAliveExpired");
-		}, 15000);
+		keepTrackAlive();
 
 		for (var key in data) {
 			if (data.hasOwnProperty(key)) {
@@ -517,7 +521,7 @@ function updateCurrentTrack(data) {
 function updateNowPlaying(track) {
 	pushTrackToHistory(currentTrack);
 	scrobbleHistory();
-	window.clearTimeout(keepalive);
+	keepTrackAlive();
 
 	if (!track.artist) {
 		track.editrequired = true;
