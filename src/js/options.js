@@ -1,6 +1,6 @@
-"use strict";
-
 (function (model, $) {
+	"use strict";
+
 	var $body = $("body");
 
 	function attachBehaviors() {
@@ -22,6 +22,7 @@
 	}
 
 	function changeSettingsOption(e) {
+		/*jshint validthis:true */
 		var id = $(this).attr("id");
 
 		if (this.checked) {

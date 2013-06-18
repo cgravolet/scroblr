@@ -8,7 +8,7 @@
 		discover = window.location.pathname.slice(1) === "discover";
 		info = {
 			stopped: !$(".inline_player .playbutton").hasClass("playing")
-		}
+		};
 
 		if (!info.stopped) {
 			if (discover) {

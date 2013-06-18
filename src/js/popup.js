@@ -1,15 +1,15 @@
-"use strict";
+var scroblrView = (function ($, Mustache) {
+	"use strict";
 
-var model, scroblrView;
+	var $body, model;
 
-if (typeof chrome != "undefined") {
-	model = chrome.extension.getBackgroundPage();
-} else if (typeof safari != "undefined") {
-	model = safari.extension.globalPage.contentWindow;
-}
+	$body = $("body");
 
-scroblrView = (function (model, Mustache) {
-	var $body = $("body");
+	if (typeof chrome != "undefined") {
+		model = chrome.extension.getBackgroundPage().scroblrGlobal;
+	} else if (typeof safari != "undefined") {
+		model = safari.extension.globalPage.contentWindow.scroblrGlobal;
+	}
 
 	function attachBehaviors () {
 		$body.on("click", "#authorizeBtn", function (e) {
@@ -44,9 +44,10 @@ scroblrView = (function (model, Mustache) {
 
 		$body.on("click", "#submitTrackEditBtn", function (e) {
 			e.preventDefault();
+			var track = model.getCurrentTrack();
 			sendMessage("trackEdited", {
 				artist: $(".edit-track input[name=artist]").val(),
-				id:     model.currentTrack.id,
+				id:     track.id,
 				title:  $(".edit-track input[name=title]").val(),
 				album:  $(".edit-track input[name=album]").val()
 			});
@@ -65,6 +66,7 @@ scroblrView = (function (model, Mustache) {
 	}
 
 	function changeSettingsOption(e) {
+		/*jshint validthis:true */
 		var id = $(this).attr("id");
 
 		if (this.checked) {
@@ -132,8 +134,9 @@ scroblrView = (function (model, Mustache) {
 	}
 
 	function populateSettingsOptions() {
-		var i, max, options;
+		var i, max, options, session;
 
+		session = model.getSession();
 		options = [
 			"disable_scrobbling",
 			"disable_notifications",
@@ -146,36 +149,38 @@ scroblrView = (function (model, Mustache) {
 			}
 		}
 
-		if (model.lf_session) {
-			$("#userProfile").text(model.lf_session.name).attr("href",
-					"http://last.fm/user/" + model.lf_session.name);
+		if (session) {
+			$("#userProfile").text(session.name).attr("href",
+					"http://last.fm/user/" + session.name);
 		}
 	}
 
 	function renderEditTrackForm() {
-		var $container, data, template;
+		var $container, data, template, track;
 
 		$container = $("section.edit-track");
 		template   = $.trim($("#tmplEditTrack").html());
+		track      = model.getCurrentTrack();
 
-		$container.html(Mustache.render(template, model.currentTrack));
+		$container.html(Mustache.render(template, track));
 	}
 
 	function renderNowPlaying() {
-		var $container, template;
+		var $container, template, track;
 
 		$container = $("section.now-playing");
 		template   = $.trim($("#tmplNowPlaying").html());
+		track      = model.getCurrentTrack();
 
-		if (model.currentTrack && model.currentTrack.hasOwnProperty("score")) {
-			if (model.currentTrack.score <= 50) {
-				model.currentTrack.badscore = true;
+		if (track && track.hasOwnProperty("score")) {
+			if (track.score <= 50) {
+				track.badscore = true;
 			} else {
-				model.currentTrack.badscore = false;
+				track.badscore = false;
 			}
 		}
 
-		$container.html(Mustache.render(template, model.currentTrack));
+		$container.html(Mustache.render(template, track));
 	}
 
 	function sendMessage(name, message) {
@@ -186,11 +191,16 @@ scroblrView = (function (model, Mustache) {
 	}
 
 	function showStartScreen() {
+		var session, track;
+
+		session = model.getSession();
+		track   = model.getCurrentTrack();
+
 		$body.removeClass();
 
-		if (!model.lf_session) {
+		if (!session) {
 			$body.addClass("show-authenticate");
-		} else if (model.currentTrack && model.currentTrack.editrequired) {
+		} else if (track && track.editrequired) {
 			renderEditTrackForm();
 			$body.addClass("show-edit-track");
 		} else {
@@ -204,4 +214,4 @@ scroblrView = (function (model, Mustache) {
 	return {
 		messageHandler: messageHandler
 	};
-}(model, Mustache));
+}(jQuery, Mustache));

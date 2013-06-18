@@ -72,8 +72,8 @@ var scroblr = (function () {
 				timeSegments = arguments[i].split(":");
 
 				for (j = timeSegments.length - 1, pow = 0;
-						 j >= 0 && j >= (timeSegments.length - 3);
-						 j -= 1, pow += 1) {
+						j >= 0 && j >= (timeSegments.length - 3);
+						j -= 1, pow += 1) {
 					seconds += parseFloat(timeSegments[j].replace("-", "")) *
 							Math.pow(60, pow);
 				}
@@ -157,7 +157,7 @@ var scroblr = (function () {
 			sendMessage("nowPlaying", newTrack);
 
 		// A track continues to play
-		} else if (!newTrack.stopped === true) {
+		} else if (newTrack.stopped === false) {
 			newTrack.id = prevTrack.id;
 			updateObj = {
 				id: newTrack.id

@@ -3,7 +3,7 @@
 	var plugin = scroblr.registerHost("google");
 
 	plugin.test = function () {
-		return /play\.google\.[A-Z\.]{2,}\/music\/listen/i.test(document.location.href);
+		return (/play\.google\.[A-Z\.]{2,}\/music\/listen/i).test(document.location.href);
 	};
 
 	plugin.scrape = function () {

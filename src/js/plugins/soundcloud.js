@@ -8,7 +8,7 @@
 		soundcloudNext = !!$("body > #app").length;
 
 		if (soundcloudNext) {
-			playing = $(".sc-button-play.sc-button-pause"),
+			playing = $(".sc-button-play.sc-button-pause");
 			info = {
 				stopped: !playing.length
 			};
@@ -21,7 +21,7 @@
 				info.title    = player.find(".soundTitle__title").text();
 			}
 		} else {
-			playing = $(".play.playing"),
+			playing = $(".play.playing");
 			info = {
 				stopped: !playing.length
 			};
