@@ -10,8 +10,26 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"http://*/*",
-				"https://*/*"
+				"*://*.8tracks.com/*",
+				"*://*.accuradio.com/*",
+				"*://*.amazon.com/gp/dmusic*",
+				"*://*.amazon.co.uk/gp/dmusic*",
+				"*://*.amazon.de/gp/dmusic*",
+				"*://*.bandcamp.com/*",
+				"*://play.google.com/music/*",
+				"*://*.indieshuffle.com/*",
+				"*://*.jango.com/*",
+				"*://*.napster.co.uk/*",
+				"*://*.napster.de/*",
+				"*://*.pandora.com/*",
+				"*://*.piki.fm/*",
+				"*://*.player.fm/*",
+				"*://*.plug.dj/*",
+				"*://*.rhapsody.com/*",
+				"*://*.songza.com/*",
+				"*://*.soundcloud.com/*",
+				"*://*.turntable.fm/*",
+				"*://*.youtube.com/watch*"
 			],
 			"js": [
 				"js/lib/zepto.js",
@@ -51,7 +69,6 @@
 	"options_page": "options.html",
 	"permissions": [
 		"notifications",
-		"tabs",
 		"http://ws.audioscrobbler.com/2.0/"
 	],
 	"web_accessible_resources": [
