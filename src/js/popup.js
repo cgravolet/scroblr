@@ -140,7 +140,8 @@ var scroblrView = (function ($, Mustache) {
 		options = [
 			"disable_scrobbling",
 			"disable_notifications",
-			"disable_autodismiss"
+			"disable_autodismiss",
+			"disable_youtube"
 		];
 
 		for (i = 0, max = options.length; i < max; i += 1) {

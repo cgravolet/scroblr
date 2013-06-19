@@ -505,6 +505,10 @@ var scroblrGlobal = (function () {
 	 * @param {object} track
 	 */
 	function updateNowPlaying(track) {
+		if (track.host === "youtube" && !getOptionStatus("youtube")) {
+			return false;
+		}
+
 		pushTrackToHistory(currentTrack);
 		scrobbleHistory();
 		keepTrackAlive();

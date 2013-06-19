@@ -58,7 +58,8 @@
 		options = [
 			"disable_scrobbling",
 			"disable_notifications",
-			"disable_autodismiss"
+			"disable_autodismiss",
+			"disable_youtube"
 		];
 
 		for (i = 0, max = options.length; i < max; i += 1) {
@@ -78,10 +79,12 @@
 	}
 
 	function toggleAuthState() {
-		if (model.lf_session) {
+		var session = model.getSession();
+
+		if (session) {
 			$("#userSettings").show();
 			$("#authenticate").hide();
-			$("#userProfile").text(model.lf_session.name);
+			$("#userProfile").text(session.name);
 		} else {
 			$("#userSettings").hide();
 			$("#authenticate").show();
@@ -90,4 +93,4 @@
 
 	initialize();
 
-}(chrome.extension.getBackgroundPage(), jQuery));
+}(chrome.extension.getBackgroundPage().scroblrGlobal, jQuery));
