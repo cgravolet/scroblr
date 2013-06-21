@@ -10,9 +10,10 @@
 		return {
 			album: $(".player-album").text(),
 			artist: $("#player-artist").text(),
-			duration: scroblr.utilities.calculateDuration($("#duration").text()),
-			title: $("#playerSongTitle .fade-out-content").text(),
-			stopped: ($("#playPause").attr("title") == "Play")
+			duration: scroblr.utilities.calculateDuration($("#time_container_duration").text() || ""),
+			elapsed: scroblr.utilities.calculateDuration($("#time_container_current").text() || ""),
+			title: $("#playerSongTitle").text(),
+			stopped: !$('button[data-id="play-pause"]').hasClass("playing")
 		};
 	};
 }(Zepto));
