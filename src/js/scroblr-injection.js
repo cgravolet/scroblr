@@ -157,7 +157,7 @@ var scroblr = (function () {
 			sendMessage("nowPlaying", newTrack);
 
 		// A track continues to play
-		} else if (newTrack.stopped === false) {
+		} else if (!newTrack.stopped) {
 			newTrack.id = prevTrack.id;
 			updateObj = {
 				id: newTrack.id
