@@ -6,9 +6,9 @@ var scroblrView = (function ($, Mustache) {
 	$body = $("body");
 
 	if (typeof chrome != "undefined") {
-		model = chrome.extension.getBackgroundPage().scroblrGlobal;
+		model = chrome.extension.getBackgroundPage();
 	} else if (typeof safari != "undefined") {
-		model = safari.extension.globalPage.contentWindow.scroblrGlobal;
+		model = safari.extension.globalPage.contentWindow;
 	}
 
 	function attachBehaviors () {
@@ -44,7 +44,7 @@ var scroblrView = (function ($, Mustache) {
 
 		$body.on("click", "#submitTrackEditBtn", function (e) {
 			e.preventDefault();
-			var track = model.getCurrentTrack();
+			var track = model.scroblrGlobal.getCurrentTrack();
 			sendMessage("trackEdited", {
 				artist: $(".edit-track input[name=artist]").val(),
 				id:     track.id,
@@ -136,7 +136,7 @@ var scroblrView = (function ($, Mustache) {
 	function populateSettingsOptions() {
 		var i, max, options, session;
 
-		session = model.getSession();
+		session = model.scroblrGlobal.getSession();
 		options = [
 			"disable_scrobbling",
 			"disable_notifications",
@@ -161,7 +161,7 @@ var scroblrView = (function ($, Mustache) {
 
 		$container = $("section.edit-track");
 		template   = $.trim($("#tmplEditTrack").html());
-		track      = model.getCurrentTrack();
+		track      = model.scroblrGlobal.getCurrentTrack();
 
 		$container.html(Mustache.render(template, track));
 	}
@@ -171,7 +171,7 @@ var scroblrView = (function ($, Mustache) {
 
 		$container = $("section.now-playing");
 		template   = $.trim($("#tmplNowPlaying").html());
-		track      = model.getCurrentTrack();
+		track      = model.scroblrGlobal.getCurrentTrack();
 
 		if (track && track.hasOwnProperty("score")) {
 			if (track.score <= 50) {
@@ -185,7 +185,7 @@ var scroblrView = (function ($, Mustache) {
 	}
 
 	function sendMessage(name, message) {
-		model.messageHandler({
+		model.scroblrGlobal.messageHandler({
 			name: name,
 			message: message
 		});
@@ -194,8 +194,8 @@ var scroblrView = (function ($, Mustache) {
 	function showStartScreen() {
 		var session, track;
 
-		session = model.getSession();
-		track   = model.getCurrentTrack();
+		session = model.scroblrGlobal.getSession();
+		track   = model.scroblrGlobal.getCurrentTrack();
 
 		$body.removeClass();
 
