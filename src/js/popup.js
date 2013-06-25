@@ -87,8 +87,11 @@ var scroblrView = (function ($, Mustache) {
 
 	function initialize() {
 		attachBehaviors();
-		populateSettingsOptions();
-		showStartScreen();
+
+		if (typeof chrome != "undefined") {
+			populateSettingsOptions();
+			showStartScreen();
+		}
 	}
 
 	function messageHandler (msg) {
