@@ -65,6 +65,10 @@ var scroblr = (function () {
 	function calculateDuration(timestring) {
 		var i, j, max, pow, seconds, timeSegments;
 
+		if (!timestring) {
+			return 0;
+		}
+
 		seconds = 0;
 
 		for (i = 0, max = arguments.length; i < max; i += 1) {
