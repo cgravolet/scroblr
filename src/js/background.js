@@ -492,8 +492,19 @@ var scroblrGlobal = (function () {
 			keepTrackAlive();
 
 			for (var key in data) {
+
 				if (data.hasOwnProperty(key)) {
-					currentTrack[key] = data[key];
+
+					/*
+					 * Pandora occasionally clears elapsed and durations before
+					 * the next track begins, this causes lost scrobbles. Need
+					 * to make sure new elapsed time is not less than previous
+					 * elapsed time.
+					 */
+					if ( (key === "elapsed" && data[key] > currentTrack[key]) ||
+							key !== "elapsed") {
+						currentTrack[key] = data[key];
+					}
 				}
 			}
 		}
