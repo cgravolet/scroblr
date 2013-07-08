@@ -502,6 +502,7 @@ var scroblrGlobal = (function () {
 					 * elapsed time.
 					 */
 					if ( (key === "elapsed" && data[key] > currentTrack[key]) ||
+							(key === "elapsed" && !currentTrack[key]) ||
 							key !== "elapsed") {
 						currentTrack[key] = data[key];
 					}
