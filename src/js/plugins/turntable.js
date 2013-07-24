@@ -5,7 +5,7 @@
 	plugin.hostre = new RegExp("turntable\\.fm", "i");
 	plugin.scrape = function () {
 		var info = {};
-		if ($('#songboard-artist').length && $('#songboard-artist').text().length) {
+		if ($('.songboard-title.songboard-main').length && $('.songboard-title.songboard-main').text().length) {
 			info.artist = $('#song-log-panel .song:first-child .details > span').contents();
 			info.duration = scroblr.utilities.calculateDuration(info.artist[info.artist.length - 1].textContent);
 			info.artist = info.artist[0].textContent;
