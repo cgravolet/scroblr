@@ -8,11 +8,8 @@
 		var script = document.createElement("script");
 
 		script.appendChild(document.createTextNode("(" + injectScript + "());"));
-
-		window.setTimeout(function () {
-			appendDataFields();
-			document.head.appendChild(script);
-		}, 2000);
+		appendDataFields();
+		document.head.appendChild(script);
 	};
 
 	plugin.scrape = function () {
