@@ -10,15 +10,17 @@
 		script.appendChild(document.createTextNode("(" + injectScript + "());"));
 
 		window.setTimeout(function () {
-			$('<input type="hidden" id="scroblr-artist" value="" />').appendTo(document.body);
-			$('<input type="hidden" id="scroblr-duration" value="" />').appendTo(document.body);
-			$('<input type="hidden" id="scroblr-title" value="" />').appendTo(document.body);
-			document.body.appendChild(script);
+			appendDataFields();
+			document.head.appendChild(script);
 		}, 2000);
 	};
 
 	plugin.scrape = function () {
 		var info, remainingTime;
+
+		if (!$("#scroblr-artist").length) {
+			appendDataFields();
+		}
 
 		info = {
 			artist:   $("#scroblr-artist").val(),
@@ -32,6 +34,12 @@
 		return info;
 	};
 
+	function appendDataFields() {
+		$('<input type="hidden" id="scroblr-artist" value="" />').appendTo(document.body);
+		$('<input type="hidden" id="scroblr-duration" value="" />').appendTo(document.body);
+		$('<input type="hidden" id="scroblr-title" value="" />').appendTo(document.body);
+	}
+
 	/**
 	 * Injection script that gets appended to the page so it can access the
 	 * plug.dj API methods and update the hidden scroblr form fields for keeping
@@ -41,6 +49,10 @@
 
 		function updateMedia() {
 			var media;
+
+			if (!document.getElementById("scroblr-artist")) {
+				return false;
+			}
 
 			if (window.API && API.getDJs().length) {
 				media = API.getMedia();
