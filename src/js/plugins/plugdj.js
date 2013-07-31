@@ -5,16 +5,16 @@
 	plugin.hostre = new RegExp("plug\\.dj", "i");
 
 	plugin.init = function () {
-		var script;
+		var script = document.createElement("script");
 
-		$('<input type="hidden" id="scroblr-artist" value="" />').appendTo(document.body);
-		$('<input type="hidden" id="scroblr-duration" value="" />').appendTo(document.body);
-		$('<input type="hidden" id="scroblr-score" value="" />').appendTo(document.body);
-		$('<input type="hidden" id="scroblr-title" value="" />').appendTo(document.body);
-
-		script = document.createElement("script");
 		script.appendChild(document.createTextNode("(" + injectScript + "());"));
-		document.body.appendChild(script);
+
+		window.setTimeout(function () {
+			$('<input type="hidden" id="scroblr-artist" value="" />').appendTo(document.body);
+			$('<input type="hidden" id="scroblr-duration" value="" />').appendTo(document.body);
+			$('<input type="hidden" id="scroblr-title" value="" />').appendTo(document.body);
+			document.body.appendChild(script);
+		}, 2000);
 	};
 
 	plugin.scrape = function () {
@@ -23,7 +23,6 @@
 		info = {
 			artist:   $("#scroblr-artist").val(),
 			duration: parseFloat($("#scroblr-duration").val()),
-			score:    $("#scroblr-score").val(),
 			title:    $("#scroblr-title").val()
 		};
 
@@ -41,22 +40,19 @@
 	function injectScript() {
 
 		function updateMedia() {
-			var media, score;
+			var media;
 
 			if (window.API && API.getDJs().length) {
 				media = API.getMedia();
-				score = Math.round(API.getRoomScore().score * 100);
 			}
 
 			if (media) {
 				document.getElementById("scroblr-artist").value = media.author;
 				document.getElementById("scroblr-duration").value = media.duration * 1000;
-				document.getElementById("scroblr-score").value = score || 50;
 				document.getElementById("scroblr-title").value = media.title;
 			} else {
 				document.getElementById("scroblr-artist").value = "";
 				document.getElementById("scroblr-duration").value = 0;
-				document.getElementById("scroblr-score").value = 50;
 				document.getElementById("scroblr-title").value = "";
 			}
 		}
