@@ -1,4 +1,6 @@
 module.exports = function(grunt) {
+	"use strict";
+
 	var fs, plist;
 
 	fs    = require("fs");
@@ -22,7 +24,7 @@ module.exports = function(grunt) {
 			options: {
 				separator: ";"
 			},
-			build: {
+			chrome: {
 				src: [
 					"src/js/lib/zepto.js",
 					"src/js/scroblr-injection.js",
@@ -30,6 +32,15 @@ module.exports = function(grunt) {
 					"src/js/scroblr-injection-init.js"
 				],
 				dest: "build/scroblr.chrome/js/scroblr.js"
+			},
+			safari: {
+				src: [
+					"src/js/lib/zepto.js",
+					"src/js/scroblr-injection.js",
+					"src/js/plugins/*.js",
+					"src/js/scroblr-injection-init.js"
+				],
+				dest: "build/scroblr.safariextension/js/scroblr.js"
 			}
 		},
 
@@ -38,7 +49,7 @@ module.exports = function(grunt) {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
-			build: {
+			chrome: {
 				files: [
 					{
 						expand: true,
@@ -51,17 +62,31 @@ module.exports = function(grunt) {
 						dest: "build/scroblr.chrome/js/scroblr.js"
 					}
 				]
+			},
+			safari: {
+				files: [
+					{
+						expand: true,
+						cwd: "src/",
+						src: ["js/**/*.js","!js/scroblr*.js","!js/plugins/*.js"],
+						dest: "build/scroblr.safariextension/"
+					},
+					{
+						src: "build/scroblr.safariextension/js/scroblr.js",
+						dest: "build/scroblr.safariextension/js/scroblr.js"
+					}
+				]
 			}
 		},
 
 		// File copying
 		copy: {
-			build: {
+			chrome: {
 				files: [
 					{
 						expand: true,
 						cwd: "src/",
-						src: ["js/lib/*.js","css/*.css","*.html","img/**/*"],
+						src: ["_locales/**/*.json","js/lib/*.js","css/*.css","*.html","img/**/*"],
 						dest: "build/scroblr.chrome/"
 					}
 				]
@@ -70,8 +95,8 @@ module.exports = function(grunt) {
 				files: [
 					{
 						expand: true,
-						cwd: "build/scroblr.chrome/",
-						src: ["**/*"],
+						cwd: "src/",
+						src: ["js/lib/*.js","css/*.css","*.html","img/**/*"],
 						dest: "build/scroblr.safariextension/"
 					},
 					{
@@ -80,13 +105,19 @@ module.exports = function(grunt) {
 					}
 				]
 			},
-			chrome: {
+			developer: {
 				files: [
 					{
 						expand: true,
 						cwd: "src/",
-						src: ["_locales/**/*.json"],
+						src: ["js/*.js","js/plugins/*.js","manifest.json"],
 						dest: "build/scroblr.chrome/"
+					},
+					{
+						expand: true,
+						cwd: "src/",
+						src: ["js/*.js","js/plugins/*.js","*.plist"],
+						dest: "build/scroblr.safariextension/"
 					}
 				]
 			}
@@ -136,7 +167,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 
 	// Default task(s).
-	grunt.registerTask("default", ["clean", "jshint", "concat", "uglify", "copy",
-			"getmanifest", "getplist", "compress"]);
+	grunt.registerTask("default", ["clean", "jshint", "concat", "uglify",
+			"copy:chrome", "copy:safari", "getmanifest", "getplist", "compress"]);
+
+	grunt.registerTask("developer", ["clean", "jshint", "concat", "copy"]);
 
 };
