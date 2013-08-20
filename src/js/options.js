@@ -3,6 +3,10 @@
 
 	var $body = $("body");
 
+	function getOptionStatus(option) {
+		return !localStorage["disable_" + option];
+	}
+
 	function attachBehaviors() {
 		$body.on("click", "#authorizeBtn", function (e) {
 			e.preventDefault();
@@ -14,7 +18,7 @@
 			sendMessage("logoutLinkClicked");
 		});
 
-		$(".settings-options input").on("change", function (e) {
+		$(".container input").on("change", function (e) {
 			changeSettingsOption.call(this, e);
 		});
 
@@ -35,6 +39,7 @@
 	}
 
 	function initialize() {
+		populateServiceOptions();
 		attachBehaviors();
 		toggleAuthState();
 		populateSettingsOptions();
@@ -49,6 +54,32 @@
 		case "userSessionRetrieved":
 			toggleAuthState();
 			break;
+		}
+	}
+
+	function populateServiceOptions() {
+		var services = [
+			{id: "eighttracks" , name: "8tracks"},
+			{id: "accujazz" , name: "Accujazz"},
+			{id: "accuradio" , name: "Accuradio"},
+			{id: "bandcamp" , name: "Bandcamp"},
+			{id: "google" , name: "Google"},
+			{id: "indieshuffle" , name: "Indieshuffle"},
+			{id: "jango" , name: "Jango"},
+			{id: "pandora" , name: "Pandora"},
+			{id: "piki" , name: "Piki"},
+			{id: "playerfm" , name: "Playerfm"},
+			{id: "plugdj" , name: "Plugdj"},
+			{id: "rhapsody" , name: "Rhapsody"},
+			{id: "songza" , name: "Songza"},
+			{id: "soundcloud" , name: "Soundcloud"},
+			{id: "turntable" , name: "Turntable"},
+			{id: "youtube" , name: "Youtube"},
+		];
+
+		for (var i = 0; i < services.length; i++) {
+			var checked = getOptionStatus(services[i].id) ? 'checked': '';
+			$('.service-options').append("<input type='checkbox' id='disable_"+services[i].id+"' "+checked+" /> <label for='disable_"+services[i].id+"'>Enable "+services[i].name+"</label><br>");
 		}
 	}
 

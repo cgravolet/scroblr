@@ -470,15 +470,16 @@ var scroblrGlobal = (function () {
 	 */
 	function trackShouldBeScrobbled(track) {
 		var artistTitlePresent, greaterThan30s, listenedTo4m, listenedToMoreThanHalf,
-			noDurationWithElapsed;
+			noDurationWithElapsed, serviceEnabled;
 
 		artistTitlePresent     = (track.artist && track.title ? true : false);
 		greaterThan30s         = (track.duration > 30000);
 		listenedTo4m           = (track.elapsed >= 240000);
 		listenedToMoreThanHalf = (track.elapsed >= track.duration / 2);
 		noDurationWithElapsed  = (!track.duration && track.elapsed > 30000);
+		serviceEnabled = !getOptionStatus(track.host);
 
-		return !track.noscrobble && artistTitlePresent && ((greaterThan30s &&
+		return serviceEnabled && !track.noscrobble && artistTitlePresent && ((greaterThan30s &&
 				(listenedTo4m || listenedToMoreThanHalf)) || noDurationWithElapsed);
 	}
 
@@ -517,7 +518,13 @@ var scroblrGlobal = (function () {
 	 * @param {object} track
 	 */
 	function updateNowPlaying(track) {
+		currentTrack = $.extend({}, track);
+
 		if (track.host === "youtube" && !getOptionStatus("youtube")) {
+			return false;
+		}
+
+		if (!getOptionStatus(track.host)) {
 			return false;
 		}
 
@@ -531,7 +538,6 @@ var scroblrGlobal = (function () {
 			sendMessage("trackEditRequired");
 		}
 
-		currentTrack = $.extend({}, track);
 	}
 
 	initialize();

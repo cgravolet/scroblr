@@ -57,6 +57,17 @@ var scroblr = (function () {
 	};
 
 	/**
+	 * Checks the browser's local storage for preference options and returns the
+	 * default setting if not found. Options are stored differently based on the
+	 * browser, this function simplifies the process of accessing those preferences.
+	 *
+	 * @param {string} option The name of the option (ex. "pandora")
+	 */
+	function getOptionStatus(option) {
+		return !localStorage["disable_" + option];
+	}
+
+	/**
 	 * Calculates the duration of a track in milliseconds based on a time string
 	 * (i.e. "01:24" or "-2:32")
 	 *
