@@ -403,8 +403,9 @@ var scroblrGlobal = (function () {
 
 		artistTitlePresent = (currentTrack.artist && currentTrack.title ? true : false);
 		scrobblingEnabled  = getOptionStatus("scrobbling");
+		serviceEnabled     = !getOptionStatus(currentTrack.host);
 
-		if (lf_session && scrobblingEnabled && artistTitlePresent) {
+		if (lf_session && scrobblingEnabled && artistTitlePresent && serviceEnabled) {
 			params = {
 				api_key:  API_KEY,
 				artist:   currentTrack.artist,
@@ -477,7 +478,7 @@ var scroblrGlobal = (function () {
 		listenedTo4m           = (track.elapsed >= 240000);
 		listenedToMoreThanHalf = (track.elapsed >= track.duration / 2);
 		noDurationWithElapsed  = (!track.duration && track.elapsed > 30000);
-		serviceEnabled = !getOptionStatus(track.host);
+		serviceEnabled         = !getOptionStatus(track.host);
 
 		return serviceEnabled && !track.noscrobble && artistTitlePresent && ((greaterThan30s &&
 				(listenedTo4m || listenedToMoreThanHalf)) || noDurationWithElapsed);
@@ -518,13 +519,7 @@ var scroblrGlobal = (function () {
 	 * @param {object} track
 	 */
 	function updateNowPlaying(track) {
-		currentTrack = $.extend({}, track);
-
 		if (track.host === "youtube" && !getOptionStatus("youtube")) {
-			return false;
-		}
-
-		if (!getOptionStatus(track.host)) {
 			return false;
 		}
 
@@ -538,6 +533,7 @@ var scroblrGlobal = (function () {
 			sendMessage("trackEditRequired");
 		}
 
+		currentTrack = $.extend({}, track);
 	}
 
 	initialize();
