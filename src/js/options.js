@@ -39,7 +39,6 @@
 	}
 
 	function initialize() {
-		populateServiceOptions();
 		attachBehaviors();
 		toggleAuthState();
 		populateSettingsOptions();
@@ -57,32 +56,6 @@
 		}
 	}
 
-	function populateServiceOptions() {
-		var services = [
-			{id: "eighttracks" , name: "8tracks"},
-			{id: "accujazz" , name: "Accujazz"},
-			{id: "accuradio" , name: "Accuradio"},
-			{id: "bandcamp" , name: "Bandcamp"},
-			{id: "google" , name: "Google"},
-			{id: "indieshuffle" , name: "Indieshuffle"},
-			{id: "jango" , name: "Jango"},
-			{id: "pandora" , name: "Pandora"},
-			{id: "piki" , name: "Piki"},
-			{id: "playerfm" , name: "Playerfm"},
-			{id: "plugdj" , name: "Plugdj"},
-			{id: "rhapsody" , name: "Rhapsody"},
-			{id: "songza" , name: "Songza"},
-			{id: "soundcloud" , name: "Soundcloud"},
-			{id: "turntable" , name: "Turntable"},
-			{id: "youtube" , name: "Youtube"},
-		];
-
-		for (var i = 0; i < services.length; i++) {
-			var checked = getOptionStatus(services[i].id) ? 'checked': '';
-			$('.service-options').append("<input type='checkbox' id='disable_"+services[i].id+"' "+checked+" /> <label for='disable_"+services[i].id+"'>Enable "+services[i].name+"</label><br>");
-		}
-	}
-
 	function populateSettingsOptions() {
 		var i, max, options;
 
@@ -90,6 +63,21 @@
 			"disable_scrobbling",
 			"disable_notifications",
 			"disable_autodismiss",
+			"disable_eighttracks",
+			"disable_accujazz",
+			"disable_accuradio",
+			"disable_bandcamp",
+			"disable_google",
+			"disable_indieshuffle",
+			"disable_jango",
+			"disable_pandora",
+			"disable_piki",
+			"disable_playerfm",
+			"disable_plugdj",
+			"disable_rhapsody",
+			"disable_songza",
+			"disable_soundcloud",
+			"disable_turntable",
 			"disable_youtube"
 		];
 

@@ -4,6 +4,12 @@
 	width: auto;
 }
 
+hr {
+	border: none;
+	border-bottom: 1px solid #EEE;
+	margin: 1em 0;
+}
+
 h1 {
 	border-bottom: 1px solid #EEE;
 	font-family: 'Lucida Grande', sans-serif;
