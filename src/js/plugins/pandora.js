@@ -2,6 +2,12 @@
 
 	var plugin = scroblr.registerHost("pandora");
 
+	plugin.test = function () {
+		var domainMatch = plugin.hostre.test(document.location.hostname);
+		var playerFound = $("#playerBar").length > 0;
+		return domainMatch && playerFound;
+	};
+
 	plugin.scrape = function () {
 		return {
 			album:    $("#playerBar .playerBarAlbum").text(),
@@ -13,16 +19,16 @@
 		};
 	};
 
-	function cleanseArtist (string) {
+	function cleanseArtist(string) {
 		var artist = stripChildrensLabel(string);
 		return stripHolidayLabel(artist);
 	}
 
-	function stripChildrensLabel (string) {
+	function stripChildrensLabel(string) {
 		return string.replace(/\s+\(Children's\)$/i, "");
 	}
 
-	function stripHolidayLabel (string) {
+	function stripHolidayLabel(string) {
 		return string.replace(/\s+\(Holiday\)$/i, "");
 	}
 }(Zepto));
