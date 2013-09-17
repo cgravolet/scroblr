@@ -399,11 +399,11 @@ var scroblrGlobal = (function () {
 	}
 
 	function sendNowPlayingRequest() {
-		var artistTitlePresent, params, scrobblingEnabled;
+		var artistTitlePresent, params, scrobblingEnabled, serviceEnabled;
 
 		artistTitlePresent = (currentTrack.artist && currentTrack.title ? true : false);
 		scrobblingEnabled  = getOptionStatus("scrobbling");
-		serviceEnabled     = !getOptionStatus(currentTrack.host);
+		serviceEnabled     = getOptionStatus(currentTrack.host);
 
 		if (lf_session && scrobblingEnabled && artistTitlePresent && serviceEnabled) {
 			params = {
@@ -478,7 +478,7 @@ var scroblrGlobal = (function () {
 		listenedTo4m           = (track.elapsed >= 240000);
 		listenedToMoreThanHalf = (track.elapsed >= track.duration / 2);
 		noDurationWithElapsed  = (!track.duration && track.elapsed > 30000);
-		serviceEnabled         = !getOptionStatus(track.host);
+		serviceEnabled         = getOptionStatus(track.host);
 
 		return serviceEnabled && !track.noscrobble && artistTitlePresent && ((greaterThan30s &&
 				(listenedTo4m || listenedToMoreThanHalf)) || noDurationWithElapsed);
