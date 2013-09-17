@@ -206,11 +206,9 @@ var scroblr = (function () {
 				message: message
 			});
 		} else if (typeof safari != "undefined") {
-
-			if (message.hasOwnProperty("toString")) {
-				delete message.toString;
-			}
-			safari.self.tab.dispatchMessage(name, message);
+			safari.self.tab.dispatchMessage(name, $.extend({}, message, {
+				toString: null
+			}));
 		}
 	}
 
