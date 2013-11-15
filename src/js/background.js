@@ -316,7 +316,8 @@ var scroblrGlobal = (function () {
 
 		if (typeof chrome != "undefined") {
 			chrome.tabs.create({
-				url: LASTFM_AUTH_URL + chrome.extension.getURL("access-granted.html")
+				// url: LASTFM_AUTH_URL + chrome.extension.getURL("access-granted.html")
+				url: LASTFM_AUTH_URL + "http://scroblr.fm/access-granted.html"
 			});
 		} else if (typeof safari != "undefined") {
 			newTab = safari.application.activeBrowserWindow.openTab();

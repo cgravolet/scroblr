@@ -55,6 +55,10 @@
 				"js/scroblr-injection-init.js"
 			],
 			"all_frames": true
+		},
+		{
+			"matches": ["*://*.scroblr.fm/access*"],
+			"js":      ["js/access-granted.js"]
 		}
 	],
 	"default_locale": "en",
@@ -75,6 +79,6 @@
 	"web_accessible_resources": [
 		"img/scroblr64.png"
 	],
-	"version": "2.0.13",
+	"version": "2.0.14",
 	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
 }
