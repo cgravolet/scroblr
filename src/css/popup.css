@@ -155,13 +155,11 @@ button {
 .indieshuffle:before { background-image: url(../img/icons/indieshuffle.png); }
 .jango:before        { background-image: url(../img/icons/jango.png); }
 .pandora:before      { background-image: url(../img/icons/pandora.png); }
-.piki:before         { background-image: url(../img/icons/piki.png); }
 .playerfm:before     { background-image: url(../img/icons/playerfm.png); }
 .plugdj:before       { background-image: url(../img/icons/plugdj.png); }
 .rhapsody:before     { background-image: url(../img/icons/rhapsody.png); }
 .songza:before       { background-image: url(../img/icons/songza.png); }
 .soundcloud:before   { background-image: url(../img/icons/soundcloud.png); }
-.turntable:before    { background-image: url(../img/icons/turntable.png); }
 .youtube:before      { background-image: url(../img/icons/youtube.png); }
 
 .album-art {

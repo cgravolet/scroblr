@@ -71,13 +71,11 @@
 			"disable_indieshuffle",
 			"disable_jango",
 			"disable_pandora",
-			"disable_piki",
 			"disable_playerfm",
 			"disable_plugdj",
 			"disable_rhapsody",
 			"disable_songza",
 			"disable_soundcloud",
-			"disable_turntable",
 			"disable_youtube"
 		];
 

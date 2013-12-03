@@ -22,14 +22,12 @@
 				"*://*.napster.co.uk/*",
 				"*://*.napster.de/*",
 				"*://*.pandora.com/*",
-				"*://*.piki.fm/*",
 				"*://*.player.fm/*",
 				"*://*.plug.dj/*",
 				"*://*.rhapsody.com/*",
 				"*://*.slipstreamradio.com/pop_player/*",
 				"*://*.songza.com/*",
 				"*://*.soundcloud.com/*",
-				"*://*.turntable.fm/*",
 				"*://*.youtube.com/watch*"
 			],
 			"js": [
@@ -44,13 +42,11 @@
 				"js/plugins/indieshuffle.js",
 				"js/plugins/jango.js",
 				"js/plugins/pandora.js",
-				"js/plugins/piki.js",
 				"js/plugins/playerfm.js",
 				"js/plugins/plugdj.js",
 				"js/plugins/rhapsody.js",
 				"js/plugins/songza.js",
 				"js/plugins/soundcloud.js",
-				"js/plugins/turntable.js",
 				"js/plugins/youtube.js",
 				"js/scroblr-injection-init.js"
 			],
@@ -79,6 +75,6 @@
 	"web_accessible_resources": [
 		"img/scroblr64.png"
 	],
-	"version": "2.0.14",
+	"version": "2.0.15",
 	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
 }
