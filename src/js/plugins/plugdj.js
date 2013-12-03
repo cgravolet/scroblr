@@ -51,7 +51,7 @@
 				return false;
 			}
 
-			if (window.API && API.getDJs().length) {
+			if (window.API && API.getDJ().length !== 0) {
 				media = API.getMedia();
 			}
 
