@@ -8,7 +8,7 @@ html {
 }
 
 body {
-	height: 130px;
+	height: 157px;
 	margin: 0;
 	overflow: hidden;
 	padding: 10px;
@@ -21,7 +21,7 @@ a {
 
 section {
 	display: none;
-	height: 150px;
+	height: 177px;
 	left: 0;
 	overflow: hidden;
 	position: absolute;
@@ -160,6 +160,7 @@ button {
 .rhapsody:before     { background-image: url(../img/icons/rhapsody.png); }
 .songza:before       { background-image: url(../img/icons/songza.png); }
 .soundcloud:before   { background-image: url(../img/icons/soundcloud.png); }
+.vk:before           { background-image: url(../img/icons/vk.png); }
 .youtube:before      { background-image: url(../img/icons/youtube.png); }
 
 .album-art {
