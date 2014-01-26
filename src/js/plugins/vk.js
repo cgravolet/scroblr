@@ -2,7 +2,6 @@
 	var plugin = scroblr.registerHost("vk");
 
 	plugin.scrape = function () {
-		console.log("My plugin scrapped");
 		var info = {};
 		//stopped, artist, title
 
