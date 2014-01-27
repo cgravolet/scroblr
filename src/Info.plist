@@ -28,7 +28,7 @@
 				<key>Filename</key>
 				<string>popup.html</string>
 				<key>Height</key>
-				<real>150</real>
+				<real>177</real>
 				<key>Identifier</key>
 				<string>scroblrPopup</string>
 				<key>Width</key>
@@ -77,6 +77,7 @@
 				<string>js/plugins/rhapsody.js</string>
 				<string>js/plugins/songza.js</string>
 				<string>js/plugins/soundcloud.js</string>
+				<string>js/plugins/vk.js</string>
 				<string>js/plugins/youtube.js</string>
 				<string>js/scroblr-injection-init.js</string>
 			</array>

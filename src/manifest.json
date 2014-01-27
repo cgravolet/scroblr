@@ -28,7 +28,8 @@
 				"*://*.slipstreamradio.com/pop_player/*",
 				"*://*.songza.com/*",
 				"*://*.soundcloud.com/*",
-				"*://*.youtube.com/watch*"
+				"*://*.vk.com/*"
+				"*://*.youtube.com/watch*",
 			],
 			"js": [
 				"js/lib/zepto.js",
@@ -47,6 +48,7 @@
 				"js/plugins/rhapsody.js",
 				"js/plugins/songza.js",
 				"js/plugins/soundcloud.js",
+				"js/plugins/vk.js",
 				"js/plugins/youtube.js",
 				"js/scroblr-injection-init.js"
 			],
