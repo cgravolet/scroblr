@@ -8,7 +8,7 @@ html {
 }
 
 body {
-	height: 157px;
+	height: 130px;
 	margin: 0;
 	overflow: hidden;
 	padding: 10px;
@@ -21,7 +21,7 @@ a {
 
 section {
 	display: none;
-	height: 177px;
+	height: 150px;
 	left: 0;
 	overflow: hidden;
 	position: absolute;

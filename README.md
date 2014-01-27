@@ -15,13 +15,11 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 - Indie Shuffle
 - Jango
 - Pandora
-- piki
 - Player.fm
 - plug.dj
 - Rhapsody
 - Songza
 - Soundcloud
-- Turntable.fm
 - VK
 - YouTube
 

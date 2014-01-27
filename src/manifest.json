@@ -28,8 +28,8 @@
 				"*://*.slipstreamradio.com/pop_player/*",
 				"*://*.songza.com/*",
 				"*://*.soundcloud.com/*",
-				"*://*.vk.com/*"
-				"*://*.youtube.com/watch*",
+				"*://*.vk.com/*",
+				"*://*.youtube.com/watch*"
 			],
 			"js": [
 				"js/lib/zepto.js",
