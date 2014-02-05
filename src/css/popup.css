@@ -150,7 +150,8 @@ button {
 .accuradio:before    { background-image: url(../img/icons/accuradio.png); }
 .amazon:before       { background-image: url(../img/icons/amazon.png); }
 .bandcamp:before     { background-image: url(../img/icons/bandcamp.png); }
-.eighttracks:before { background-image: url(../img/icons/eighttracks.png); }
+.beats:before        { background-image: url(../img/icons/beats.png); }
+.eighttracks:before  { background-image: url(../img/icons/eighttracks.png); }
 .google:before       { background-image: url(../img/icons/google.png); }
 .indieshuffle:before { background-image: url(../img/icons/indieshuffle.png); }
 .jango:before        { background-image: url(../img/icons/jango.png); }

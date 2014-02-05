@@ -16,6 +16,7 @@
 				"*://*.amazon.co.uk/gp/dmusic*",
 				"*://*.amazon.de/gp/dmusic*",
 				"*://*.bandcamp.com/*",
+				"*://*.beatsmusic.com/*",
 				"*://play.google.com/music/*",
 				"*://*.indieshuffle.com/*",
 				"*://*.jango.com/*",
@@ -38,6 +39,7 @@
 				"js/plugins/accuradio.js",
 				"js/plugins/amazon.js",
 				"js/plugins/bandcamp.js",
+				"js/plugins/beats.js",
 				"js/plugins/eighttracks.js",
 				"js/plugins/google.js",
 				"js/plugins/indieshuffle.js",
@@ -77,6 +79,6 @@
 	"web_accessible_resources": [
 		"img/scroblr64.png"
 	],
-	"version": "2.0.16",
+	"version": "2.0.17",
 	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
 }

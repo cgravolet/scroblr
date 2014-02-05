@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.16</string>
+	<string>2.0.17</string>
 	<key>CFBundleVersion</key>
-	<string>2.0.16</string>
+	<string>2.0.17</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Database Quota</key>
@@ -67,6 +67,7 @@
 				<string>js/plugins/accuradio.js</string>
 				<string>js/plugins/amazon.js</string>
 				<string>js/plugins/bandcamp.js</string>
+				<string>js/plugins/beats.js</string>
 				<string>js/plugins/eighttracks.js</string>
 				<string>js/plugins/google.js</string>
 				<string>js/plugins/indieshuffle.js</string>
