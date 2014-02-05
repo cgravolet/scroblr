@@ -2,12 +2,11 @@
 	var plugin = scroblr.registerHost("vk");
 
 	plugin.scrape = function () {
-		var info = {};
-		//stopped, artist, title
-
 		var gpPlay = $("#gp_play");
 		var isPlaying = gpPlay && gpPlay.hasClass("playing");
-		info.stopped = !isPlaying;
+		var info = {
+			stopped: !isPlaying
+		};
 
 		if (isPlaying) {
 			info.artist = $("#gp_performer").text();
