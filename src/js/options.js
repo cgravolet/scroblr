@@ -67,6 +67,7 @@
 			"disable_accujazz",
 			"disable_accuradio",
 			"disable_bandcamp",
+			"disable_beats",
 			"disable_google",
 			"disable_indieshuffle",
 			"disable_jango",
@@ -76,6 +77,7 @@
 			"disable_rhapsody",
 			"disable_songza",
 			"disable_soundcloud",
+			"disable_vk",
 			"disable_youtube"
 		];
 
