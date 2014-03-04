@@ -76,6 +76,7 @@
 			"disable_plugdj",
 			"disable_rhapsody",
 			"disable_songza",
+			"disable_sony",
 			"disable_soundcloud",
 			"disable_vk",
 			"disable_youtube"
