@@ -28,6 +28,7 @@
 				"*://*.rhapsody.com/*",
 				"*://*.slipstreamradio.com/pop_player/*",
 				"*://*.songza.com/*",
+				"*://music.sonyentertainmentnetwork.com/*",
 				"*://*.soundcloud.com/*",
 				"*://*.vk.com/*",
 				"*://*.youtube.com/watch*"
@@ -49,6 +50,7 @@
 				"js/plugins/plugdj.js",
 				"js/plugins/rhapsody.js",
 				"js/plugins/songza.js",
+				"js/plugins/sony.js",
 				"js/plugins/soundcloud.js",
 				"js/plugins/vk.js",
 				"js/plugins/youtube.js",
