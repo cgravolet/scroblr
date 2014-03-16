@@ -18,6 +18,11 @@
 			sendMessage("logoutLinkClicked");
 		});
 
+		$body.on("click", "#toggleOptions", function (e) {
+			e.preventDefault();
+			toggleOptions();
+		});
+
 		$(".container input").on("change", function (e) {
 			changeSettingsOption.call(this, e);
 		});
@@ -50,7 +55,7 @@
 			populateSettingsOptions();
 			break;
 		case "userLoggedOut":
-		case "userSessionRetrieved":
+		case "userSessionRetrieved": // Intentional fall-through
 			toggleAuthState();
 			break;
 		}
@@ -108,6 +113,23 @@
 		} else {
 			$("#userSettings").hide();
 			$("#authenticate").show();
+		}
+	}
+
+	function toggleOptions() {
+		var $options = $(".site-specific-options input");
+		var foundDisabledOption = false;
+
+		for (var i = 0, max = $options.length; i < max; i += 1) {
+
+			if (!$options.eq(i).prop("checked")) {
+				foundDisabledOption = true;
+				break;
+			}
+		}
+		
+		for (i = 0; i < max; i += 1) {
+			$options.eq(i).prop("checked", foundDisabledOption ? true : false);
 		}
 	}
 
