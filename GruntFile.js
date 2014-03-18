@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 		jshint: {
             options: {node: true},
 			build: {
-				src: ["src/js/**/*.js", "!src/js/lib/**/*.js"]
+				src: ["src/js/**/*.js"]
 			}
 		},
 
@@ -67,7 +67,7 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
-						cwd: "src/",
+						cwd: "build/scroblr.chrome/",
 						src: ["js/bundle-*.js"],
 						dest: "build/scroblr.chrome/"
 					}
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
-						cwd: "src/",
+						cwd: "build/scroblr.safariextension/",
 						src: ["js/bundle-*.js"],
 						dest: "build/scroblr.safariextension/"
 					}
@@ -85,7 +85,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// File copying
 		copy: {
 			chrome: {
 				files: [
@@ -113,7 +112,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// Compression
 		compress: {
             options: {
                 archive: "build/scroblr.chrome.zip"
@@ -125,7 +123,12 @@ module.exports = function (grunt) {
                     src: ["**"]
                 }
             ]
-		}
+		},
+
+        watch: {
+            files: ["src/js/**/*.js", "src/css/**/*.css"],
+            tasks: ["compile"]
+        }
 	});
 
 	// Custom tasks
@@ -149,9 +152,11 @@ module.exports = function (grunt) {
 		fs.writeFileSync("./build/scroblr.safariextension/Info.plist", doc);
 	});
 
-    grunt.registerTask("build", ["clean", "jshint", "browserify:dev", "uglify",
-        "copy", "getmanifest", "getplist"]);
+    grunt.registerTask("build", ["clean", "jshint", "browserify:dev", "copy",
+            "getmanifest", "getplist"]);
 
     grunt.registerTask("release", ["clean", "jshint", "browserify:release", "uglify",
-        "copy", "getmanifest", "getplist", "compress"]);
+            "copy", "getmanifest", "getplist", "compress"]);
+
+    grunt.registerTask("compile", ["browserify:dev", "copy"]);
 };
