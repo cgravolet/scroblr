@@ -1,8 +1,9 @@
 {
   "name": "scroblr",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A lightweight browser extension that scrobbles the music you listen to on the web.",
   "main": "GruntFile.js",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/cgravolet/scroblr.git"
@@ -12,7 +13,9 @@
   "readmeFilename": "README.md",
   "gitHead": "eb6f38decdf15fc18625bf60a602db2937feb229",
   "devDependencies": {
+    "browserify": "~3.32.1",
     "grunt": "~0.4.1",
+    "grunt-browserify": "~1.3.2",
     "grunt-contrib-clean": "~0.4.1",
     "grunt-contrib-compress": "~0.5.2",
     "grunt-contrib-concat": "~0.3.0",
@@ -20,6 +23,13 @@
     "grunt-contrib-cssmin": "~0.6.1",
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-watch": "~0.6.0",
     "plist": "~0.4.3"
+  },
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "MD5": "~1.2.0",
+    "mustache": "~0.8.1",
+    "zepto": "0.0.4"
   }
 }
