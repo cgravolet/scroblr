@@ -34,27 +34,7 @@
 				"*://*.youtube.com/watch*"
 			],
 			"js": [
-				"js/lib/zepto.js",
-				"js/scroblr-injection.js",
-				"js/plugins/accujazz.js",
-				"js/plugins/accuradio.js",
-				"js/plugins/amazon.js",
-				"js/plugins/bandcamp.js",
-				"js/plugins/beats.js",
-				"js/plugins/eighttracks.js",
-				"js/plugins/google.js",
-				"js/plugins/indieshuffle.js",
-				"js/plugins/jango.js",
-				"js/plugins/pandora.js",
-				"js/plugins/playerfm.js",
-				"js/plugins/plugdj.js",
-				"js/plugins/rhapsody.js",
-				"js/plugins/songza.js",
-				"js/plugins/sony.js",
-				"js/plugins/soundcloud.js",
-				"js/plugins/vk.js",
-				"js/plugins/youtube.js",
-				"js/scroblr-injection-init.js"
+                "js/bundle-content-script.js"
 			],
 			"all_frames": true
 		},
@@ -81,6 +61,6 @@
 	"web_accessible_resources": [
 		"img/scroblr64.png"
 	],
-	"version": "2.0.18",
+	"version": "2",
 	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
 }
