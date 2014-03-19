@@ -23,10 +23,11 @@ module.exports = function (grunt) {
 		jshint: {
             options: {
                 globals: {
-                    chrome:   false,
-                    document: false,
-                    safari:   false,
-                    window:   false
+                    chrome:       false,
+                    document:     false,
+                    localStorage: false,
+                    safari:       false,
+                    window:       false
                 },
                 node: true
             },
