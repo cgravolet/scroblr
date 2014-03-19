@@ -2,7 +2,6 @@
 
 var $           = require("jquery");
 var Plugin      = require("../modules/Plugin");
-var Utils       = require("../modules/Utilities");
 var Eighttracks = Object.create(Plugin);
 
 Eighttracks.init("eighttracks", new RegExp("8tracks\\.com", "i"));

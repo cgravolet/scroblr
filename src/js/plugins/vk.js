@@ -2,7 +2,6 @@
 
 var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
-var Utils  = require("../modules/Utilities");
 var Vk     = Object.create(Plugin);
 
 Vk.init("vk");
