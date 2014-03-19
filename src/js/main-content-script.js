@@ -98,7 +98,8 @@ function pollTrackInfo() {
 
     // A track is paused
     } else if (newTrack.stopped) {
-        sendMessage("updateCurrentTrack", {});
+		updateObj.id = prevTrack.id;
+        sendMessage("updateCurrentTrack", updateObj);
     }
 }
 
