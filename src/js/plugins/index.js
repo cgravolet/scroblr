@@ -6,6 +6,7 @@ exports.amazon       = require("./amazon");
 exports.bandcamp     = require("./bandcamp");
 exports.beats        = require("./beats");
 exports.eighttracks  = require("./eighttracks");
+exports.focusatwill  = require("./focusatwill");
 exports.google       = require("./google");
 exports.indieshuffle = require("./indieshuffle");
 exports.jango        = require("./jango");

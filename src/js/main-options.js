@@ -74,6 +74,7 @@ function populateSettingsOptions() {
         "disable_accuradio",
         "disable_bandcamp",
         "disable_beats",
+        "disable_focusatwill",
         "disable_google",
         "disable_indieshuffle",
         "disable_jango",
