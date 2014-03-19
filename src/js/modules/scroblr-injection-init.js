@@ -1,1 +1,0 @@
-scroblr.init();
