@@ -63,6 +63,10 @@ function pollTrackInfo() {
     newTrack.init(host.scrape(), host.name, host.id);
 
     if (!newTrack.toString()) {
+
+		if (newTrack.hasOwnProperty("reset") && newTrack.reset === true) {
+			currentTrack = null;
+		}
         return false;
     }
 

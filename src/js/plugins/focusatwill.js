@@ -14,14 +14,20 @@ focusatwill.test = function () {
 };
 
 focusatwill.scrape = function () {
-    var $body   = $("#home-body");
-    var $header = $("#home-header");
+    var $body  = $("#home-body");
+    var artist = $(".trackDetail .artist", $body).text().split(":");
+    var title  = $(".trackDetail .track", $body).text();
 
-    return {
-        artist:  $(".trackDetail .artist", $body).text().split(":")[1],
-        stopped: $(".playerControls .play", $header).data("player-state") === "stopped",
-        title:   $(".trackDetail .track", $body).text()
-    };
+	if (artist.length > 1) {
+		return {
+			artist: artist[1],
+			title:  title
+		};
+	}
+
+	return {
+		reset: true
+	};
 };
 
 module.exports = focusatwill;
