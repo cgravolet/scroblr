@@ -1,27 +1,31 @@
-(function ($) {
+"use strict";
 
-	var plugin = scroblr.registerHost("beats");
+var $      = require("jquery");
+var Plugin = require("../modules/Plugin");
+var Utils  = require("../modules/Utilities");
+var Beats  = Object.create(Plugin);
 
-	plugin.hostre = /listen\.beatsmusic\.com/i;
+Beats.init("beats", /listen\.beatsmusic\.com/i);
 
-	plugin.scrape = function () {
-		var player = $("#app__transport");
-		var durationElapsed = $.trim($(".horizontal_bar__handle").text()).split(" | ");
-		var info = {};
+Beats.scrape = function () {
+    var player = $("#app__transport");
+    var durationElapsed = $.trim($(".horizontal_bar__handle").text()).split(" | ");
+    var info = {};
 
-		if (!player.length) {
-			return false;
-		}
+    if (!player.length) {
+        return false;
+    }
 
-		if (durationElapsed.length === 2) {
-			info.duration = scroblr.utilities.calculateDuration(durationElapsed[1]);
-			info.elapsed  = scroblr.utilities.calculateDuration(durationElapsed[0]);
-		}
+    if (durationElapsed.length === 2) {
+        info.duration = Utils.calculateDuration(durationElapsed[1]);
+        info.elapsed  = Utils.calculateDuration(durationElapsed[0]);
+    }
 
-		info.artist   = $(".artist-track-target .artist", player).text();
-		info.stopped  = $("#play_pause_icon").hasClass("icon-bicons_play");
-		info.title    = $(".artist-track-target .track", player).text();
+    info.artist   = $(".artist-track-target .artist", player).text();
+    info.stopped  = $("#play_pause_icon").hasClass("icon-bicons_play");
+    info.title    = $(".artist-track-target .track", player).text();
 
-		return info;
-	};
-}(Zepto));
+    return info;
+};
+
+module.exports = Beats;

@@ -1,19 +1,25 @@
-(function ($) {
+"use strict";
 
-	var plugin = scroblr.registerHost("google");
+var $      = require("jquery");
+var Plugin = require("../modules/Plugin");
+var Utils  = require("../modules/Utilities");
+var Google = Object.create(Plugin);
 
-	plugin.test = function () {
-		return (/play\.google\.[A-Z\.]{2,}\/music\/listen/i).test(document.location.href);
-	};
+Google.init("google");
 
-	plugin.scrape = function () {
-		return {
-			album: $(".player-album").text(),
-			artist: $("#player-artist").text(),
-			duration: scroblr.utilities.calculateDuration($("#time_container_duration").text() || ""),
-			elapsed: scroblr.utilities.calculateDuration($("#time_container_current").text() || ""),
-			title: $("#playerSongTitle").text(),
-			stopped: !$('button[data-id="play-pause"]').hasClass("playing")
-		};
-	};
-}(Zepto));
+Google.test = function () {
+    return (/play\.google\.[A-Z\.]{2,}\/music\/listen/i).test(document.location.href);
+};
+
+Google.scrape = function () {
+    return {
+        album:    $(".player-album").text(),
+        artist:   $("#player-artist").text(),
+        duration: Utils.calculateDuration($("#time_container_duration").text() || ""),
+        elapsed:  Utils.calculateDuration($("#time_container_current").text() || ""),
+        title:    $("#playerSongTitle").text(),
+        stopped:  !$('button[data-id="play-pause"]').hasClass("playing")
+    };
+};
+
+module.exports = Google;

@@ -40,7 +40,7 @@
 		},
 		{
 			"matches": ["*://*.scroblr.fm/access*"],
-			"js":      ["js/access-granted.js"]
+			"js":      ["js/bundle-access-granted.js"]
 		}
 	],
 	"default_locale": "en",

@@ -21,7 +21,15 @@ module.exports = function (grunt) {
 		clean: ["build"],
 
 		jshint: {
-            options: {node: true},
+            options: {
+                globals: {
+                    chrome:   false,
+                    document: false,
+                    safari:   false,
+                    window:   false
+                },
+                node: true
+            },
 			build: {
 				src: ["src/js/**/*.js"]
 			}
@@ -136,7 +144,6 @@ module.exports = function (grunt) {
 	grunt.registerTask("getmanifest", function () {
 		var manifest = require("./src/manifest.json");
 
-		manifest.content_scripts[0].js = ["js/scroblr.js"];
         manifest.version = pjson.version;
 		fs.writeFileSync("./build/scroblr.chrome/manifest.json", JSON.stringify(manifest, null, 2));
 	});
@@ -159,5 +166,5 @@ module.exports = function (grunt) {
     grunt.registerTask("release", ["clean", "jshint", "browserify:release", "uglify",
             "copy", "getmanifest", "getplist", "compress"]);
 
-    grunt.registerTask("compile", ["browserify:dev", "copy"]);
+    grunt.registerTask("compile", ["jshint", "browserify:dev", "copy"]);
 };

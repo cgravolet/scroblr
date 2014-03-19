@@ -1,19 +1,25 @@
-(function ($) {
+"use strict";
 
-	var plugin = scroblr.registerHost("accuradio");
+var $         = require("jquery");
+var Plugin    = require("../modules/Plugin");
+var Utils     = require("../modules/Utilities");
+var Accuradio = Object.create(Plugin);
 
-	plugin.scrape = function () {
-		var artist = $("#songartist").text() || "";
+Accuradio.init("accuradio");
 
-		if (artist.indexOf("Click here") >= 0) {
-			artist = "";
-		}
+Accuradio.scrape = function () {
+    var artist = $("#songartist").text() || "";
 
-		return {
-			album:   $("#songalbum").text(),
-			artist:  artist,
-			title:   $("#songtitle").text(),
-			stopped: $("#playerPlayButton").length ? true : false
-		};
-	};
-}(Zepto));
+    if (artist.indexOf("Click here") >= 0) {
+        artist = "";
+    }
+
+    return {
+        album:   $("#songalbum").text(),
+        artist:  artist,
+        title:   $("#songtitle").text(),
+        stopped: $("#playerPlayButton").length ? true : false
+    };
+};
+
+module.exports = Accuradio;

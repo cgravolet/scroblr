@@ -1,20 +1,23 @@
-(function ($) {
+"use strict";
 
-	var plugin = scroblr.registerHost("playerfm");
+var $        = require("jquery");
+var Plugin   = require("../modules/Plugin");
+var Utils    = require("../modules/Utilities");
+var Playerfm = Object.create(Plugin);
 
-	plugin.hostre = new RegExp("player\\.fm", "i");
-	plugin.scrape = function () {
-		var elapsedString, timeRemainingString;
+Playerfm.init("playerfm", new RegExp("player\\.fm", "i"));
 
-		elapsedString       = $('.permaplayer .current .play-monitor .time-elapsed').text();
-		timeRemainingString = $('.permaplayer .current .play-monitor .time-remaining').text();
+Playerfm.scrape = function () {
+    var elapsedStr       = $('.permaplayer .current .play-monitor .time-elapsed').text();
+    var timeRemainingStr = $('.permaplayer .current .play-monitor .time-remaining').text();
 
-		return {
-			artist:   $('.permaplayer .track-wrapper .current-series-link').text(),
-			title:    $('.permaplayer .track-wrapper .current-episode-link').text(),
-			elapsed:  scroblr.utilities.calculateDuration(elapsedString),
-			duration: scroblr.utilities.calculateDuration(elapsedString, timeRemainingString),
-			stopped:  $('.container .playpause .jp-play').css("display") !== "none"
-		};
-	};
-}(Zepto));
+    return {
+        artist:   $('.permaplayer .track-wrapper .current-series-link').text(),
+        title:    $('.permaplayer .track-wrapper .current-episode-link').text(),
+        elapsed:  Utils.calculateDuration(elapsedStr),
+        duration: Utils.calculateDuration(elapsedStr, timeRemainingStr),
+        stopped:  $('.container .playpause .jp-play').css("display") !== "none"
+    };
+};
+
+module.exports = Playerfm;

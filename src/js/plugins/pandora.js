@@ -1,34 +1,40 @@
-(function ($) {
+"use strict";
 
-	var plugin = scroblr.registerHost("pandora");
+var $       = require("jquery");
+var Plugin  = require("../modules/Plugin");
+var Utils   = require("../modules/Utilities");
+var Pandora = Object.create(Plugin);
 
-	plugin.test = function () {
-		var domainMatch = plugin.hostre.test(document.location.hostname);
-		var playerFound = $("#playerBar").length > 0;
-		return domainMatch && playerFound;
-	};
+Pandora.init("pandora");
 
-	plugin.scrape = function () {
-		return {
-			album:    $("#playerBar .playerBarAlbum").text(),
-			artist:   cleanseArtist($("#playerBar .playerBarArtist").text()),
-			duration: scroblr.utilities.calculateDuration($("#playbackControl .elapsedTime").text(), $("#playbackControl .remainingTime").text()),
-			elapsed:  scroblr.utilities.calculateDuration($("#playbackControl .elapsedTime").text()),
-			stopped:  $("#playerBar .playButton").css("display") === "block",
-			title:    $("#playerBar .playerBarSong").text()
-		};
-	};
+Pandora.test = function () {
+    var domainMatch = this.hostre.test(document.location.hostname);
+    var playerFound = $("#playerBar").length > 0;
+    return domainMatch && playerFound;
+};
 
-	function cleanseArtist(string) {
-		var artist = stripChildrensLabel(string);
-		return stripHolidayLabel(artist);
-	}
+Pandora.scrape = function () {
+    return {
+        album:    $("#playerBar .playerBarAlbum").text(),
+        artist:   cleanseArtist($("#playerBar .playerBarArtist").text()),
+        duration: Utils.calculateDuration($("#playbackControl .elapsedTime").text(), $("#playbackControl .remainingTime").text()),
+        elapsed:  Utils.calculateDuration($("#playbackControl .elapsedTime").text()),
+        stopped:  $("#playerBar .playButton").css("display") === "block",
+        title:    $("#playerBar .playerBarSong").text()
+    };
+};
 
-	function stripChildrensLabel(string) {
-		return string.replace(/\s+\(Children's\)$/i, "");
-	}
+function cleanseArtist(string) {
+    var artist = stripChildrensLabel(string);
+    return stripHolidayLabel(artist);
+}
 
-	function stripHolidayLabel(string) {
-		return string.replace(/\s+\(Holiday\)$/i, "");
-	}
-}(Zepto));
+function stripChildrensLabel(string) {
+    return string.replace(/\s+\(Children's\)$/i, "");
+}
+
+function stripHolidayLabel(string) {
+    return string.replace(/\s+\(Holiday\)$/i, "");
+}
+
+module.exports = Pandora;

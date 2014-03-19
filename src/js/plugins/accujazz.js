@@ -1,22 +1,28 @@
-(function ($) {
+"use strict";
 
-	var plugin = scroblr.registerHost("accujazz");
+var $        = require("jquery");
+var Plugin   = require("../modules/Plugin");
+var Utils    = require("../modules/Utilities");
+var Accujazz = Object.create(Plugin);
 
-	plugin.test = function () {
-		return document.location.href.indexOf("slipstreamradio.com/pop_player/") >= 0;
-	};
+Accujazz.init("accujazz");
 
-	plugin.scrape = function () {
-		var artist = $("#span_information_artist").text() || "";
+Accujazz.test = function () {
+    return document.location.href.indexOf("slipstreamradio.com/pop_player/") >= 0;
+};
 
-		if (artist.indexOf("Click here") >= 0) {
-			artist = "";
-		}
+Accujazz.scrape = function () {
+    var artist = $("#span_information_artist").text() || "";
 
-		return {
-			album:   $("#span_information_album").text(),
-			artist:  artist,
-			title:   $("#span_information_title").text()
-		};
-	};
-}(Zepto));
+    if (artist.indexOf("Click here") >= 0) {
+        artist = "";
+    }
+
+    return {
+        album:   $("#span_information_album").text(),
+        artist:  artist,
+        title:   $("#span_information_title").text()
+    };
+};
+
+module.exports = Accujazz;

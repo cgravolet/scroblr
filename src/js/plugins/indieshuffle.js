@@ -1,29 +1,34 @@
-(function ($) {
+"use strict";
 
-	var plugin = scroblr.registerHost("indieshuffle");
+var $      = require("jquery");
+var Plugin = require("../modules/Plugin");
+var Utils  = require("../modules/Utilities");
+var Indieshuffle = Object.create(Plugin);
 
-	plugin.test = function () {
-		var domainTest, playerTest;
+Indieshuffle.init("indieshuffle");
 
-		domainTest = this.hostre.test(document.location.hostname);
-		playerTest = $("#now-playing").length > 0;
+Indieshuffle.test = function () {
+    var domainTest = this.hostre.test(document.location.hostname);
+    var playerTest = $("#now-playing").length > 0;
 
-		return domainTest && playerTest;
-	};
+    return domainTest && playerTest;
+};
 
-	plugin.scrape = function () {
-		var info = {
-			artist:   $("#now-playing-title strong").text(),
-			duration: scroblr.utilities.calculateDuration($("#jplayer_total_time").text()),
-			elapsed:  scroblr.utilities.calculateDuration($("#jplayer_play_time").text()),
-			title:    $("#now-playing-title a").contents().filter(filterTextNode).text(),
-			stopped:  !$("#play-pause").hasClass("playing")
-		};
+Indieshuffle.scrape = function () {
+    var info = {
+        artist:   $("#now-playing-title strong").text(),
+        duration: Utils.calculateDuration($("#jplayer_total_time").text()),
+        elapsed:  Utils.calculateDuration($("#jplayer_play_time").text()),
+        title:    $("#now-playing-title a").contents().filter(filterTextNode).text(),
+        stopped:  !$("#play-pause").hasClass("playing")
+    };
 
-		return info;
-	};
+    return info;
+};
 
-	function filterTextNode() {
-		return this.nodeType === 3;
-	}
-}(Zepto));
+function filterTextNode() {
+    /* jshint validthis:true */
+    return this.nodeType === 3;
+}
+
+module.exports = Indieshuffle;

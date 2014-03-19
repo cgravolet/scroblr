@@ -1,0 +1,20 @@
+"use strict";
+
+exports.accujazz     = require("./accujazz");
+exports.accuradio    = require("./accuradio");
+exports.amazon       = require("./amazon");
+exports.bandcamp     = require("./bandcamp");
+exports.beats        = require("./beats");
+exports.eighttracks  = require("./eighttracks");
+exports.google       = require("./google");
+exports.indieshuffle = require("./indieshuffle");
+exports.jango        = require("./jango");
+exports.pandora      = require("./pandora");
+exports.playerfm     = require("./playerfm");
+exports.plugdj       = require("./plugdj");
+exports.rhapsody     = require("./rhapsody");
+exports.songza       = require("./songza");
+exports.sony         = require("./sony");
+exports.soundcloud   = require("./soundcloud");
+exports.vk           = require("./vk");
+exports.youtube      = require("./youtube");

@@ -1,18 +1,25 @@
-(function ($) {
-	var plugin = scroblr.registerHost("vk");
+"use strict";
 
-	plugin.scrape = function () {
-		var gpPlay = $("#gp_play");
-		var isPlaying = gpPlay && gpPlay.hasClass("playing");
-		var info = {
-			stopped: !isPlaying
-		};
+var $      = require("jquery");
+var Plugin = require("../modules/Plugin");
+var Utils  = require("../modules/Utilities");
+var Vk     = Object.create(Plugin);
 
-		if (isPlaying) {
-			info.artist = $("#gp_performer").text();
-			info.title =  $("#gp_title").text();
-		}
+Vk.init("vk");
 
-		return info;
-	};
-}(Zepto));
+Vk.scrape = function () {
+    var gpPlay = $("#gp_play");
+    var isPlaying = gpPlay && gpPlay.hasClass("playing");
+    var info = {
+        stopped: !isPlaying
+    };
+
+    if (isPlaying) {
+        info.artist = $("#gp_performer").text();
+        info.title =  $("#gp_title").text();
+    }
+
+    return info;
+};
+
+module.exports = Vk;

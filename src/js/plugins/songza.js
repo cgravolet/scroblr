@@ -1,23 +1,26 @@
-(function ($) {
+"use strict";
 
-	var plugin = scroblr.registerHost("songza");
+var $      = require("jquery");
+var Plugin = require("../modules/Plugin");
+var Utils  = require("../modules/Utilities");
+var Songza = Object.create(Plugin);
 
-	plugin.test = function () {
-		var domainTest, playerTest;
+Songza.init("songza");
 
-		domainTest = this.hostre.test(document.location.hostname);
-		playerTest = $("#player").length > 0;
+Songza.test = function () {
+    var domainTest = this.hostre.test(document.location.hostname);
+    var playerTest = $("#player").length > 0;
 
-		return domainTest && playerTest;
-	};
+    return domainTest && playerTest;
+};
 
-	plugin.scrape = function () {
-		var info = {
-			artist:  $("#player .szi-artist").text(),
-			percent: parseFloat($("#player .szi-progress .szi-bar").width() / $("#player .szi-progress").width()),
-			stopped: $("#player .player-play").css("display") === "none" ? false : true,
-			title:   $("#player .szi-title").text()
-		};
-		return info;
-	};
-}(Zepto));
+Songza.scrape = function () {
+    var info = {
+        artist:  $("#player .szi-artist").text(),
+        percent: parseFloat($("#player .szi-progress .szi-bar").width() / $("#player .szi-progress").width()),
+        stopped: $("#player .player-play").css("display") === "none" ? false : true,
+        title:   $("#player .szi-title").text()
+    };
+
+    return info;
+};
