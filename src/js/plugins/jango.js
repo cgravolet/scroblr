@@ -7,7 +7,7 @@ var Jango  = Object.create(Plugin);
 
 Jango.init("jango");
 
-Jango.inititialize = function () {
+Jango.initialize = function () {
     var script;
 
     $('<input type="hidden" id="scroblr-artist" value="" />').appendTo(document.body);

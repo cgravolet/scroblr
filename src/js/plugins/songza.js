@@ -24,3 +24,5 @@ Songza.scrape = function () {
 
     return info;
 };
+
+module.exports = Songza;

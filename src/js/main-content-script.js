@@ -113,7 +113,6 @@ function sendMessage(name, message) {
             toString: null
         }));
     }
-    console.log(name, message);
 }
 
 init();

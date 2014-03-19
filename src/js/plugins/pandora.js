@@ -10,6 +10,7 @@ Pandora.init("pandora");
 Pandora.test = function () {
     var domainMatch = this.hostre.test(document.location.hostname);
     var playerFound = $("#playerBar").length > 0;
+
     return domainMatch && playerFound;
 };
 
