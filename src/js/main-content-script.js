@@ -49,7 +49,7 @@ function init() {
                 host.initialize();
             }
 
-            poller  = window.setInterval(pollTrackInfo, 5000);
+            poller = window.setInterval(pollTrackInfo, 5000);
             break;
         }
     }
@@ -57,7 +57,7 @@ function init() {
 
 function pollTrackInfo() {
     var newTrack  = Object.create(Track);
-    var prevTrack = currentTrack || {};
+    var prevTrack = currentTrack || {toString: function () {return "";}};
     var updateObj = {};
 
     newTrack.init(host.scrape(), host.name, host.id);
@@ -80,7 +80,8 @@ function pollTrackInfo() {
         ["album", "duration", "elapsed", "percent", "score", "stopped"].forEach(
                 function (val) {
 
-            if (newTrack.hasOwnProperty(val) && newTrack[val] !== prevTrack[val]) {
+            if (newTrack.hasOwnProperty(val) && newTrack[val] !==
+					prevTrack[val]) {
                 prevTrack[val] = newTrack[val];
                 updateObj[val] = newTrack[val];
             } else if (val === "elapsed" && !newTrack.hasOwnProperty(val)) {
