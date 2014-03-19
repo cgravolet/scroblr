@@ -2,18 +2,18 @@
 
 var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
-var Songza = Object.create(Plugin);
+var songza = Object.create(Plugin);
 
-Songza.init("songza");
+songza.init("songza");
 
-Songza.test = function () {
+songza.test = function () {
     var domainTest = this.hostre.test(document.location.hostname);
     var playerTest = $("#player").length > 0;
 
     return domainTest && playerTest;
 };
 
-Songza.scrape = function () {
+songza.scrape = function () {
     var info = {
         artist:  $("#player .szi-artist").text(),
         percent: parseFloat($("#player .szi-progress .szi-bar").width() / $("#player .szi-progress").width()),
@@ -24,4 +24,4 @@ Songza.scrape = function () {
     return info;
 };
 
-module.exports = Songza;
+module.exports = songza;

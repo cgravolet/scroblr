@@ -3,15 +3,15 @@
 var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
-var Google = Object.create(Plugin);
+var google = Object.create(Plugin);
 
-Google.init("google");
+google.init("google");
 
-Google.test = function () {
+google.test = function () {
     return (/play\.google\.[A-Z\.]{2,}\/music\/listen/i).test(document.location.href);
 };
 
-Google.scrape = function () {
+google.scrape = function () {
     return {
         album:    $(".player-album").text(),
         artist:   $("#player-artist").text(),
@@ -22,4 +22,4 @@ Google.scrape = function () {
     };
 };
 
-module.exports = Google;
+module.exports = google;

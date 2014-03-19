@@ -2,11 +2,11 @@
 
 var $         = require("jquery");
 var Plugin    = require("../modules/Plugin");
-var Accuradio = Object.create(Plugin);
+var accuradio = Object.create(Plugin);
 
-Accuradio.init("accuradio");
+accuradio.init("accuradio");
 
-Accuradio.scrape = function () {
+accuradio.scrape = function () {
     var artist = $("#songartist").text() || "";
 
     if (artist.indexOf("Click here") >= 0) {
@@ -21,4 +21,4 @@ Accuradio.scrape = function () {
     };
 };
 
-module.exports = Accuradio;
+module.exports = accuradio;

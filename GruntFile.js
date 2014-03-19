@@ -22,12 +22,10 @@ module.exports = function (grunt) {
 
 		jshint: {
             options: {
+                browser: true,
                 globals: {
-                    chrome:       false,
-                    document:     false,
-                    localStorage: false,
-                    safari:       false,
-                    window:       false
+                    chrome: true,
+                    safari: true
                 },
                 node: true
             },
@@ -148,7 +146,8 @@ module.exports = function (grunt) {
 		var manifest = require("./src/manifest.json");
 
         manifest.version = pjson.version;
-		fs.writeFileSync("./build/scroblr.chrome/manifest.json", JSON.stringify(manifest, null, 2));
+		fs.writeFileSync("./build/scroblr.chrome/manifest.json",
+                JSON.stringify(manifest, null, 2));
 	});
 
 	grunt.registerTask("getplist", function () {
@@ -166,8 +165,10 @@ module.exports = function (grunt) {
     grunt.registerTask("build", ["clean", "jshint", "browserify:dev", "copy",
             "getmanifest", "getplist"]);
 
-    grunt.registerTask("release", ["clean", "jshint", "browserify:release", "uglify",
-            "copy", "getmanifest", "getplist", "compress"]);
+    grunt.registerTask("release", ["clean", "jshint", "browserify:release",
+            "uglify", "copy", "getmanifest", "getplist", "compress"]);
 
     grunt.registerTask("compile", ["jshint", "browserify:dev", "copy"]);
+
+    grunt.registerTask("default", ["build"]);
 };

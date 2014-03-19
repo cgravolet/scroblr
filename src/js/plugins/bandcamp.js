@@ -3,11 +3,11 @@
 var $        = require("jquery");
 var Plugin   = require("../modules/Plugin");
 var Utils    = require("../modules/Utilities");
-var Bandcamp = Object.create(Plugin);
+var bandcamp = Object.create(Plugin);
 
-Bandcamp.init("bandcamp");
+bandcamp.init("bandcamp");
 
-Bandcamp.scrape = function () {
+bandcamp.scrape = function () {
     var discover, info, isTrack, pageTitle;
 
     discover = window.location.pathname.slice(1) === "discover";
@@ -34,4 +34,4 @@ Bandcamp.scrape = function () {
     return info;
 };
 
-module.exports = Bandcamp;
+module.exports = bandcamp;

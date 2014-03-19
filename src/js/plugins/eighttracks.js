@@ -2,11 +2,11 @@
 
 var $           = require("jquery");
 var Plugin      = require("../modules/Plugin");
-var Eighttracks = Object.create(Plugin);
+var eighttracks = Object.create(Plugin);
 
-Eighttracks.init("eighttracks", new RegExp("8tracks\\.com", "i"));
+eighttracks.init("eighttracks", new RegExp("8tracks\\.com", "i"));
 
-Eighttracks.scrape = function () {
+eighttracks.scrape = function () {
     return {
         album:   $("#player .track_metadata .album > .detail").text(),
         artist:  $("#player .title_artist > .a").text(),
@@ -16,4 +16,4 @@ Eighttracks.scrape = function () {
     };
 };
 
-module.exports = Eighttracks;
+module.exports = eighttracks;

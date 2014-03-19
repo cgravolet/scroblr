@@ -2,11 +2,11 @@
 
 var $          = require("jquery");
 var Plugin     = require("../modules/Plugin");
-var Soundcloud = Object.create(Plugin);
+var soundcloud = Object.create(Plugin);
 
-Soundcloud.init("soundcloud");
+soundcloud.init("soundcloud");
 
-Soundcloud.scrape = function () {
+soundcloud.scrape = function () {
     var info, player, playing, soundcloudNext;
 
     soundcloudNext = !!$("body > #app").length;
@@ -38,4 +38,4 @@ Soundcloud.scrape = function () {
     return info;
 };
 
-module.exports = Soundcloud;
+module.exports = soundcloud;

@@ -2,18 +2,18 @@
 
 var $           = require("jquery");
 var Plugin      = require("../modules/Plugin");
-var Focusatwill = Object.create(Plugin);
+var focusatwill = Object.create(Plugin);
 
-Focusatwill.init("focusatwill");
+focusatwill.init("focusatwill");
 
-Focusatwill.test = function () {
+focusatwill.test = function () {
     var domainMatch = this.hostre.test(document.location.hostname);
     var playerFound = $("#home-body .trackDetail").length > 0;
 
     return domainMatch && playerFound;
 };
 
-Focusatwill.scrape = function () {
+focusatwill.scrape = function () {
     var $body   = $("#home-body");
     var $header = $("#home-header");
 
@@ -24,4 +24,4 @@ Focusatwill.scrape = function () {
     };
 };
 
-module.exports = Focusatwill;
+module.exports = focusatwill;

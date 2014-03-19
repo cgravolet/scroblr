@@ -3,17 +3,17 @@
 var $        = require("jquery");
 var Plugin   = require("../modules/Plugin");
 var Utils    = require("../modules/Utilities");
-var Rhapsody = Object.create(Plugin);
+var rhapsody = Object.create(Plugin);
 
-Rhapsody.init("rhapsody");
+rhapsody.init("rhapsody");
 
-Rhapsody.test = function () {
+rhapsody.test = function () {
     var napster  = /napster\.[A-Z\.]{2,}/i.test(document.location.hostname);
     var rhapsody = /rhapsody\.com/i.test(document.location.hostname);
     return (rhapsody || napster);
 };
 
-Rhapsody.scrape = function () {
+rhapsody.scrape = function () {
     return {
         artist:   $("#player-artist-link").text(),
         duration: Utils.calculateDuration($("#player-total-time").text()),
@@ -23,4 +23,4 @@ Rhapsody.scrape = function () {
     };
 };
 
-module.exports = Rhapsody;
+module.exports = rhapsody;

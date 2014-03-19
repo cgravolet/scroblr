@@ -2,15 +2,15 @@
 
 var $       = require("jquery");
 var Plugin  = require("../modules/Plugin");
-var Youtube = Object.create(Plugin);
+var youtube = Object.create(Plugin);
 
-Youtube.init("youtube");
+youtube.init("youtube");
 
-Youtube.test = function () {
+youtube.test = function () {
     return (/youtube\.[A-Z\.]{2,}\/watch/i).test(document.location.href);
 };
 
-Youtube.scrape = function () {
+youtube.scrape = function () {
     var title       = $.trim($("#watch-headline-title").text());
     var parsedTitle = title.replace(/^(.+)\s*[-–:]+\s*(.+)$/, "$1_,_$2").split("_,_");
 
@@ -74,4 +74,4 @@ function cleanseTrack(artist, title) {
     };
 }
 
-module.exports = Youtube;
+module.exports = youtube;

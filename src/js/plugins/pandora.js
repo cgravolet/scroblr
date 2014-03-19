@@ -3,18 +3,18 @@
 var $       = require("jquery");
 var Plugin  = require("../modules/Plugin");
 var Utils   = require("../modules/Utilities");
-var Pandora = Object.create(Plugin);
+var pandora = Object.create(Plugin);
 
-Pandora.init("pandora");
+pandora.init("pandora");
 
-Pandora.test = function () {
+pandora.test = function () {
     var domainMatch = this.hostre.test(document.location.hostname);
     var playerFound = $("#playerBar").length > 0;
 
     return domainMatch && playerFound;
 };
 
-Pandora.scrape = function () {
+pandora.scrape = function () {
     return {
         album:    $("#playerBar .playerBarAlbum").text(),
         artist:   cleanseArtist($("#playerBar .playerBarArtist").text()),
@@ -25,9 +25,12 @@ Pandora.scrape = function () {
     };
 };
 
+/*
+ * Sometimes, pandora appends labels to the artist name such as
+ * "Artist (Holiday)" or "Artist (Children's)".
+ */
 function cleanseArtist(string) {
-    var artist = stripChildrensLabel(string);
-    return stripHolidayLabel(artist);
+    return stripChildrensLabel(stripHolidayLabel(string));
 }
 
 function stripChildrensLabel(string) {
@@ -38,4 +41,4 @@ function stripHolidayLabel(string) {
     return string.replace(/\s+\(Holiday\)$/i, "");
 }
 
-module.exports = Pandora;
+module.exports = pandora;

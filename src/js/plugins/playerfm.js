@@ -3,11 +3,11 @@
 var $        = require("jquery");
 var Plugin   = require("../modules/Plugin");
 var Utils    = require("../modules/Utilities");
-var Playerfm = Object.create(Plugin);
+var playerfm = Object.create(Plugin);
 
-Playerfm.init("playerfm", new RegExp("player\\.fm", "i"));
+playerfm.init("playerfm", new RegExp("player\\.fm", "i"));
 
-Playerfm.scrape = function () {
+playerfm.scrape = function () {
     var elapsedStr       = $('.permaplayer .current .play-monitor .time-elapsed').text();
     var timeRemainingStr = $('.permaplayer .current .play-monitor .time-remaining').text();
 
@@ -20,4 +20,4 @@ Playerfm.scrape = function () {
     };
 };
 
-module.exports = Playerfm;
+module.exports = playerfm;

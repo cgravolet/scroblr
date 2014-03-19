@@ -2,15 +2,15 @@
 
 var $        = require("jquery");
 var Plugin   = require("../modules/Plugin");
-var Accujazz = Object.create(Plugin);
+var accujazz = Object.create(Plugin);
 
-Accujazz.init("accujazz");
+accujazz.init("accujazz");
 
-Accujazz.test = function () {
+accujazz.test = function () {
     return document.location.href.indexOf("slipstreamradio.com/pop_player/") >= 0;
 };
 
-Accujazz.scrape = function () {
+accujazz.scrape = function () {
     var artist = $("#span_information_artist").text() || "";
 
     if (artist.indexOf("Click here") >= 0) {
@@ -24,4 +24,4 @@ Accujazz.scrape = function () {
     };
 };
 
-module.exports = Accujazz;
+module.exports = accujazz;

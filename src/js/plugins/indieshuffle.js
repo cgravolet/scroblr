@@ -3,18 +3,18 @@
 var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
-var Indieshuffle = Object.create(Plugin);
+var indieshuffle = Object.create(Plugin);
 
-Indieshuffle.init("indieshuffle");
+indieshuffle.init("indieshuffle");
 
-Indieshuffle.test = function () {
+indieshuffle.test = function () {
     var domainTest = this.hostre.test(document.location.hostname);
     var playerTest = $("#now-playing").length > 0;
 
     return domainTest && playerTest;
 };
 
-Indieshuffle.scrape = function () {
+indieshuffle.scrape = function () {
     var info = {
         artist:   $("#now-playing-title strong").text(),
         duration: Utils.calculateDuration($("#jplayer_total_time").text()),
@@ -31,4 +31,4 @@ function filterTextNode() {
     return this.nodeType === 3;
 }
 
-module.exports = Indieshuffle;
+module.exports = indieshuffle;

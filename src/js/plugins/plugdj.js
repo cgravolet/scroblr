@@ -3,11 +3,11 @@
 var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
-var Plugdj = Object.create(Plugin);
+var plugdj = Object.create(Plugin);
 
-Plugdj.init("plugdj", new RegExp("plug\\.dj", "i"));
+plugdj.init("plugdj", new RegExp("plug\\.dj", "i"));
 
-Plugdj.initialize = function () {
+plugdj.initialize = function () {
     var script = document.createElement("script");
 
     script.appendChild(document.createTextNode("(" + injectScript + "());"));
@@ -15,7 +15,7 @@ Plugdj.initialize = function () {
     document.head.appendChild(script);
 };
 
-Plugdj.scrape = function () {
+plugdj.scrape = function () {
     var info, remainingTime;
 
     if (!$("#scroblr-artist").length) {
@@ -76,4 +76,4 @@ function injectScript() {
     }, 3000);
 }
 
-module.exports = Plugdj;
+module.exports = plugdj;

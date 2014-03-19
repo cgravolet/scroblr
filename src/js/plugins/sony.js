@@ -3,11 +3,11 @@
 var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
-var Sony   = Object.create(Plugin);
+var sony   = Object.create(Plugin);
 
-Sony.init("sony", /music\.sonyentertainmentnetwork\.com/i);
+sony.init("sony", /music\.sonyentertainmentnetwork\.com/i);
 
-Sony.test = function () {
+sony.test = function () {
     var domainTest, pathnameTest;
 
     domainTest = this.hostre.test(document.location.hostname);
@@ -15,7 +15,7 @@ Sony.test = function () {
     return domainTest && pathnameTest;
 };
 
-Sony.scrape = function () {
+sony.scrape = function () {
 
     // Player has not been rendered yet
     if ($(".GEKKVSQBLV").length === 0) {
@@ -43,4 +43,4 @@ Sony.scrape = function () {
     };
 };
 
-module.exports = Sony;
+module.exports = sony;

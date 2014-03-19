@@ -3,11 +3,11 @@
 var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
-var Beats  = Object.create(Plugin);
+var beats  = Object.create(Plugin);
 
-Beats.init("beats", /listen\.beatsmusic\.com/i);
+beats.init("beats", /listen\.beatsmusic\.com/i);
 
-Beats.scrape = function () {
+beats.scrape = function () {
     var player = $("#app__transport");
     var durationElapsed = $.trim($(".horizontal_bar__handle").text()).split(" | ");
     var info = {};
@@ -28,4 +28,4 @@ Beats.scrape = function () {
     return info;
 };
 
-module.exports = Beats;
+module.exports = beats;

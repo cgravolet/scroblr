@@ -2,11 +2,11 @@
 
 var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
-var Jango  = Object.create(Plugin);
+var jango  = Object.create(Plugin);
 
-Jango.init("jango");
+jango.init("jango");
 
-Jango.initialize = function () {
+jango.initialize = function () {
     var script;
 
     $('<input type="hidden" id="scroblr-artist" value="" />').appendTo(document.body);
@@ -19,7 +19,7 @@ Jango.initialize = function () {
     document.body.appendChild(script);
 };
 
-Jango.test = function () {
+jango.test = function () {
     var hostMatch = this.hostre.test(document.location.hostname);
 
     if (hostMatch && document.getElementById("player-outer-box")) {
@@ -29,7 +29,7 @@ Jango.test = function () {
     return false;
 };
 
-Jango.scrape = function () {
+jango.scrape = function () {
     return {
         artist:   $("#scroblr-artist").val(),
         album:    $.trim($("#player_info #player_current_artist").contents().last().text()),
@@ -67,4 +67,4 @@ function injectScript() {
     }, 3000);
 }
 
-module.exports = Jango;
+module.exports = jango;

@@ -2,11 +2,11 @@
 
 var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
-var Vk     = Object.create(Plugin);
+var vk     = Object.create(Plugin);
 
-Vk.init("vk");
+vk.init("vk");
 
-Vk.scrape = function () {
+vk.scrape = function () {
     var gpPlay = $("#gp_play");
     var isPlaying = gpPlay && gpPlay.hasClass("playing");
     var info = {
@@ -21,4 +21,4 @@ Vk.scrape = function () {
     return info;
 };
 
-module.exports = Vk;
+module.exports = vk;
