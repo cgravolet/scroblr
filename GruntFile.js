@@ -123,16 +123,18 @@ module.exports = function (grunt) {
 		},
 
 		compress: {
-            options: {
-                archive: "build/scroblr.chrome.zip"
-            },
-            files: [
-                {
-                    expand: true,
-                    cwd: "build/scroblr.chrome/",
-                    src: ["**"]
-                }
-            ]
+            chrome: {
+                options: {
+                    archive: "build/scroblr.chrome.zip"
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: "build/scroblr.chrome/",
+                        src: ["**"]
+                    }
+                ]
+            }
 		},
 
         watch: {
