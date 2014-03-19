@@ -5,7 +5,7 @@ var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
 var amazon = Object.create(Plugin);
 
-amazon.init("amazon");
+amazon.init("amazon", "Amazon Cloud Player");
 
 amazon.test = function () {
     return (/amazon\.[A-Z\.]{2,}\/gp\/dmusic/i).test(document.location.href);

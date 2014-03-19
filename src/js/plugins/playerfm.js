@@ -5,7 +5,7 @@ var Plugin   = require("../modules/Plugin");
 var Utils    = require("../modules/Utilities");
 var playerfm = Object.create(Plugin);
 
-playerfm.init("playerfm", new RegExp("player\\.fm", "i"));
+playerfm.init("playerfm", "Player.fm", new RegExp("player\\.fm", "i"));
 
 playerfm.scrape = function () {
     var elapsedStr       = $('.permaplayer .current .play-monitor .time-elapsed').text();

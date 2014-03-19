@@ -4,7 +4,7 @@ var $          = require("jquery");
 var Plugin     = require("../modules/Plugin");
 var soundcloud = Object.create(Plugin);
 
-soundcloud.init("soundcloud");
+soundcloud.init("soundcloud", "SoundCloud");
 
 soundcloud.scrape = function () {
     var info, player, playing, soundcloudNext;

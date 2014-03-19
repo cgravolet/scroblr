@@ -4,7 +4,7 @@ var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
 var vk     = Object.create(Plugin);
 
-vk.init("vk");
+vk.init("vk", "VK");
 
 vk.scrape = function () {
     var gpPlay = $("#gp_play");

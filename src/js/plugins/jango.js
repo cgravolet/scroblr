@@ -4,7 +4,7 @@ var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
 var jango  = Object.create(Plugin);
 
-jango.init("jango");
+jango.init("jango", "Jango");
 
 jango.initialize = function () {
     var script;

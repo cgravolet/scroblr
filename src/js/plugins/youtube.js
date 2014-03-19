@@ -4,7 +4,7 @@ var $       = require("jquery");
 var Plugin  = require("../modules/Plugin");
 var youtube = Object.create(Plugin);
 
-youtube.init("youtube");
+youtube.init("youtube", "YouTube");
 
 youtube.test = function () {
     return (/youtube\.[A-Z\.]{2,}\/watch/i).test(document.location.href);

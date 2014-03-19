@@ -5,7 +5,8 @@ var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
 var sony   = Object.create(Plugin);
 
-sony.init("sony", /music\.sonyentertainmentnetwork\.com/i);
+sony.init("sony", "Sony Music Unlimited",
+        /music\.sonyentertainmentnetwork\.com/i);
 
 sony.test = function () {
     var domainTest, pathnameTest;

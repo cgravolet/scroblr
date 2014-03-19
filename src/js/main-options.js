@@ -1,8 +1,10 @@
 "use strict";
 
-var $     = require("jquery");
-var model = chrome.extension.getBackgroundPage().scroblrGlobal;
-var $body = $("body");
+var $        = require("jquery");
+var Mustache = require("mustache");
+var plugins  = require("./plugins");
+var model    = chrome.extension.getBackgroundPage().scroblrGlobal;
+var $body    = $(document.body);
 
 function getOptionStatus(option) {
     return !localStorage["disable_" + option];
@@ -32,7 +34,8 @@ function attachBehaviors() {
 }
 
 function changeSettingsOption(e) {
-    /*jshint validthis:true */
+    /* jshint validthis:true */
+
     var id = $(this).attr("id");
 
     if (this.checked) {
@@ -45,6 +48,7 @@ function changeSettingsOption(e) {
 }
 
 function initialize() {
+    renderSiteOptions();
     attachBehaviors();
     toggleAuthState();
     populateSettingsOptions();
@@ -63,39 +67,46 @@ function messageHandler (msg) {
 }
 
 function populateSettingsOptions() {
-    var i, max, options;
-
-    options = [
+    var i, key, max;
+	var options  = [
         "disable_scrobbling",
         "disable_notifications",
-        "disable_autodismiss",
-        "disable_eighttracks",
-        "disable_accujazz",
-        "disable_accuradio",
-        "disable_bandcamp",
-        "disable_beats",
-        "disable_focusatwill",
-        "disable_google",
-        "disable_indieshuffle",
-        "disable_jango",
-        "disable_pandora",
-        "disable_playerfm",
-        "disable_plugdj",
-        "disable_rhapsody",
-        "disable_songza",
-        "disable_sony",
-        "disable_soundcloud",
-        "disable_vk",
-        "disable_youtube"
-    ];
+        "disable_autodismiss"
+	];
+
+	for (key in plugins) {
+
+		if (plugins.hasOwnProperty(key)) {
+			options.push("disable_" + plugins[key].name);
+		}
+	}
 
     for (i = 0, max = options.length; i < max; i += 1) {
+
         if (localStorage[options[i]] === "true") {
             $("#" + options[i]).prop("checked", false);
         } else {
             $("#" + options[i]).prop("checked", true);
         }
     }
+}
+
+function renderSiteOptions() {
+    var template = $.trim($("#tmpl_siteOption").html());
+    var tmplData = {plugins: []};
+
+    for (var key in plugins) {
+        var pluginEnabled = (localStorage["disable_" + plugins[key].name] ===
+            true ? false : true);
+
+        tmplData.plugins.push({
+            checked:     pluginEnabled,
+            displayName: plugins[key].displayName,
+            name:        plugins[key].name
+        });
+    }
+
+    $(".site-specific-options").append(Mustache.render(template, tmplData));
 }
 
 function sendMessage(name, message) {
@@ -131,7 +142,8 @@ function toggleOptions() {
     }
 
     for (i = 0; i < max; i += 1) {
-        $options.eq(i).prop("checked", foundDisabledOption ? true : false);
+        $options.eq(i).prop("checked",
+                foundDisabledOption ? true : false).trigger("change");
     }
 }
 

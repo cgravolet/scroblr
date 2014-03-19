@@ -4,7 +4,7 @@ var $         = require("jquery");
 var Plugin    = require("../modules/Plugin");
 var accuradio = Object.create(Plugin);
 
-accuradio.init("accuradio");
+accuradio.init("accuradio", "AccuRadio");
 
 accuradio.scrape = function () {
     var artist = $("#songartist").text() || "";

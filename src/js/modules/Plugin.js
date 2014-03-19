@@ -6,10 +6,13 @@ var Plugin = {
      * Initialization method.
      *
      * @param {String} name
+     * @param {String} displayName
+     * @param {RegExp} hostregex
      */
-    init: function (name, hostregex) {
-        this.hostre = hostregex || new RegExp(name + "\\.com", "i");
-        this.name   = name;
+    init: function (name, displayName, hostregex) {
+        this.displayName = displayName;
+        this.hostre      = hostregex || new RegExp(name + "\\.com", "i");
+        this.name        = name;
     },
 
     /**

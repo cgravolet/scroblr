@@ -5,7 +5,7 @@ var Plugin   = require("../modules/Plugin");
 var Utils    = require("../modules/Utilities");
 var rhapsody = Object.create(Plugin);
 
-rhapsody.init("rhapsody");
+rhapsody.init("rhapsody", "Rhapsody");
 
 rhapsody.test = function () {
     var napster  = /napster\.[A-Z\.]{2,}/i.test(document.location.hostname);

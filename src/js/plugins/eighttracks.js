@@ -4,7 +4,7 @@ var $           = require("jquery");
 var Plugin      = require("../modules/Plugin");
 var eighttracks = Object.create(Plugin);
 
-eighttracks.init("eighttracks", new RegExp("8tracks\\.com", "i"));
+eighttracks.init("eighttracks", "8tracks", new RegExp("8tracks\\.com", "i"));
 
 eighttracks.scrape = function () {
     return {

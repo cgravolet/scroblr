@@ -5,7 +5,7 @@ var Plugin   = require("../modules/Plugin");
 var Utils    = require("../modules/Utilities");
 var bandcamp = Object.create(Plugin);
 
-bandcamp.init("bandcamp");
+bandcamp.init("bandcamp", "Bandcamp");
 
 bandcamp.scrape = function () {
     var discover, info, isTrack, pageTitle;

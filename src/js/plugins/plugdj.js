@@ -5,7 +5,7 @@ var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
 var plugdj = Object.create(Plugin);
 
-plugdj.init("plugdj", new RegExp("plug\\.dj", "i"));
+plugdj.init("plugdj", "plug.dj", new RegExp("plug\\.dj", "i"));
 
 plugdj.initialize = function () {
     var script = document.createElement("script");

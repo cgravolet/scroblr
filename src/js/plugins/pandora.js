@@ -5,7 +5,7 @@ var Plugin  = require("../modules/Plugin");
 var Utils   = require("../modules/Utilities");
 var pandora = Object.create(Plugin);
 
-pandora.init("pandora");
+pandora.init("pandora", "Pandora");
 
 pandora.test = function () {
     var domainMatch = this.hostre.test(document.location.hostname);

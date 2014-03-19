@@ -4,7 +4,7 @@ var $           = require("jquery");
 var Plugin      = require("../modules/Plugin");
 var focusatwill = Object.create(Plugin);
 
-focusatwill.init("focusatwill");
+focusatwill.init("focusatwill", "Focus@Will");
 
 focusatwill.test = function () {
     var domainMatch = this.hostre.test(document.location.hostname);

@@ -4,7 +4,7 @@ var $        = require("jquery");
 var Plugin   = require("../modules/Plugin");
 var accujazz = Object.create(Plugin);
 
-accujazz.init("accujazz");
+accujazz.init("accujazz", "AccuJazz");
 
 accujazz.test = function () {
     return document.location.href.indexOf("slipstreamradio.com/pop_player/") >= 0;

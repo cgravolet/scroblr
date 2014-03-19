@@ -5,7 +5,7 @@ var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
 var google = Object.create(Plugin);
 
-google.init("google");
+google.init("google", "Google Play");
 
 google.test = function () {
     return (/play\.google\.[A-Z\.]{2,}\/music\/listen/i).test(document.location.href);

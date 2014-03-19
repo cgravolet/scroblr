@@ -4,7 +4,7 @@ var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
 var songza = Object.create(Plugin);
 
-songza.init("songza");
+songza.init("songza", "Songza");
 
 songza.test = function () {
     var domainTest = this.hostre.test(document.location.hostname);

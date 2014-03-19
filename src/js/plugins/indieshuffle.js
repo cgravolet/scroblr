@@ -5,7 +5,7 @@ var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
 var indieshuffle = Object.create(Plugin);
 
-indieshuffle.init("indieshuffle");
+indieshuffle.init("indieshuffle", "Indie Shuffle");
 
 indieshuffle.test = function () {
     var domainTest = this.hostre.test(document.location.hostname);

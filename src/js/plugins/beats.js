@@ -5,7 +5,7 @@ var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
 var beats  = Object.create(Plugin);
 
-beats.init("beats", /listen\.beatsmusic\.com/i);
+beats.init("beats", "Beats Music", /listen\.beatsmusic\.com/i);
 
 beats.scrape = function () {
     var player = $("#app__transport");
