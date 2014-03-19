@@ -60,7 +60,7 @@ function pollTrackInfo() {
     var prevTrack = currentTrack || {};
     var updateObj = {};
 
-    newTrack.init(host.scrape(), host, host.id);
+    newTrack.init(host.scrape(), host.name, host.id);
 
     if (!newTrack.toString()) {
         return false;
