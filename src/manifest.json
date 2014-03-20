@@ -17,6 +17,7 @@
 				"*://*.amazon.de/gp/dmusic*",
 				"*://*.bandcamp.com/*",
 				"*://*.beatsmusic.com/*",
+                "*://*.earbits.com/*",
                 "*://*.focusatwill.com/music/*",
 				"*://play.google.com/music/*",
 				"*://*.indieshuffle.com/*",

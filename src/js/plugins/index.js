@@ -6,6 +6,7 @@ exports.accuradio    = require("./accuradio");
 exports.amazon       = require("./amazon");
 exports.bandcamp     = require("./bandcamp");
 exports.beats        = require("./beats");
+exports.earbits      = require("./earbits");
 exports.focusatwill  = require("./focusatwill");
 exports.google       = require("./google");
 exports.indieshuffle = require("./indieshuffle");

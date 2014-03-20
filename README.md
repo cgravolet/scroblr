@@ -12,6 +12,7 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 - Amazon Cloud Player
 - Bandcamp
 - Beats Music
+- Earbits
 - Focus@Will
 - Google Play
 - Indie Shuffle
