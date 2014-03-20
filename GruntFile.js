@@ -153,7 +153,6 @@ module.exports = function (grunt) {
 	grunt.registerTask("getplist", function () {
 		var doc = plist.parseFileSync("./src/Info.plist");
 
-		doc.Content.Scripts.End = ["js/scroblr.js"];
         doc.CFBundleShortVersionString = pjson.version;
         doc.CFBundleVersion = pjson.version;
 		doc = plist.build(doc);

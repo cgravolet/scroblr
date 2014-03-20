@@ -108,6 +108,7 @@ function pollTrackInfo() {
  * @param {object} message
  */
 function sendMessage(name, message) {
+	var key, msg;
 
     if (typeof chrome != "undefined") {
         chrome.extension.sendMessage({
@@ -115,10 +116,23 @@ function sendMessage(name, message) {
             message: message
         });
     } else if (typeof safari != "undefined") {
-        safari.self.tab.dispatchMessage(name, $.extend({}, message, {
-            toString: null
-        }));
+		msg = $.extend({}, message);
+
+		/*
+		 * If you try passing an object with functions in it through Safari's
+		 * dispatchMessage method, it will quietly suppress the message and not
+		 * do anything. This enumerator will remove any functions from the
+		 * message object by setting them to null.
+		 */
+		for (key in msg) {
+
+			if (msg.hasOwnProperty(key) && typeof msg[key] === "function") {
+				msg[key] = null;
+			}
+		}
+        safari.self.tab.dispatchMessage(name, msg);
     }
 }
 
 init();
+
