@@ -27,7 +27,7 @@ earbits.scrape = function () {
 	var progressMax  = $progressBar.parent().width();
 
 	if (progress > 0) {
-		info.percent = Math.round((progress / progressMax) * 100);
+		info.percent = progress / progressMax;
 	}
 
 	return info;
