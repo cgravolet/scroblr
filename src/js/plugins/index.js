@@ -18,5 +18,6 @@ exports.rhapsody     = require("./rhapsody");
 exports.songza       = require("./songza");
 exports.sony         = require("./sony");
 exports.soundcloud   = require("./soundcloud");
+exports.thisismyjam  = require("./thisismyjam");
 exports.vk           = require("./vk");
 exports.youtube      = require("./youtube");
