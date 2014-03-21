@@ -36,8 +36,8 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 
 Development requires browserify and grunt to be installed globally, you can skip those steps if they are already installed on your machine.
 
+    $ npm install -g grunt-cli
     $ npm install -g browserify
-    $ npm install -g grunt
 	$ git clone https://github.com/cgravolet/scroblr.git
 	$ cd scroblr
     $ npm install

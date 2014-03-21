@@ -13,6 +13,7 @@
   "readmeFilename": "README.md",
   "gitHead": "eb6f38decdf15fc18625bf60a602db2937feb229",
   "devDependencies": {
+    "grunt": "~0.4.4",
     "grunt-browserify": "~1.3.2",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-compress": "~0.7.0",
