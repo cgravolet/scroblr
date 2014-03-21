@@ -32,9 +32,9 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 [scrobble](http://en.wiktionary.org/wiki/scrobble "scrobble definition") *(third-person singular simple present scrobbles, present participle scrobbling, simple past and past participle scrobbled)*
 1. (Internet, slang) To publish one's music-listening habits via software, as counted events when songs or albums are played, to selected internet services in order to track them over time, out of curiosity and/or to make them visible to others.
 
-##Installation
+##Development
 
-Development requires browserify and grunt to be installed globally, you can skip those steps if they are already installed on your machine.
+Development requires [node.js](http://nodejs.org), [browserify](http://browserify.org), and the [grunt](http://gruntjs.com) command-line interface to be installed globally. You can skip those steps if they are already installed on your machine. For help configuring and installing npm and node.js, please see [http://nodejs.org](http://nodejs.org).
 
     $ npm install -g grunt-cli
     $ npm install -g browserify
