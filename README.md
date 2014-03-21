@@ -34,16 +34,7 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 
 ##Development
 
-Development requires [node.js](http://nodejs.org), [browserify](http://browserify.org), and the [grunt](http://gruntjs.com) command-line interface to be installed globally. You can skip those steps if they are already installed on your machine. For help configuring and installing npm and node.js, please see [http://nodejs.org](http://nodejs.org).
-
-    $ npm install -g grunt-cli
-    $ npm install -g browserify
-	$ git clone https://github.com/cgravolet/scroblr.git
-	$ cd scroblr
-    $ npm install
-	$ grunt build
-
-Because scroblr uses browserify to provide node-style requires in the browser, the javascript files need to be compiled after each change is made. During development you can run `grunt watch` to spin up a daemon that watches for changes to any js file and compiles a new bundle whenever it detects a modification.
+See the [scroblr development wiki](https://github.com/cgravolet/scroblr/wiki/_pages) to get instructions and tips for developing scroblr plugins.
 
 ##License
 
