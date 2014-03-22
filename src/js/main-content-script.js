@@ -1,6 +1,7 @@
 "use strict";
 
 var $            = require("jquery");
+var conf         = require("./conf.json");
 var Track        = require("./modules/Track");
 var plugins      = require("./plugins");
 var currentTrack = null;
@@ -109,6 +110,10 @@ function pollTrackInfo() {
  */
 function sendMessage(name, message) {
 	var key, msg;
+
+	if (conf.DEBUG) {
+		console.log("SCROBLR::::: ", name, message);
+	}
 
     if (typeof chrome != "undefined") {
         chrome.extension.sendMessage({

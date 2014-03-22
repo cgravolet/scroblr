@@ -1,0 +1,7 @@
+{
+    "API_KEY":  "59c070288bfca89ca9700fde083969bb",
+    "API_SEC":  "0193a089b025f8cfafcc922e54b93706",
+    "API_URL":  "http://ws.audioscrobbler.com/2.0/",
+    "AUTH_URL": "http://www.last.fm/api/auth/?api_key=59c070288bfca89ca9700fde083969bb&cb=",
+	"DEBUG":    false
+}

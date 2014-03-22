@@ -1,6 +1,7 @@
 "use strict";
 
 var $        = require("jquery");
+var conf     = require("./conf.json");
 var Mustache = require("mustache");
 
 window.scroblrView = (function () {
@@ -97,6 +98,10 @@ window.scroblrView = (function () {
     }
 
     function messageHandler (msg) {
+
+		if (conf.DEBUG) {
+			console.log(msg.name, msg.message);
+		}
 
         switch (msg.name) {
         case "trackLoved": // intentional fall-through

@@ -1,19 +1,14 @@
 "use strict";
 
-var $   = require("jquery");
-var md5 = require("MD5");
+var $     = require("jquery");
+var conf  = require("./conf.json");
+var md5   = require("MD5");
 
 window.scroblrGlobal = (function () {
-    var API_KEY, API_SEC, API_URL, LASTFM_AUTH_URL, currentTrack, history,
-        lf_session, keepalive;
-
-    API_KEY         = "59c070288bfca89ca9700fde083969bb";
-    API_SEC         = "0193a089b025f8cfafcc922e54b93706";
-    API_URL         = "http://ws.audioscrobbler.com/2.0/";
-    LASTFM_AUTH_URL = "http://www.last.fm/api/auth/?api_key=" + API_KEY + "&cb=";
-    currentTrack    = null;
-    history         = [];
-    lf_session      = JSON.parse(localStorage.lf_session || null);
+    var keepalive;
+    var currentTrack = null;
+    var history      = [];
+    var lf_session   = JSON.parse(localStorage.lf_session || null);
 
     function doNotScrobbleCurrentTrack() {
 
@@ -51,7 +46,7 @@ window.scroblrGlobal = (function () {
             paramString += key + params[key];
         }
 
-        return md5(paramString + API_SEC);
+        return md5(paramString + conf.API_SEC);
     }
 
     /**
@@ -76,7 +71,7 @@ window.scroblrGlobal = (function () {
 
         if (track.title && track.artist) {
             params = {
-                api_key: API_KEY,
+                api_key: conf.API_KEY,
                 artist:  track.artist,
                 track:   track.title
             };
@@ -151,7 +146,7 @@ window.scroblrGlobal = (function () {
      */
     function getUserSession(token) {
         var params = {
-            api_key: API_KEY,
+            api_key: conf.API_KEY,
             token:   token
         };
 
@@ -224,7 +219,7 @@ window.scroblrGlobal = (function () {
      */
     function loveTrack() {
         var params = {
-            api_key: API_KEY,
+            api_key: conf.API_KEY,
             sk:      lf_session.key,
             artist:  currentTrack.artist,
             track:   currentTrack.title
@@ -248,37 +243,42 @@ window.scroblrGlobal = (function () {
 	 *                     message: null})
      */
     function messageHandler(msg) {
+
+		if (conf.DEBUG) {
+			console.log(msg.name, msg.message);
+		}
+
         switch (msg.name) {
-            case "accessGranted":
-                getUserSession(msg.message);
-                break;
-            case "authButtonClicked":
-                openAuthWindow();
-                break;
-            case "doNotScrobbleButtonClicked":
-                doNotScrobbleCurrentTrack();
-                break;
-            case "popupSettingsChanged":
-                sendMessage("localSettingsChanged");
-                break;
-            case "logoutLinkClicked":
-                logoutUser();
-                break;
-            case "loveTrackButtonClicked":
-                loveTrack();
-                break;
-            case "nowPlaying":
-                updateNowPlaying(msg.message);
-                getTrackInfo(msg.message);
-                break;
-            case "trackEdited":
-                updateCurrentTrack(msg.message);
-                trackEditResponse();
-                sendMessage("trackEditSaved");
-                break;
-            case "updateCurrentTrack":
-                updateCurrentTrack(msg.message);
-                break;
+		case "accessGranted":
+			getUserSession(msg.message);
+			break;
+		case "authButtonClicked":
+			openAuthWindow();
+			break;
+		case "doNotScrobbleButtonClicked":
+			doNotScrobbleCurrentTrack();
+			break;
+		case "popupSettingsChanged":
+			sendMessage("localSettingsChanged");
+			break;
+		case "logoutLinkClicked":
+			logoutUser();
+			break;
+		case "loveTrackButtonClicked":
+			loveTrack();
+			break;
+		case "nowPlaying":
+			updateNowPlaying(msg.message);
+			getTrackInfo(msg.message);
+			break;
+		case "trackEdited":
+			updateCurrentTrack(msg.message);
+			trackEditResponse();
+			sendMessage("trackEditSaved");
+			break;
+		case "updateCurrentTrack":
+			updateCurrentTrack(msg.message);
+			break;
         }
     }
 
@@ -322,12 +322,12 @@ window.scroblrGlobal = (function () {
 
         if (typeof chrome != "undefined") {
             chrome.tabs.create({
-                // url: LASTFM_AUTH_URL + chrome.extension.getURL("access-granted.html")
-                url: LASTFM_AUTH_URL + "http://scroblr.fm/access-granted.html"
+                // url: conf.AUTH_URL + chrome.extension.getURL("access-granted.html")
+                url: conf.AUTH_URL + "http://scroblr.fm/access-granted.html"
             });
         } else if (typeof safari != "undefined") {
             newTab = safari.application.activeBrowserWindow.openTab();
-            newTab.url = LASTFM_AUTH_URL + safari.extension.baseURI + "access-granted.html";
+            newTab.url = conf.AUTH_URL + safari.extension.baseURI + "access-granted.html";
         }
 
         sendMessage("initUserForm", true);
@@ -355,7 +355,7 @@ window.scroblrGlobal = (function () {
             if (!track.scrobbled && lf_session && getOptionStatus("scrobbling") &&
                 trackShouldBeScrobbled(track)) {
                 requestParams = {
-                    api_key:   API_KEY,
+                    api_key:   conf.API_KEY,
                     artist:    track.artist,
                     sk:        lf_session.key,
                     timestamp: Math.round(track.dateTime / 1000),
@@ -414,7 +414,7 @@ window.scroblrGlobal = (function () {
 
         if (lf_session && scrobblingEnabled && artistTitlePresent && serviceEnabled) {
             params = {
-                api_key:  API_KEY,
+                api_key:  conf.API_KEY,
                 artist:   currentTrack.artist,
                 sk:       lf_session.key,
                 track:    currentTrack.title
@@ -453,7 +453,7 @@ window.scroblrGlobal = (function () {
             error:   error || handleFailure,
             success: success,
             type:    (requirePost.indexOf(method) >= 0 ? "POST" : "GET"),
-            url:     API_URL
+            url:     conf.API_URL
         });
     }
 
