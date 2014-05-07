@@ -17,9 +17,9 @@ sony.test = function () {
 };
 
 sony.scrape = function () {
-
+    var player = $("#PlayerPlayPause").parent().parent();
     // Player has not been rendered yet
-    if ($(".GEKKVSQBLV").length === 0) {
+    if (player.length === 0) {
         return {stopped: true};
     }
 
@@ -34,13 +34,15 @@ sony.scrape = function () {
         return {stopped: true};
     }
 
+    var playerLabels = player.find('.gwt-InlineLabel');
+
     return {
-        artist:   $(".GEKKVSQBCY .gwt-InlineLabel").text(),
+        artist:   playerLabels[2].innerText,
         elapsed:  Utils.calculateDuration(elapsed),
         duration: Utils.calculateDuration($("#PlayerDuration").text()),
         stopped:  stopped,
-        album:    $(".GEKKVSQBH- .gwt-InlineLabel").text(),
-        title:    $(".GEKKVSQBP- .gwt-InlineLabel").text()
+        album:    playerLabels[1].innerText,
+        title:    playerLabels[0].innerText,
     };
 };
 
