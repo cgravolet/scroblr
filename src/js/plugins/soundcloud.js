@@ -7,7 +7,7 @@ var soundcloud = Object.create(Plugin);
 soundcloud.init("soundcloud", "SoundCloud");
 
 soundcloud.scrape = function () {
-    var info, player, playing, soundcloudNext;
+    var info, player, playing, soundcloudNext, listingInfo;
 
     soundcloudNext = !!$("body > #app").length;
 
@@ -17,8 +17,9 @@ soundcloud.scrape = function () {
             stopped: !playing.length
         };
 
+        listingInfo = playing.parents(".trackList__item").length > 0 ? ".trackList__item" : ".sound";
         if (!info.stopped) {
-            player        = playing.parents(".sound");
+            player        = playing.parents(listingInfo);
             info.artist   = player.find(".soundTitle__username").text();
             info.title    = player.find(".soundTitle__title").text();
         }
