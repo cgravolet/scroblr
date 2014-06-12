@@ -7,7 +7,6 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 
 ##Currently supports scrobbling from:
 
-- 8tracks
 - AccuRadio
 - Amazon Cloud Player
 - Bandcamp
@@ -15,7 +14,6 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 - Earbits
 - Focus@Will
 - Google Play
-- Indie Shuffle
 - Jango
 - Pandora
 - Player.fm

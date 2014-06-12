@@ -10,7 +10,6 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"*://*.8tracks.com/*",
 				"*://*.accuradio.com/*",
 				"*://*.amazon.com/gp/dmusic*",
 				"*://*.amazon.co.uk/gp/dmusic*",
@@ -20,7 +19,6 @@
                 "*://*.earbits.com/*",
                 "*://*.focusatwill.com/music/*",
 				"*://play.google.com/music/*",
-				"*://*.indieshuffle.com/*",
 				"*://*.jango.com/*",
 				"*://*.napster.co.uk/*",
 				"*://*.napster.de/*",

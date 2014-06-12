@@ -1,6 +1,5 @@
 "use strict";
 
-exports.eighttracks  = require("./eighttracks");
 exports.accujazz     = require("./accujazz");
 exports.accuradio    = require("./accuradio");
 exports.amazon       = require("./amazon");
@@ -9,7 +8,6 @@ exports.beats        = require("./beats");
 exports.earbits      = require("./earbits");
 exports.focusatwill  = require("./focusatwill");
 exports.google       = require("./google");
-exports.indieshuffle = require("./indieshuffle");
 exports.jango        = require("./jango");
 exports.pandora      = require("./pandora");
 exports.playerfm     = require("./playerfm");

@@ -13,9 +13,11 @@ amazon.test = function () {
 
 amazon.scrape = function () {
     return {
-        artist:   $("#nowPlayingSection .currentSongDetails .title").next().text().substring(3),
-        duration: Utils.calculateDuration($("#nowPlayingSection .currentSongStatus #currentTime").next().next().text()),
-        stopped:  $("#mp3Player .mp3Player-MasterControl .mp3MasterPlayGroup").hasClass("paused"),
+        album:    $("#nowPlayingSection .currentSongAdditionalDetails span:last-child a").text(),
+        artist:   $("#nowPlayingSection .currentSongAdditionalDetails span:first-child a").text(),
+        duration: Utils.calculateDuration($("#nowPlayingSection .currentSongStatus #currentDuration").text()),
+        elapsed:  Utils.calculateDuration($("#nowPlayingSection .currentSongStatus #currentTime").text()),
+        stopped:  $("#mp3Player .mp3Player-MasterControl .mp3MasterPlayGroup .mp3MasterPlay").hasClass("icon-play"),
         title:    $("#nowPlayingSection .currentSongDetails .title").text()
     };
 };
