@@ -49,7 +49,8 @@ youtube.scrape = function () {
 function cleanseTrack(artist, title) {
     title = $.trim(title);
     title = title.replace(/\s*\*+\s?\S+\s?\*+$/, ''); // **NEW**
-    title = title.replace(/\s*\[[^\]]+\]$/, ''); // [whatever]
+    title = title.replace(/\s*\[[^\]]+\]$/, ''); // [whatever] succeeding title
+    title = title.replace(/^\[[^\]]+\]\s*/, ''); // [whatever] preceding title
     title = title.replace(/\s*\([^\)]*version\)$/i, ''); // (whatever version)
     title = title.replace(/\s*\.(avi|wmv|mpg|mpeg|flv)$/i, ''); // video extensions
     title = title.replace(/\s*(of+icial\s*)?(music\s*)?video/i, ''); // (official)? (music)? video
