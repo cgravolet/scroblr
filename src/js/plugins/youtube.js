@@ -62,7 +62,7 @@ function cleanseTrack(artist, title) {
     title = title.replace(/\s+\(?live\)?$/i, ''); // live
     title = title.replace(/\(\s*\)/, ''); // Leftovers after e.g. (official video)
     title = title.replace(/\(.*lyrics?\)/i, ''); // (with lyrics)
-    title = title.replace(/\s*with\s+lyrics?\s*$/i, ''); // with lyrics
+    title = title.replace(/\s*(with\s+)?lyrics?\s*$/i, ''); // (with)? lyrics
     title = title.replace(/^(|.*\s)"(.*)"(\s.*|)$/, '$2'); // Artist - The new "Track title" featuring someone
     title = title.replace(/^(|.*\s)'(.*)'(\s.*|)$/, '$2'); // 'Track title'
     title = title.replace(/^[\/\s,:;~-\s"]+/, ''); // trim starting white chars and dash
