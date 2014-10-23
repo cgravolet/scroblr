@@ -32,6 +32,7 @@
 				"*://*.soundcloud.com/*",
 				"*://*.thisismyjam.com/*",
 				"*://*.vk.com/*",
+				"*://wonder.fm/*",
 				"*://*.youtube.com/watch*"
 			],
 			"js": [
