@@ -18,4 +18,5 @@ exports.sony         = require("./sony");
 exports.soundcloud   = require("./soundcloud");
 exports.thisismyjam  = require("./thisismyjam");
 exports.vk           = require("./vk");
+exports.wonderfm     = require("./wonderfm");
 exports.youtube      = require("./youtube");
