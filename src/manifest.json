@@ -27,14 +27,14 @@
 				"*://*.plug.dj/*",
 				"*://*.rhapsody.com/*",
 				"*://*.slipstreamradio.com/pop_player/*",
+				"*://somafm.com/player*",
 				"*://*.songza.com/*",
 				"*://music.sonyentertainmentnetwork.com/*",
 				"*://*.soundcloud.com/*",
 				"*://*.thisismyjam.com/*",
 				"*://*.vk.com/*",
 				"*://wonder.fm/*",
-				"*://*.youtube.com/watch*",
-				"*://somafm.com/player*"
+				"*://*.youtube.com/watch*"
 			],
 			"js": [
                 "js/bundle-content-script.js"

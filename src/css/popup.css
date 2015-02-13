@@ -8,7 +8,7 @@ html {
 }
 
 body {
-	height: 150px;
+	height: 130px;
 	margin: 0;
 	overflow: hidden;
 	padding: 10px;
@@ -21,7 +21,7 @@ a {
 
 section {
 	display: none;
-	height: 170px;
+	height: 150px;
 	left: 0;
 	overflow: hidden;
 	position: absolute;
@@ -121,7 +121,7 @@ button {
 			font-size: 11px;
 			margin-bottom: 10px;
 			text-decoration: none;
-			width: 100px;			
+			width: 100px;
 		}
 
 		.launcher a:hover {
