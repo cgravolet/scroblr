@@ -8,7 +8,7 @@ html {
 }
 
 body {
-	height: 130px;
+	height: 150px;
 	margin: 0;
 	overflow: hidden;
 	padding: 10px;
@@ -21,7 +21,7 @@ a {
 
 section {
 	display: none;
-	height: 150px;
+	height: 170px;
 	left: 0;
 	overflow: hidden;
 	position: absolute;
@@ -121,7 +121,7 @@ button {
 			font-size: 11px;
 			margin-bottom: 10px;
 			text-decoration: none;
-			width: 100px;
+			width: 100px;			
 		}
 
 		.launcher a:hover {
@@ -161,6 +161,7 @@ button {
 .playerfm:before     { background-image: url(../img/icons/playerfm.png); }
 .plugdj:before       { background-image: url(../img/icons/plugdj.png); }
 .rhapsody:before     { background-image: url(../img/icons/rhapsody.png); }
+.somafm:before		 { background-image: url(../img/icons/somafm.png); }
 .songza:before       { background-image: url(../img/icons/songza.png); }
 .sony:before         { background-image: url(../img/icons/sony.png); }
 .soundcloud:before   { background-image: url(../img/icons/soundcloud.png); }
