@@ -13,6 +13,7 @@ exports.pandora      = require("./pandora");
 exports.playerfm     = require("./playerfm");
 exports.plugdj       = require("./plugdj");
 exports.rhapsody     = require("./rhapsody");
+exports.somafm			= require("./somafm");
 exports.songza       = require("./songza");
 exports.sony         = require("./sony");
 exports.soundcloud   = require("./soundcloud");

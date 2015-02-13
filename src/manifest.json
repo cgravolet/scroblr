@@ -33,7 +33,8 @@
 				"*://*.thisismyjam.com/*",
 				"*://*.vk.com/*",
 				"*://wonder.fm/*",
-				"*://*.youtube.com/watch*"
+				"*://*.youtube.com/watch*",
+				"*://somafm.com/player*"
 			],
 			"js": [
                 "js/bundle-content-script.js"
