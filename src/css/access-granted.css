@@ -61,6 +61,7 @@ h1 {
 					padding-left: 20px;
 					}
 
+				#supported li.abacast a { background-image: url(../img/icons/abacast.png); }
 				#supported li.accujazz a { background-image: url(../img/icons/accujazz.png); }
 				#supported li.accuradio a { background-image: url(../img/icons/accuradio.png); }
 				#supported li.amazon a { background-image: url(../img/icons/amazon.png); }

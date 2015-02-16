@@ -10,6 +10,7 @@
 	"content_scripts": [
 		{
 			"matches": [
+				"*://*.player.abacast.net/*",
 				"*://*.accuradio.com/*",
 				"*://*.amazon.com/gp/dmusic*",
 				"*://*.amazon.co.uk/gp/dmusic*",

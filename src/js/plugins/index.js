@@ -1,5 +1,6 @@
 "use strict";
 
+exports.abacast      = require("./abacast");
 exports.accujazz     = require("./accujazz");
 exports.accuradio    = require("./accuradio");
 exports.amazon       = require("./amazon");
