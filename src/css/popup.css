@@ -148,6 +148,7 @@ button {
 	width: 16px;
 }
 
+.abacast:before      { background-image: url(../img/icons/abacast.png); }
 .accujazz:before     { background-image: url(../img/icons/accujazz.png); }
 .accuradio:before    { background-image: url(../img/icons/accuradio.png); }
 .amazon:before       { background-image: url(../img/icons/amazon.png); }
