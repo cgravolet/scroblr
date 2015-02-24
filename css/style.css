@@ -112,26 +112,29 @@ h1 {
 					padding-left: 20px;
 					}
 
-				#supported li.eighttracks a { background-image: url(../img/icons/eighttracks.png); }
+				#supported li.abacast a { background-image: url(../img/icons/abacast.png); }
+				#supported li.accujazz a { background-image: url(../img/icons/accujazz.png); }
 				#supported li.accuradio a { background-image: url(../img/icons/accuradio.png); }
 				#supported li.amazon a { background-image: url(../img/icons/amazon.png); }
 				#supported li.bandcamp a { background-image: url(../img/icons/bandcamp.png); }
 				#supported li.beats a { background-image: url(../img/icons/beats.png); }
 				#supported li.earbits a { background-image: url(../img/icons/earbits.png); }
-				#supported li.focusatwill a { background-image: url(../img/icons/focusatwill.png); }
+				#supported li.eighttracks a { background-image: url(../img/icons/eighttracks.png); }
+                #supported li.focusatwill a { background-image: url(../img/icons/focusatwill.png); }
 				#supported li.google a { background-image: url(../img/icons/google.png); }
+				#supported li.grooveshark a { background-image: url(../img/icons/grooveshark.png); }
 				#supported li.indieshuffle a { background-image: url(../img/icons/indieshuffle.png); }
 				#supported li.jango a { background-image: url(../img/icons/jango.png); }
-				#supported li.piki a { background-image: url(../img/icons/piki.png); }
 				#supported li.playerfm a { background-image: url(../img/icons/playerfm.png); }
 				#supported li.plugdj a { background-image: url(../img/icons/plugdj.png); }
 				#supported li.rhapsody a { background-image: url(../img/icons/rhapsody.png); }
+				#supported li.somafm a { background-image: url(../img/icons/somafm.png); }
 				#supported li.songza a { background-image: url(../img/icons/songza.png); }
 				#supported li.sony a { background-image: url(../img/icons/sony.png); }
 				#supported li.soundcloud a { background-image: url(../img/icons/soundcloud.png); }
 				#supported li.thisismyjam a { background-image: url(../img/icons/thisismyjam.png); }
-				#supported li.turntable a { background-image: url(../img/icons/turntable.png); }
 				#supported li.vk a { background-image: url(../img/icons/vk.png); }
+				#supported li.wonderfm a { background-image: url(../img/icons/wonderfm.png); }
 				#supported li.youtube a { background-image: url(../img/icons/youtube.png); }
 
 
