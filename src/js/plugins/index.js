@@ -18,6 +18,7 @@ exports.somafm       = require("./somafm");
 exports.songza       = require("./songza");
 exports.sony         = require("./sony");
 exports.soundcloud   = require("./soundcloud");
+exports.thedrop      = require("./thedrop");
 exports.thisismyjam  = require("./thisismyjam");
 exports.vk           = require("./vk");
 exports.wonderfm     = require("./wonderfm");

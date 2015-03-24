@@ -12,7 +12,7 @@
 
 The scroblr extension adds scrobbling capabilities to the following websites:
 
-Abacast, AccuRadio, Amazon Cloud Player, Bandcamp, Beats Music, Earbits, Focus@Will, Google Play, Jango, Pandora, Player.fm, plug.dj, Rhapsody, SomaFM, Songza, Sony Music Unlimited, Soundcloud, VK, YouTube
+Abacast, AccuRadio, Amazon Cloud Player, Bandcamp, Beats Music, Earbits, Focus@Will, Google Play, Jango, Pandora, Player.fm, plug.dj, Rhapsody, SomaFM, Songza, Sony Music Unlimited, Soundcloud, TheDrop.club, VK, YouTube
 
 ##Development
 
