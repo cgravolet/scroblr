@@ -2,7 +2,7 @@
 
 var $       = require("jquery");
 var Plugin  = require("../modules/Plugin");
-var Utils   = require("./modules/Utilities");
+var Utils   = require("../modules/Utilities");
 var youtube = Object.create(Plugin);
 
 youtube.init("youtube", "YouTube");
