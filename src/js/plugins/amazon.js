@@ -20,7 +20,7 @@ amazon.scrape = function () {
     var $mp3Controls = $mp3Player.find(".mp3Player-MasterControl");
     
     var songTitle = $details.find(".title").text();     // try to check for / fix truncated titles
-    if (songTitle.match(/...$/)) {
+    if (songTitle.match(/\.\.\.$/)) {
         if ($(".currentlyPlaying").length) {
             songTitle = $(".currentlyPlaying td.titleCell").attr("title");
         }
