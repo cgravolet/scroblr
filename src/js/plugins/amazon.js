@@ -18,6 +18,21 @@ amazon.scrape = function () {
     var $details     = $nowPlaying.find(".currentSongDetails");
     var $status      = $nowPlaying.find(".currentSongStatus");
     var $mp3Controls = $mp3Player.find(".mp3Player-MasterControl");
+    
+    var songTitle = $details.find(".title").text();     // try to check for / fix truncated titles
+    if (songTitle.match(/\.\.\.$/)) {
+        if ($(".currentlyPlaying").length) {
+            songTitle = $(".currentlyPlaying td.titleCell").attr("title");
+        }
+        else if ($(".moreLikeThis").length) {
+            var moreLike = $(".moreLikeThis a").attr("href");
+            songTitle = moreLike.split("/title=")[1].split("/artist")[0];
+        }
+        else if ($(".recTriggerReason").length) {
+            songTitle = $(".recTriggerReason").text()
+                .replace("You are listening to ", "").replace(/\.$/, "");
+        }               
+    }
 
     return {
         album:    $addlDetails.find("span:last-child a").text(),
@@ -25,7 +40,7 @@ amazon.scrape = function () {
         duration: Utils.calculateDuration($status.find("#currentDuration").text()),
         elapsed:  Utils.calculateDuration($status.find("#currentTime").text()),
         stopped:  $mp3Controls.find(".mp3MasterPlayGroup .mp3MasterPlay").hasClass("icon-play"),
-        title:    $details.find(".title").text()
+        title:    songTitle
     };
 };
 
