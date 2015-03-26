@@ -2,6 +2,7 @@
 
 var $       = require("jquery");
 var Plugin  = require("../modules/Plugin");
+var Utils   = require("../modules/Utilities");
 var youtube = Object.create(Plugin);
 
 youtube.init("youtube", "YouTube");
@@ -35,7 +36,12 @@ youtube.scrape = function () {
     }
 
     return {
-        title: title
+        title: title,
+        elapsed: Utils.calculateDuration(
+            $(".html5-progress-bar.red").attr("aria-valuetext").split(" of")[0]
+        ),
+        duration: Utils.calculateDuration($(".ytp-bound-time-right").text()),
+        stopped: !$(".ytp-button-pause").length
     };
 };
 
@@ -71,7 +77,12 @@ function cleanseTrack(artist, title) {
 
     return {
         artist: artist,
-        title:  title
+        title:  title,
+        elapsed: Utils.calculateDuration(
+            $(".html5-progress-bar.red").attr("aria-valuetext").split(" of")[0]
+        ),
+        duration: Utils.calculateDuration($(".ytp-bound-time-right").text()),
+        stopped: !$(".ytp-button-pause").length
     };
 }
 
