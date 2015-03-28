@@ -8,7 +8,7 @@ var bandcamp = Object.create(Plugin);
 bandcamp.init("bandcamp", "Bandcamp");
 
 bandcamp.scrape = function () {
-    var discover, info, isTrack, isAlbum, pageTitle;
+    var discover, info, isTrack, isAlbum;
 
     discover = window.location.hash === "#discover";
     isTrack = window.location.pathname.split("/")[1] === "track";
