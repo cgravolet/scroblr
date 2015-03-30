@@ -20,6 +20,7 @@
                 "*://*.earbits.com/*",
                 "*://*.focusatwill.com/music/*",
 				"*://play.google.com/music/*",
+				"*://grooveshark.com/*",
 				"*://*.jango.com/*",
 				"*://*.napster.co.uk/*",
 				"*://*.napster.de/*",
