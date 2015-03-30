@@ -2,6 +2,7 @@
 
 var $          = require("jquery");
 var Plugin     = require("../modules/Plugin");
+var Utils      = require("../modules/Utilities");
 var soundcloud = Object.create(Plugin);
 
 /* allows us to clean arrays of specified values */
@@ -46,7 +47,7 @@ soundcloud.scrape = function () {
         };
 
         if (!info.stopped) {
-            if(playing.parents(".streamContext").length && playing.parents(".playlist").length) {  /* see if track is in a playlist */
+            if (playing.parents(".streamContext").length && playing.parents(".playlist").length) {  /* see if track is in a playlist */
                 player        = playing.parents(".playlist").find(".active");
                 compactArr    = getTrackDetails(player, ".compactTrackListItem__content");
 
@@ -90,6 +91,8 @@ soundcloud.scrape = function () {
                     }
                 }
             }
+            info.elapsed = Utils.calculateDuration($(".playbackTimeline__timePassed").text());
+            info.duration = Utils.calculateDuration($(".playbackTimeline__duration").text());
         }
     } else {
         playing = $(".play.playing");
