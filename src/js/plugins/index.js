@@ -16,7 +16,6 @@ exports.plugdj       = require("./plugdj");
 exports.rhapsody     = require("./rhapsody");
 exports.somafm       = require("./somafm");
 exports.songza       = require("./songza");
-exports.sony         = require("./sony");
 exports.soundcloud   = require("./soundcloud");
 exports.thedrop      = require("./thedrop");
 exports.thisismyjam  = require("./thisismyjam");
