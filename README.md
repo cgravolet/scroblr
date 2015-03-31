@@ -22,7 +22,6 @@ scroblr is a lightweight browser extension that scrobbles the music you listen t
 - plug.dj
 - Rhapsody
 - Songza
-- Sony Music Unlimited
 - Soundcloud
 - VK
 - YouTube
