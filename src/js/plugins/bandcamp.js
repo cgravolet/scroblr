@@ -31,8 +31,9 @@ bandcamp.scrape = function () {
         } else if (isAlbum) {
             info.album = $("#name-section > h2").text().trim();
         } else if (discover) {
-            info.album = $("div.itemtext a").filter(function (i, e) { 
-                return e.href.match(/album/)}).text().trim();
+            info.album = $("div.itemtext a").filter(function (i, e) {
+              return e.href.match(/album/);
+            }).text().trim();
         }
 
         info.title    = $(".track_info .title").first().text();
