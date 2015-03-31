@@ -8,13 +8,11 @@ var bandcamp = Object.create(Plugin);
 bandcamp.init("bandcamp", "Bandcamp");
 
 bandcamp.scrape = function () {
-    var discover, info, isTrack, isAlbum;
+    var discover = window.location.pathname.split("/")[1] === "discover";
+    var isAlbum  = window.location.pathname.split("/")[1] === "album";
+    var isTrack  = window.location.pathname.split("/")[1] === "track";
 
-    discover = window.location.hash === "#discover";
-    isTrack = window.location.pathname.split("/")[1] === "track";
-    isAlbum = window.location.pathname.split("/")[1] === "album";
-
-    info = {
+    var info = {
         stopped: !$(".inline_player .playbutton").hasClass("playing")
     };
 
@@ -49,3 +47,4 @@ bandcamp.scrape = function () {
 };
 
 module.exports = bandcamp;
+
