@@ -9,6 +9,7 @@ exports.beats        = require("./beats");
 exports.earbits      = require("./earbits");
 exports.focusatwill  = require("./focusatwill");
 exports.google       = require("./google");
+exports.hoopla       = require("./hoopla");
 exports.jango        = require("./jango");
 exports.pandora      = require("./pandora");
 exports.playerfm     = require("./playerfm");
