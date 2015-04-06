@@ -13,6 +13,8 @@ var Plugin = {
         this.displayName = displayName;
         this.hostre      = hostregex || new RegExp(name + "\\.com", "i");
         this.name        = name;
+
+        return this;
     },
 
     /**

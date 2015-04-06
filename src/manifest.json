@@ -1,70 +1,72 @@
 {
-	"manifest_version": 2,
-	"background": {
-		"page": "background.html"
-	},
-	"browser_action": {
-		"default_icon": "img/icons/lastfm32.png",
-		"default_popup": "popup.html"
-	},
-	"content_scripts": [
-		{
-			"matches": [
-				"*://*.player.abacast.net/*",
-				"*://*.accuradio.com/*",
-				"*://*.amazon.com/gp/dmusic*",
-				"*://*.amazon.co.uk/gp/dmusic*",
-				"*://*.amazon.de/gp/dmusic*",
-				"*://*.bandcamp.com/*",
-				"*://*.beatsmusic.com/*",
+    "manifest_version": 2,
+    "background": {
+        "page": "background.html"
+    },
+    "browser_action": {
+        "default_icon": "img/icons/lastfm32.png",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.player.abacast.net/*",
+                "*://*.accuradio.com/*",
+                "*://*.amazon.com/gp/dmusic*",
+                "*://*.amazon.co.uk/gp/dmusic*",
+                "*://*.amazon.de/gp/dmusic*",
+                "*://*.bandcamp.com/*",
+                "*://*.beatsmusic.com/*",
                 "*://*.earbits.com/*",
                 "*://*.focusatwill.com/music/*",
-				"*://play.google.com/music/*",
-				"*://*.jango.com/*",
-				"*://*.napster.co.uk/*",
-				"*://*.napster.de/*",
-				"*://*.pandora.com/*",
-				"*://*.player.fm/*",
-				"*://*.plug.dj/*",
-				"*://*.rhapsody.com/*",
-				"*://*.slipstreamradio.com/pop_player/*",
-				"*://somafm.com/player*",
-				"*://*.songza.com/*",
-				"*://*.soundcloud.com/*",
-				"*://*.thedrop.club/*",
-				"*://*.thisismyjam.com/*",
-				"*://*.vk.com/*",
-				"*://wonder.fm/*",
-				"*://*.youtube.com/watch*"
-			],
-			"js": [
+                "*://play.google.com/music/*",
+                "*://*.jango.com/*",
+                "*://*.napster.co.uk/*",
+                "*://*.napster.com/*",
+                "*://*.napster.de/*",
+                "*://*.pandora.com/*",
+                "*://*.player.fm/*",
+                "*://*.plug.dj/*",
+                "*://*.rhapsody.com/*",
+                "*://*.slipstreamradio.com/pop_player/*",
+                "*://somafm.com/player*",
+                "*://*.songza.com/*",
+                "*://*.soundcloud.com/*",
+                "*://*.thedrop.club/*",
+                "*://*.tidalhifi.com/*",
+                "*://*.thisismyjam.com/*",
+                "*://*.vk.com/*",
+                "*://wonder.fm/*",
+                "*://*.youtube.com/watch*"
+            ],
+            "js": [
                 "js/bundle-content-script.js"
-			],
-			"all_frames": true
-		},
-		{
-			"matches": ["*://*.scroblr.fm/access*"],
-			"js":      ["js/bundle-access-granted.js"]
-		}
-	],
-	"default_locale": "en",
-	"description": "A lightweight Last.fm scrobbler that scrobbles the music you listen to on the web.",
-	"icons": {
-		"16": "img/scroblr16.png",
-		"24": "img/scroblr24.png",
-		"48": "img/scroblr48.png",
-		"64": "img/scroblr64.png",
-		"128": "img/scroblr128.png"
-	},
-	"name": "scroblr",
-	"options_page": "options.html",
-	"permissions": [
-		"notifications",
-		"http://ws.audioscrobbler.com/2.0/"
-	],
-	"web_accessible_resources": [
-		"img/scroblr64.png"
-	],
-	"version": "2",
-	"content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
+            ],
+            "all_frames": true
+        },
+        {
+            "matches": ["*://*.scroblr.fm/access*"],
+            "js":      ["js/bundle-access-granted.js"]
+        }
+    ],
+    "default_locale": "en",
+    "description": "A lightweight Last.fm scrobbler that scrobbles the music you listen to on the web.",
+    "icons": {
+        "16": "img/scroblr16.png",
+        "24": "img/scroblr24.png",
+        "48": "img/scroblr48.png",
+        "64": "img/scroblr64.png",
+        "128": "img/scroblr128.png"
+    },
+    "name": "scroblr",
+    "options_page": "options.html",
+    "permissions": [
+        "notifications",
+        "http://ws.audioscrobbler.com/2.0/"
+    ],
+    "web_accessible_resources": [
+        "img/scroblr64.png"
+    ],
+    "version": "2",
+    "content_security_policy": "script-src 'self' https://platform.twitter.com; font-src 'self' https://themes.googleusercontent.com; object-src 'self'"
 }

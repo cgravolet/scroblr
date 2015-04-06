@@ -19,6 +19,7 @@ exports.songza       = require("./songza");
 exports.soundcloud   = require("./soundcloud");
 exports.thedrop      = require("./thedrop");
 exports.thisismyjam  = require("./thisismyjam");
+exports.tidal        = require("./tidal");
 exports.vk           = require("./vk");
 exports.wonderfm     = require("./wonderfm");
 exports.youtube      = require("./youtube");
