@@ -1,0 +1,78 @@
+{
+	"AUTHORIZE_BUTTON_LABEL": {
+		"message": "Aвторизовать с last.fm",
+		"description": "Текст здесь"
+	},
+	"AUTHORIZE_DESCRIPTION": {
+		"message": "scroblr требуется авторизация через last.fm, чтобы размещать информацию от вашего имени.",
+		"description": "Текст здесь"
+	},
+	"LAUNCHER_LABEL": {
+		"message": "Поддерживаемые музыкальные платформы",
+		"description": "Текст здесь"
+	},
+	"NOW_PLAYING_LABEL": {
+		"message": "Сейчас играет",
+		"description": "Текст здесь"
+	},
+	"EDIT_TRACK_TITLE": {
+		"message": "Изменить информацию о треке",
+		"description": "Текст здесь"
+	},
+	"LOVE_TRACK_TITLE": {
+		"message": "Добавить к любимым трекам?",
+		"description": "Текст здесь"
+	},
+	"DONTSCROBBLE_TRACK_TITLE": {
+		"message": "Не скроблить этот трек?",
+		"description": "Текст здесь"
+	},
+	"EDIT_TRACK_LABEL": {
+		"message": "Редактировать информацию о треке",
+		"description": "Текст здесь"
+	},
+	"EDIT_TRACK_REQUIRED_LABEL": {
+		"message": "Подтвердить информацию о треке",
+		"description": "Текст здесь"
+	},
+	"SAVE_BUTTON_LABEL": {
+		"message": "Сохранить",
+		"description": "Текст здесь"
+	},
+	"EDIT_TRACK_ALBUM_TEXT": {
+		"message": "Альбом",
+		"description": "Текст здесь"
+	},
+	"EDIT_TRACK_ARTIST_TEXT": {
+		"message": "Исполнитель",
+		"description": "Текст здесь"
+	},
+	"EDIT_TRACK_TITLE_TEXT": {
+		"message": "Трек",
+		"description": "Текст здесь"
+	},
+	"SETTINGS_LABEL": {
+		"message": "Настройки",
+		"description": "Текст здесь"
+	},
+	"SETTINGS_SIGNED_IN": {
+		"message": "Вы залогинены как '{name}'.",
+		"description": "Текст здесь"
+	},
+	"SETTINGS_SIGN_OUT": {
+		"message": "Выйти",
+		"description": "Текст здесь"
+	},
+	"SETTINGS_OPTION_SCROBBLING": {
+		"message": "Включить скроблинг",
+		"description": "Текст здесь"
+	},
+	"SETTINGS_OPTION_NOTIFICATIONS": {
+		"message": "Включить уведомления",
+		"description": "Текст здесь"
+	},
+	"SETTINGS_OPTION_AUTODISMISS": {
+		"message": "Прятать уведомления через 5 секунд",
+		"description": "Текст здесь"
+	}
+}
