@@ -13,10 +13,12 @@ hoopla.test = function () {
 
 hoopla.scrape = function () {
     var $playingRow = $('.playing');
+    var durationText = $.trim($playingRow.find('.segment-duration').text() || "");
+    var durationParts = /(?:(\d+)\smin)?\s*(?:(\d+)\ssec)?/.exec(durationText).slice(1);
     return {
         album:    $(".title").text(),
         artist:   $(".subheader").text(),
-        duration: Utils.calculateDuration($.trim($playingRow.find('.segment-duration').text() || "").replace(/\smin\s*/, ':').replace(' sec', '')),
+        duration: durationParts.reverse().reduce(function (sum, t, i) { return sum + parseInt(t) * Math.pow(60, i); }, 0) * 1000,
         title:    $playingRow.find('.segment-name').text()
     };
 };
