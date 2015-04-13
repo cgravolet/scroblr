@@ -14,6 +14,7 @@ exports.jango        = require("./jango");
 exports.pandora      = require("./pandora");
 exports.playerfm     = require("./playerfm");
 exports.plugdj       = require("./plugdj");
+exports.relevant     = require("./relevant");
 exports.rhapsody     = require("./rhapsody");
 exports.somafm       = require("./somafm");
 exports.songza       = require("./songza");
