@@ -16,6 +16,7 @@ exports.playerfm     = require("./playerfm");
 exports.plugdj       = require("./plugdj");
 exports.relevant     = require("./relevant");
 exports.rhapsody     = require("./rhapsody");
+exports.sndtest      = require("./sndtest");
 exports.somafm       = require("./somafm");
 exports.songza       = require("./songza");
 exports.soundcloud   = require("./soundcloud");
