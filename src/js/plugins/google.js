@@ -17,8 +17,8 @@ google.scrape = function () {
         artist:   $("#player-artist").text(),
         duration: Utils.calculateDuration($("#time_container_duration").text() || ""),
         elapsed:  Utils.calculateDuration($("#time_container_current").text() || ""),
-        title:    $("#playerSongTitle").text(),
-        stopped:  !$('button[data-id="play-pause"]').hasClass("playing")
+        title:    $("#player-song-title").text(),
+        stopped:  !$('[data-id=play-pause]').hasClass("playing")
     };
 };
 
