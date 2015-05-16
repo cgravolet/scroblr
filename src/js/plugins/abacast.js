@@ -8,11 +8,6 @@ var abacast = Object.create(Plugin).init("abacast", "Abacast");
 
 abacast.test = function () {
     var test = (/player\.abacast\.net/i).test(document.location.href);
-
-    if (conf.DEBUG) {
-        console.debug("abacast.test", test);
-    }
-
     return test;
 };
 

@@ -41,10 +41,18 @@ function init() {
 
     for (var key in plugins) {
 
+        if (conf.DEBUG) {
+            console.log("SCROBLR::::: Testing plugin ", key);
+        }
+
         if (plugins.hasOwnProperty(key) && plugins[key].test()) {
             host    = plugins[key];
             host.id = host.name.toUpperCase() + (new Date()).valueOf();
             plugins.length = 0;
+
+            if (conf.DEBUG) {
+                console.log("SCROBLR::::: Initializing plugin ", key);
+            }
 
             if (typeof host.initialize === "function") {
                 host.initialize();
