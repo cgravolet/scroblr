@@ -18,7 +18,7 @@ google.scrape = function () {
         duration: Utils.calculateDuration($("#time_container_duration").text() || ""),
         elapsed:  Utils.calculateDuration($("#time_container_current").text() || ""),
         title:    $("#player-song-title").text(),
-        stopped:  !$('[data-id=play-pause]').hasClass("playing")
+        stopped:  !$("[data-id=play-pause]").hasClass("playing")
     };
 };
 
