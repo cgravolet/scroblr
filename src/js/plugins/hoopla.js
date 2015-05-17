@@ -5,7 +5,7 @@ var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
 var hoopla = Object.create(Plugin);
 
-hoopla.init("hoopla", "hoopla");
+hoopla.init("hoopla", "Hoopla");
 
 hoopla.test = function () {
     return (/\.hoopladigital\.com\/title\/\d+\?play/i).test(document.location.href);

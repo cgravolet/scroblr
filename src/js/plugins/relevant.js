@@ -5,7 +5,7 @@ var Plugin = require("../modules/Plugin");
 var Utils  = require("../modules/Utilities");
 var relevant = Object.create(Plugin);
 
-relevant.init("relevant", "relevant");
+relevant.init("relevant", "Relevant Magazine");
 
 relevant.test = function () {
     return (/\.relevantmagazine.com\/the-drop\/*/i).test(document.location.href);
