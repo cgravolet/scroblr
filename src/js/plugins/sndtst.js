@@ -5,7 +5,8 @@ var Plugin = require("../modules/Plugin");
 var sndtst = Object.create(Plugin);
 
 function _playerStatusReader() {
-    var el = $("#jplayer_1"), d = el.data(), status = {};
+    // use full name for jQ so it won't get minified
+    var el = window.jQuery("#jplayer_1"), d = el.data(), status = {};
     if (d.jPlayer) {
         status = {
             title:       d.jPlayer.status.media.title,
@@ -39,7 +40,7 @@ function readTrackMeta() {
 
 sndtst.init("sndtst", "SNDTST");
 sndtst.initialize = function() {
-    inject(_playerStatusReader.toString() + "; _playerStatusReader();");
+    inject("_playerStatusReader = " + _playerStatusReader.toString() + "; _playerStatusReader();");
 };
 
 sndtst.scrape = function () {
