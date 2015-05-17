@@ -4,7 +4,7 @@ var $      = require("jquery");
 var Plugin = require("../modules/Plugin");
 var sndtst = Object.create(Plugin);
 
-function _playerStatusReader() {
+function _statusSerializer() {
     // use full name for jQ so it won't get minified
     var el = window.jQuery("#jplayer_1"), d = el.data(), status = {};
     if (d.jPlayer) {
@@ -23,7 +23,7 @@ function inject(code) {
     (document.head || document.documentElement).appendChild(script);
     script.parentNode.removeChild(script);
 }
-function parseStatus() {
+function statusReader() {
     var jsonStr = $("#jplayer_1").attr("__status");
     return jsonStr ? JSON.parse(jsonStr) : {};
 }
@@ -40,12 +40,12 @@ function readTrackMeta() {
 
 sndtst.init("sndtst", "SNDTST");
 sndtst.initialize = function() {
-    inject("_playerStatusReader = " + _playerStatusReader.toString() + "; _playerStatusReader();");
+    inject("_statusSerializer = " + _statusSerializer.toString() + "; _statusSerializer();");
 };
 
 sndtst.scrape = function () {
-    inject("_playerStatusReader();");
-    var status = parseStatus(), meta = readTrackMeta();
+    inject("_statusSerializer();");
+    var status = statusReader(), meta = readTrackMeta();
     if (status.paused) return { artist: null, title: null };
 
     return {
