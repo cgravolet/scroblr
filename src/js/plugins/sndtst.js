@@ -27,6 +27,16 @@ function parseStatus() {
     return jsonStr ? JSON.parse(jsonStr) : {};
 }
 
+function readTrackMeta() {
+    var prefix = "sndtst:";
+    return $("meta[property*='" + prefix + "']").toArray()
+        .reduce(function(acc, el) {
+            el = $(el);
+            acc[el.attr("property").replace(prefix, "")] = el.attr("content");
+            return acc;
+         }, {});
+}
+
 sndtst.init("sndtst", "SNDTST");
 sndtst.initialize = function() {
     inject(_playerStatusReader.toString() + "; _playerStatusReader();");
@@ -34,17 +44,12 @@ sndtst.initialize = function() {
 
 sndtst.scrape = function () {
     inject("_playerStatusReader();");
-    var status = parseStatus();
+    var status = parseStatus(), meta = readTrackMeta();
     if (status.paused) return { artist: null, title: null };
 
-    // song page has title quoted, so trim quotes
-    var game = $("h1").text().replace(/(^\"|\"$)/g, ""),
-        platform = $("h3 small").text().replace("Platform: ", "");
-    // song page lists song name in "h1", and game name in "h2 > a"
-    if (game == status.title) game = $("h2 > a").text();
     return {
-        artist:   platform + " - " + game,
-        album:    game,
+        artist:   meta.platform + " - " + meta.title,
+        album:    meta.title,
         duration: status.duration * 1000,
         elapsed:  status.currentTime * 1000,
         stopped:  status.paused,
