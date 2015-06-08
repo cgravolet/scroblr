@@ -25,4 +25,5 @@ exports.thisismyjam  = require("./thisismyjam");
 exports.tidal        = require("./tidal");
 exports.vk           = require("./vk");
 exports.wonderfm     = require("./wonderfm");
+exports.xbox         = require("./xbox");
 exports.youtube      = require("./youtube");
