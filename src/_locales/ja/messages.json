@@ -1,0 +1,78 @@
+{
+	"AUTHORIZE_BUTTON_LABEL": {
+		"message": "LAST.FMにログインして下さい。",
+		"description": "認証ボタン"
+	},
+	"AUTHORIZE_DESCRIPTION": {
+		"message": "scroblrは、あなたに変わって楽曲情報を投稿するために last.fmにログインし許可する必要があります。",
+		"description": "認証について"
+	},
+	"LAUNCHER_LABEL": {
+		"message": "曲が再生されていません",
+		"description": "起動時見出し"
+	},
+	"NOW_PLAYING_LABEL": {
+		"message": "再生中",
+		"description": "再生中表示の見出し"
+	},
+	"EDIT_TRACK_TITLE": {
+		"message": "楽曲情報を編集する",
+		"description": "楽曲情報編集時の見出し"
+	},
+	"LOVE_TRACK_TITLE": {
+		"message": "この曲が好きですか？",
+		"description": "楽曲の好み部分"
+	},
+	"DONTSCROBBLE_TRACK_TITLE": {
+		"message": "この楽曲をscrobbleしないよう設定しますか?",
+		"description": "楽曲に対するScrobble設定"
+	},
+	"EDIT_TRACK_LABEL": {
+		"message": "楽曲情報の編集",
+		"description": "楽曲情報の編集部分"
+	},
+	"EDIT_TRACK_REQUIRED_LABEL": {
+		"message": "楽曲情報の編集",
+		"description": "楽局情報の編集見出し"
+	},
+	"SAVE_BUTTON_LABEL": {
+		"message": "保存",
+		"description": "保存ボタン部分"
+	},
+	"EDIT_TRACK_ALBUM_TEXT": {
+		"message": "アルバム",
+		"description": "アルバム名部分"
+	},
+	"EDIT_TRACK_ARTIST_TEXT": {
+		"message": "アーティスト",
+		"description": "アーティスト名部分"
+	},
+	"EDIT_TRACK_TITLE_TEXT": {
+		"message": "曲名",
+		"description": "曲名部分"
+	},
+	"SETTINGS_LABEL": {
+		"message": "設定",
+		"description": "設定ボタン部分"
+	},
+	"SETTINGS_SIGNED_IN": {
+		"message": "'{name}' でログインしています。",
+		"description": "サインイン後の文章"
+	},
+	"SETTINGS_SIGN_OUT": {
+		"message": "サインアウト",
+		"description": "サインアウト部分"
+	},
+	"SETTINGS_OPTION_SCROBBLING": {
+		"message": "scrobble を有効にする",
+		"description": "Scrobbling設定部分"
+	},
+	"SETTINGS_OPTION_NOTIFICATIONS": {
+		"message": "通知を有効にする",
+		"description": "通知設定部分"
+	},
+	"SETTINGS_OPTION_AUTODISMISS": {
+		"message": "5秒後に通知を自動的に削除する",
+		"description": "通知の自動削除設定部分"
+	}
+}
