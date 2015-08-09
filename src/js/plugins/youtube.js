@@ -12,7 +12,7 @@ youtube.test = function () {
 };
 
 youtube.scrape = function () {
-    var title       = $.trim($("#watch-headline-title").text());
+    var title       = $.trim($("#eow-title").text());
     var parsedTitle = title.replace(/^(.+)\s*[-–:]+\s*(.+)$/, "$1_,_$2").split("_,_");
 
     if (parsedTitle.length > 1) {
@@ -36,12 +36,10 @@ youtube.scrape = function () {
     }
 
     return {
-        title: title,
-        elapsed: Utils.calculateDuration(
-            $(".html5-progress-bar.red").attr("aria-valuetext").split(" of")[0]
-        ),
-        duration: Utils.calculateDuration($(".ytp-bound-time-right").text()),
-        stopped: !$(".ytp-button-pause").length
+        title:    title,
+        elapsed:  Utils.calculateDuration($(".ytp-time-current").text()),
+        duration: Utils.calculateDuration($(".ytp-time-duration").text()),
+        stopped:  $(".ytp-play-button").attr("aria-label").toLowerCase() === "play"
     };
 };
 
@@ -76,13 +74,11 @@ function cleanseTrack(artist, title) {
     title = title.replace(/[\/\s,:;~-\s"\s!]+$/, ''); // trim trailing white chars and dash
 
     return {
-        artist: artist,
-        title:  title,
-        elapsed: Utils.calculateDuration(
-            $(".html5-progress-bar.red").attr("aria-valuetext").split(" of")[0]
-        ),
-        duration: Utils.calculateDuration($(".ytp-bound-time-right").text()),
-        stopped: !$(".ytp-button-pause").length
+        artist:   artist,
+        title:    title,
+        elapsed:  Utils.calculateDuration($(".ytp-time-current").text()),
+        duration: Utils.calculateDuration($(".ytp-time-duration").text()),
+        stopped:  $(".ytp-play-button").attr("aria-label").toLowerCase() === "play"
     };
 }
 

@@ -16,12 +16,12 @@
                 "*://*.amazon.co.uk/gp/dmusic*",
                 "*://*.amazon.de/gp/dmusic*",
                 "*://*.bandcamp.com/*",
-                "*://*.beatsmusic.com/*",
                 "*://*.earbits.com/*",
                 "*://*.focusatwill.com/music/*",
                 "*://play.google.com/music/*",
                 "*://*.hoopladigital.com/title/*",
                 "*://*.jango.com/*",
+                "*://music.microsoft.com/*",
                 "*://*.napster.co.uk/*",
                 "*://*.napster.com/*",
                 "*://*.napster.de/*",
@@ -40,7 +40,6 @@
                 "*://*.thisismyjam.com/*",
                 "*://*.vk.com/*",
                 "*://wonder.fm/*",
-                "*://music.xbox.com/*",
                 "*://*.youtube.com/watch*"
             ],
             "js": [

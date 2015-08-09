@@ -71,6 +71,7 @@ h1 {
 				#supported li.eighttracks a { background-image: url(../img/icons/eighttracks.png); }
                 #supported li.focusatwill a { background-image: url(../img/icons/focusatwill.png); }
 				#supported li.google a { background-image: url(../img/icons/google.png); }
+				#supported li.groove a { background-image: url(../img/icons/groove.png); }
 				#supported li.hoopla a { background-image: url(../img/icons/hoopla.png); }
 				#supported li.grooveshark a { background-image: url(../img/icons/grooveshark.png); }
 				#supported li.indieshuffle a { background-image: url(../img/icons/indieshuffle.png); }
@@ -88,7 +89,6 @@ h1 {
 				#supported li.tidal a { background-image: url(../img/icons/tidal.png); }
 				#supported li.vk a { background-image: url(../img/icons/vk.png); }
 				#supported li.wonderfm a { background-image: url(../img/icons/wonderfm.png); }
-				#supported li.xbox a { background-image: url(../img/icons/xbox.png); }
 				#supported li.youtube a { background-image: url(../img/icons/youtube.png); }
 
 .tweet {
