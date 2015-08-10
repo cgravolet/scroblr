@@ -8,7 +8,9 @@ var youtube = Object.create(Plugin);
 youtube.init("youtube", "YouTube");
 
 youtube.test = function () {
-    return (/youtube\.[A-Z\.]{2,}\/watch/i).test(document.location.href);
+    var domainMatch = (/youtube\.[A-Z\.]{2,}\/watch/i).test(document.location.href);
+    var playerFound = $("#eow-title").length > 0;
+    return domainMatch && playerFound;
 };
 
 youtube.scrape = function () {
