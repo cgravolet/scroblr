@@ -10,6 +10,7 @@
     "content_scripts": [
         {
             "matches": [
+                "*://*.scroblr.fm/access*",
                 "*://*.player.abacast.net/*",
                 "*://*.accuradio.com/*",
                 "*://*.amazon.com/gp/dmusic*",
@@ -46,10 +47,6 @@
                 "js/bundle-content-script.js"
             ],
             "all_frames": true
-        },
-        {
-            "matches": ["*://*.scroblr.fm/access*"],
-            "js":      ["js/bundle-access-granted.js"]
         }
     ],
     "default_locale": "en",

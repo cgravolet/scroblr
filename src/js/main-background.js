@@ -322,12 +322,11 @@ window.scroblrGlobal = (function () {
 
         if (typeof chrome != "undefined") {
             chrome.tabs.create({
-                // url: conf.AUTH_URL + chrome.extension.getURL("access-granted.html")
                 url: conf.AUTH_URL + "http://scroblr.fm/access-granted.html"
             });
         } else if (typeof safari != "undefined") {
-            newTab = safari.application.activeBrowserWindow.openTab();
-            newTab.url = conf.AUTH_URL + safari.extension.baseURI + "access-granted.html";
+            newTab     = safari.application.activeBrowserWindow.openTab();
+            newTab.url = conf.AUTH_URL + "http://scroblr.fm/access-granted.html";
         }
 
         sendMessage("initUserForm", true);
