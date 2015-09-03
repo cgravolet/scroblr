@@ -37,12 +37,10 @@ module.exports = function (grunt) {
         browserify: {
             dev: {
                 files: {
-                    "build/scroblr.chrome/js/bundle-access-granted.js": ["src/js/main-access-granted.js"],
                     "build/scroblr.chrome/js/bundle-background.js": ["src/js/main-background.js"],
                     "build/scroblr.chrome/js/bundle-content-script.js": ["src/js/main-content-script.js"],
                     "build/scroblr.chrome/js/bundle-options.js": ["src/js/main-options.js"],
                     "build/scroblr.chrome/js/bundle-popup.js": ["src/js/main-popup.js"],
-                    "build/scroblr.safariextension/js/bundle-access-granted.js": ["src/js/main-access-granted.js"],
                     "build/scroblr.safariextension/js/bundle-background.js": ["src/js/main-background.js"],
                     "build/scroblr.safariextension/js/bundle-content-script.js": ["src/js/main-content-script.js"],
                     "build/scroblr.safariextension/js/bundle-options.js": ["src/js/main-options.js"],
@@ -52,12 +50,10 @@ module.exports = function (grunt) {
             },
             release: {
                 files: {
-                    "build/scroblr.chrome/js/bundle-access-granted.js": ["src/js/main-access-granted.js"],
                     "build/scroblr.chrome/js/bundle-background.js": ["src/js/main-background.js"],
                     "build/scroblr.chrome/js/bundle-content-script.js": ["src/js/main-content-script.js"],
                     "build/scroblr.chrome/js/bundle-options.js": ["src/js/main-options.js"],
                     "build/scroblr.chrome/js/bundle-popup.js": ["src/js/main-popup.js"],
-                    "build/scroblr.safariextension/js/bundle-access-granted.js": ["src/js/main-access-granted.js"],
                     "build/scroblr.safariextension/js/bundle-background.js": ["src/js/main-background.js"],
                     "build/scroblr.safariextension/js/bundle-content-script.js": ["src/js/main-content-script.js"],
                     "build/scroblr.safariextension/js/bundle-options.js": ["src/js/main-options.js"],
