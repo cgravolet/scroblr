@@ -65,7 +65,7 @@ function init() {
     for (var key in plugins) {
 
         if (conf.DEBUG) {
-            console.log("SCROBLR::::: Testing plugin ", key);
+            console.log("SCROBLR::::: Testing plugin ", key, document.location.hostname);
         }
 
         if (plugins.hasOwnProperty(key) && plugins[key].test()) {
