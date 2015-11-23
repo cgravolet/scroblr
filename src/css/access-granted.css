@@ -91,6 +91,7 @@ h1 {
 				#supported li.vk a { background-image: url(../img/icons/vk.png); }
 				#supported li.wonderfm a { background-image: url(../img/icons/wonderfm.png); }
 				#supported li.youtube a { background-image: url(../img/icons/youtube.png); }
+				#supported li.yamusic a { background-image: url(../img/icons/yamusic.png); }
 
 .tweet {
 	float: right;
