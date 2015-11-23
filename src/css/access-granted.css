@@ -91,7 +91,7 @@ h1 {
 				#supported li.vk a { background-image: url(../img/icons/vk.png); }
 				#supported li.wonderfm a { background-image: url(../img/icons/wonderfm.png); }
 				#supported li.youtube a { background-image: url(../img/icons/youtube.png); }
-				#supported li.yamusic a { background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg width='56' height='56' viewBox='0 0 56 56' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3ESlice 1%3C/title%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M16,15 C24.8470588,15 32,22.1529412 32,31 C32,39.8470588 24.8470588,47 16,47 C7.15294118,47 0,39.8470588 0,31 C0,22.1529412 7.15294118,15 16,15 L16,15 L16,15 Z' fill='%23FFCC01' transform='translate%2811 5%29'/%3E%3Cpath d='M16,23 C20.4,23 24,26.6 24,31 C24,35.4 20.4,39 16,39 C11.6,39 8,35.4 8,31 C8,26.5555556 11.6,23 16,23 L16,23 L16,23 Z' fill='%23F00' transform='translate%2811 5%29'/%3E%3Cpath d='M35,6 L35,14 L24,10 L24,31 L20.0680147,30.9999999 L20.0680147,0.542463243 L35,6 L35,6 Z' fill='%23F00' transform='translate%2811 5%29'/%3E%3C/g%3E%3C/svg%3E); }
+				#supported li.yamusic a { background-image: url(../img/icons/yamusic.png); }
 
 .tweet {
 	float: right;
