@@ -1,8 +1,9 @@
 "use strict";
 
-var $     = require("jquery");
-var conf  = require("./conf.json");
-var md5   = require("MD5");
+var $       = require("jquery");
+var conf    = require("./conf.json");
+var firefox = require('./firefox/firefox.js');
+var md5     = require("MD5");
 
 window.scroblrGlobal = (function () {
     var keepalive;
@@ -190,6 +191,8 @@ window.scroblrGlobal = (function () {
             chrome.extension.onMessage.addListener(messageHandler);
         } else if (typeof safari != "undefined") {
             safari.application.addEventListener("message", messageHandler, false);
+        } else if (firefox) {
+            firefox.addEventListener(messageHandler);
         }
     }
 
@@ -309,6 +312,10 @@ window.scroblrGlobal = (function () {
                 }, 5000);
             }
         }
+
+        if (firefox) {
+            firefox.showNotification(message);
+        }
     }
 
     /**
@@ -327,6 +334,8 @@ window.scroblrGlobal = (function () {
         } else if (typeof safari != "undefined") {
             newTab     = safari.application.activeBrowserWindow.openTab();
             newTab.url = conf.AUTH_URL + "http://scroblr.fm/access-granted.html";
+        } else if (firefox) {
+            firefox.openTab(conf.AUTH_URL + "http://scroblr.fm/access-granted.html");
         }
 
         sendMessage("initUserForm", true);
@@ -401,6 +410,11 @@ window.scroblrGlobal = (function () {
                     message: message
                 });
             }
+        } else if (firefox) {
+            firefox.postMessage({
+                name:    name,
+                message: message
+            });
         }
     }
 

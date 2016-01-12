@@ -14,6 +14,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks('grunt-jpm');
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
@@ -25,12 +26,21 @@ module.exports = function (grunt) {
                 browser: true,
                 globals: {
                     chrome: true,
-                    safari: true
+                    safari: true,
+                    firefox: true,
+                    self: true
                 },
                 node: true
             },
 			build: {
 				src: ["src/js/**/*.js"]
+			}
+		},
+
+		jpm: {
+			options: {
+				src: "./build/firefox",
+				xpi: "./build"
 			}
 		},
 
@@ -44,7 +54,11 @@ module.exports = function (grunt) {
                     "build/scroblr.safariextension/js/bundle-background.js": ["src/js/main-background.js"],
                     "build/scroblr.safariextension/js/bundle-content-script.js": ["src/js/main-content-script.js"],
                     "build/scroblr.safariextension/js/bundle-options.js": ["src/js/main-options.js"],
-                    "build/scroblr.safariextension/js/bundle-popup.js": ["src/js/main-popup.js"]
+                    "build/scroblr.safariextension/js/bundle-popup.js": ["src/js/main-popup.js"],
+                    "build/firefox/data/js/bundle-background.js": ["src/js/main-background.js"],
+                    "build/firefox/data/js/bundle-content-script.js": ["src/js/main-content-script.js"],
+                    "build/firefox/data/js/bundle-options.js": ["src/js/main-options.js"],
+                    "build/firefox/data/js/bundle-popup.js": ["src/js/main-popup.js"]
                 },
                 options: {debug: true}
             },
@@ -57,7 +71,11 @@ module.exports = function (grunt) {
                     "build/scroblr.safariextension/js/bundle-background.js": ["src/js/main-background.js"],
                     "build/scroblr.safariextension/js/bundle-content-script.js": ["src/js/main-content-script.js"],
                     "build/scroblr.safariextension/js/bundle-options.js": ["src/js/main-options.js"],
-                    "build/scroblr.safariextension/js/bundle-popup.js": ["src/js/main-popup.js"]
+                    "build/scroblr.safariextension/js/bundle-popup.js": ["src/js/main-popup.js"],
+                    "build/firefox/data/js/bundle-background.js": ["src/js/main-background.js"],
+                    "build/firefox/data/js/bundle-content-script.js": ["src/js/main-content-script.js"],
+                    "build/firefox/data/js/bundle-options.js": ["src/js/main-options.js"],
+                    "build/firefox/data/js/bundle-popup.js": ["src/js/main-popup.js"]
                 },
                 options: {debug: false}
             }
@@ -86,6 +104,16 @@ module.exports = function (grunt) {
 						dest: "build/scroblr.safariextension/"
 					}
 				]
+			},
+			firefox: {
+				files: [
+					{
+						expand: true,
+						cwd: "build/firefox/",
+						src: ["data/js/bundle-*.js"],
+						dest: "build/firefox/"
+					}
+				]
 			}
 		},
 
@@ -111,6 +139,16 @@ module.exports = function (grunt) {
 					{
 						src: "src/icon-48.png",
 						dest: "build/scroblr.safariextension/icon-48.png"
+					}
+				]
+			},
+			firefox: {
+				files: [
+					{
+						expand: true,
+						cwd: "src/",
+						src: ["css/*.css", "*.html", "img/**", "js/*.json", "js/bundle-*.js", "js/firefox/*.js", "manifest.json"],
+						dest: "build/firefox/data"
 					}
 				]
 			}
@@ -157,11 +195,30 @@ module.exports = function (grunt) {
 		fs.writeFileSync("./build/scroblr.safariextension/Info.plist", doc);
 	});
 
+	// Copy modified package.json to Firefox addon folder
+	grunt.registerTask("getpackage", function() {
+		var pkg = require("./package.json");
+
+		pkg['main'] = 'data/js/firefox/main.js';
+		pkg['id'] = "scroblr@scroblr.fm";
+		pkg['private'] = false;
+		pkg['engines'] = {
+			"firefox": ">=38.0a1"
+		};
+		pkg['permissions'] = {
+			"cross-domain-content": ["http://www.last.fm"]
+		};
+
+		fs.writeFileSync("./build/firefox/package.json",
+                JSON.stringify(pkg, null, 2));
+	});
+
     grunt.registerTask("build", ["clean", "jshint", "browserify:dev", "copy",
-            "getmanifest", "getplist"]);
+            "getmanifest", "getplist", "getpackage", "jpm:xpi"]);
 
     grunt.registerTask("release", ["clean", "jshint", "browserify:release",
-            "uglify", "copy", "getmanifest", "getplist", "compress"]);
+            "uglify", "copy", "getmanifest", "getplist", "getpackage", 
+            "compress", "jpm:xpi"]);
 
     grunt.registerTask("compile", ["jshint", "browserify:dev", "copy"]);
 
