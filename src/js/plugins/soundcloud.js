@@ -91,8 +91,8 @@ soundcloud.scrape = function () {
                     }
                 }
             }
-            info.elapsed = Utils.calculateDuration($(".playbackTimeline__timePassed").text());
-            info.duration = Utils.calculateDuration($(".playbackTimeline__duration").text());
+            info.elapsed = Utils.calculateDuration($(".playbackTimeline__timePassed span:last").text());
+            info.duration = Utils.calculateDuration($(".playbackTimeline__duration span:last").text());
         }
     } else {
         playing = $(".play.playing");
