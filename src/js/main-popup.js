@@ -2,6 +2,7 @@
 
 var $        = require("jquery");
 var conf     = require("./conf.json");
+var firefox  = require('./firefox/firefox.js');
 var Mustache = require("mustache");
 
 window.scroblrView = (function () {
@@ -12,6 +13,8 @@ window.scroblrView = (function () {
         model = chrome.extension.getBackgroundPage();
     } else if (typeof safari != "undefined") {
         model = safari.extension.globalPage.contentWindow;
+    } else if (firefox) {
+        model = firefox;
     }
 
     function attachBehaviors () {
@@ -65,6 +68,8 @@ window.scroblrView = (function () {
         } else if (typeof safari != "undefined") {
             safari.application.addEventListener("message", messageHandler, false);
             safari.application.addEventListener("popover", popoverHandler, true);
+        } else if (firefox) {
+            firefox.addEventListener(messageHandler);
         }
     }
 
@@ -91,14 +96,13 @@ window.scroblrView = (function () {
     function initialize() {
         attachBehaviors();
 
-        if (typeof chrome != "undefined") {
+        if (typeof chrome != "undefined" || firefox) {
             populateSettingsOptions();
             showStartScreen();
         }
     }
 
     function messageHandler (msg) {
-
 		if (conf.DEBUG) {
 			console.log(msg.name, msg.message);
 		}
@@ -125,6 +129,9 @@ window.scroblrView = (function () {
         case "userSessionRetrieved":
             showStartScreen();
             break;
+        case "popover":
+            popoverHandler();
+            break;
         }
     }
 
@@ -136,6 +143,8 @@ window.scroblrView = (function () {
         } else if (typeof safari != "undefined") {
             newTab = safari.application.activeBrowserWindow.openTab();
             newTab.url = url;
+        } else if (firefox) {
+            firefox.openTab(url);
         }
     }
 
@@ -164,6 +173,10 @@ window.scroblrView = (function () {
         if (session) {
             $("#userProfile").text(session.name).attr("href",
                 "http://last.fm/user/" + session.name);
+        }
+
+        if (firefox) {
+            $("#disable_autodismiss, label[for=disable_autodismiss]").hide();
         }
     }
 

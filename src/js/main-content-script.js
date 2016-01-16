@@ -2,6 +2,7 @@
 
 var $            = require("jquery");
 var conf         = require("./conf.json");
+var firefox      = require('./firefox/firefox.js');
 var Track        = require("./modules/Track");
 var plugins      = require("./plugins");
 var currentTrack = null;
@@ -40,6 +41,11 @@ function getAccessToken() {
             });
         } else if (typeof safari != 'undefined') {
             safari.self.tab.dispatchMessage('accessGranted', token);
+        } else if (firefox) {
+            firefox.postMessage({
+                name: 'accessGranted',
+                message: token
+            });
         }
         return true;
     }
@@ -167,6 +173,11 @@ function sendMessage(name, message) {
 			}
 		}
         safari.self.tab.dispatchMessage(name, msg);
+    } else if (firefox) {
+        firefox.postMessage({
+            name: name,
+            message: message
+        });
     }
 }
 

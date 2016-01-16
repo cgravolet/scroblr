@@ -1,5 +1,6 @@
 html {
 	background-image: -webkit-linear-gradient(top, rgb(254, 254, 254) 65%, rgb(216, 216, 216) 100%);
+	background-image: -moz-linear-gradient(top, rgb(254, 254, 254) 65%, rgb(216, 216, 216) 100%);
 	font: normal 12px arial,helvetica,verdana,sans-serif;
 	margin: 0;
 	min-height: 150px;
@@ -43,6 +44,7 @@ section {
 
 header {
 	background-image: -webkit-linear-gradient(top, rgb(254, 254, 254), rgb(230, 230, 230));
+	background-image: -moz-linear-gradient(top, rgb(254, 254, 254), rgb(230, 230, 230));
 	border-bottom: 1px solid #CCC;
 	color: #999;
 	font-size: 16px;
@@ -70,8 +72,10 @@ header {
 
 button {
 	background-image: -webkit-linear-gradient(top, rgb(153, 153, 153), rgb(0, 0, 0));
+	background-image: -moz-linear-gradient(top, rgb(153, 153, 153), rgb(0, 0, 0));
 	border: 1px solid #333;
 	-webkit-border-radius: 3px;
+			border-radius: 3px;
 	color: #FFF;
 	cursor: pointer;
 	font-size: 14px;
@@ -191,6 +195,7 @@ button {
 
 	.album-art img {
 		-webkit-box-shadow: 0 0 3px 0 #999;
+				box-shadow: 0 0 3px 0 #999;
 		height: 100px;
 		width: 100px;
 	}
