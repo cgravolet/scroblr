@@ -42,7 +42,8 @@
                 "*://*.vk.com/*",
                 "*://wonder.fm/*",
                 "*://music.yandex.ru/*",
-                "*://*.youtube.com/watch*"
+                "*://*.youtube.com/watch*",
+                "*://*.di.fm/*"
             ],
             "js": [
                 "js/bundle-content-script.js"

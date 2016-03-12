@@ -27,3 +27,4 @@ exports.vk           = require("./vk");
 exports.wonderfm     = require("./wonderfm");
 exports.yamusic      = require("./yamusic");
 exports.youtube      = require("./youtube");
+exports.di           = require("./di");
