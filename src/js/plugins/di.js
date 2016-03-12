@@ -17,7 +17,7 @@ di.scrape = function () {
 
     return {
         artist: track.text().replace(/\s+-\s+$/, ''),
-        title: $.trim(stopped ? track[0].nextSibling.nodeValue : ''),
+        title: $.trim(stopped ? "" : track[0].nextSibling.nodeValue),
         elapsed: Utilites.calculateDuration(timecode[0]),
         duration: Utilites.calculateDuration(timecode[1]),
         stopped: stopped
@@ -25,3 +25,4 @@ di.scrape = function () {
 };
 
 module.exports = di;
+
