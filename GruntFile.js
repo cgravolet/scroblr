@@ -39,7 +39,7 @@ module.exports = function (grunt) {
 
 		jpm: {
 			options: {
-				src: "./build/firefox",
+				src: "./build/scroblr.firefox",
 				xpi: "./build"
 			}
 		},
@@ -55,10 +55,10 @@ module.exports = function (grunt) {
                     "build/scroblr.safariextension/js/bundle-content-script.js": ["src/js/main-content-script.js"],
                     "build/scroblr.safariextension/js/bundle-options.js": ["src/js/main-options.js"],
                     "build/scroblr.safariextension/js/bundle-popup.js": ["src/js/main-popup.js"],
-                    "build/firefox/data/js/bundle-background.js": ["src/js/main-background.js"],
-                    "build/firefox/data/js/bundle-content-script.js": ["src/js/main-content-script.js"],
-                    "build/firefox/data/js/bundle-options.js": ["src/js/main-options.js"],
-                    "build/firefox/data/js/bundle-popup.js": ["src/js/main-popup.js"]
+                    "build/scroblr.firefox/data/js/bundle-background.js": ["src/js/main-background.js"],
+                    "build/scroblr.firefox/data/js/bundle-content-script.js": ["src/js/main-content-script.js"],
+                    "build/scroblr.firefox/data/js/bundle-options.js": ["src/js/main-options.js"],
+                    "build/scroblr.firefox/data/js/bundle-popup.js": ["src/js/main-popup.js"]
                 },
                 options: {debug: true}
             },
@@ -72,10 +72,10 @@ module.exports = function (grunt) {
                     "build/scroblr.safariextension/js/bundle-content-script.js": ["src/js/main-content-script.js"],
                     "build/scroblr.safariextension/js/bundle-options.js": ["src/js/main-options.js"],
                     "build/scroblr.safariextension/js/bundle-popup.js": ["src/js/main-popup.js"],
-                    "build/firefox/data/js/bundle-background.js": ["src/js/main-background.js"],
-                    "build/firefox/data/js/bundle-content-script.js": ["src/js/main-content-script.js"],
-                    "build/firefox/data/js/bundle-options.js": ["src/js/main-options.js"],
-                    "build/firefox/data/js/bundle-popup.js": ["src/js/main-popup.js"]
+                    "build/scroblr.firefox/data/js/bundle-background.js": ["src/js/main-background.js"],
+                    "build/scroblr.firefox/data/js/bundle-content-script.js": ["src/js/main-content-script.js"],
+                    "build/scroblr.firefox/data/js/bundle-options.js": ["src/js/main-options.js"],
+                    "build/scroblr.firefox/data/js/bundle-popup.js": ["src/js/main-popup.js"]
                 },
                 options: {debug: false}
             }
@@ -109,9 +109,9 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
-						cwd: "build/firefox/",
+						cwd: "build/scroblr.firefox/",
 						src: ["data/js/bundle-*.js"],
-						dest: "build/firefox/"
+						dest: "build/scroblr.firefox/"
 					}
 				]
 			}
@@ -148,7 +148,7 @@ module.exports = function (grunt) {
 						expand: true,
 						cwd: "src/",
 						src: ["css/*.css", "*.html", "img/**", "js/*.json", "js/bundle-*.js", "js/firefox/*.js", "manifest.json"],
-						dest: "build/firefox/data"
+						dest: "build/scroblr.firefox/data"
 					}
 				]
 			}
@@ -209,7 +209,7 @@ module.exports = function (grunt) {
 			"cross-domain-content": ["http://www.last.fm"]
 		};
 
-		fs.writeFileSync("./build/firefox/package.json",
+		fs.writeFileSync("./build/scroblr.firefox/package.json",
                 JSON.stringify(pkg, null, 2));
 	});
 
