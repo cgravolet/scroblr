@@ -1,26 +1,23 @@
 "use strict";
 
-var $           = require("jquery");
-var Plugin      = require("../modules/Plugin");
-var Utils       = require("../modules/Utilities");
+var $       = require("jquery");
+var Plugin  = require("../modules/Plugin");
+var Utils   = require("../modules/Utilities");
 var thedrop = Object.create(Plugin);
 
 thedrop.init("thedrop", "The Drop", new RegExp("thedrop\\.club", "i"));
 
-thedrop.test = function () {
-    var domainMatch = this.hostre.test(document.location.hostname);
-    var playerFound = $(".music-player").css("display") === "block";
-    return domainMatch && playerFound;
-};
-
 thedrop.scrape = function () {
+    var $player = $(".player--body");
     var info =  {
-        artist:   $(".playing-artist").text(),
-        title:    $(".playing-title").text(),
-        stopped:  $(".audio-scrobbler .pause-button").css("display") === "block",
-        percent:  parseFloat($(".elapsed-bar").width() / $(".audio-scrubber").width())
+        artist:  $(".artist-name", $player).text(),
+        title:   $(".track-title", $player).text(),
+        stopped: $(".controls .glyphicon-play", $player).length > 0,
+        elapsed: Utils.calculateDuration($(".progress-bar .progress").text()),
+        percent: Math.round($(".progress-bar > .progress").width() / $(".progress-bar").width() * 100) / 100
     };
     return info;
 };
 
 module.exports = thedrop;
+
