@@ -12,9 +12,15 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "gitHead": "eb6f38decdf15fc18625bf60a602db2937feb229",
+  "scripts": {
+    "build": "$(npm bin)/grunt",
+    "release": "$(npm bin)/grunt release",
+    "watch": "$(npm bin)/grunt watch"
+  },
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-browserify": "~1.3.2",
+    "grunt-cli": "^1.1.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-compress": "~0.7.0",
     "grunt-contrib-concat": "~0.3.0",
@@ -27,8 +33,8 @@
     "plist": "~0.4.3"
   },
   "dependencies": {
-    "jquery": "~2.1.0",
     "MD5": "~1.2.0",
+    "jquery": "~2.1.0",
     "mustache": "~0.8.1"
   }
 }
