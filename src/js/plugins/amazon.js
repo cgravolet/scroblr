@@ -8,7 +8,7 @@ var amazon = Object.create(Plugin);
 amazon.init("amazon", "Amazon Music");
 
 amazon.test = function () {
-    return (/amazon\.[A-Z\.]{2,}\/gp\/dmusic/i).test(document.location.href);
+    return (/music\.amazon\.[A-Z\.]{2,}/i).test(document.location.href);
 };
 
 amazon.scrape = function () {
