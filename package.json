@@ -13,9 +13,9 @@
   "readmeFilename": "README.md",
   "gitHead": "eb6f38decdf15fc18625bf60a602db2937feb229",
   "scripts": {
-    "build": "$(npm bin)/grunt",
-    "release": "$(npm bin)/grunt release",
-    "watch": "$(npm bin)/grunt watch"
+    "build": "grunt",
+    "release": "grunt release",
+    "watch": "grunt watch"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
