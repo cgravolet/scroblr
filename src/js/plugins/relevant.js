@@ -21,7 +21,7 @@ relevant.scrape = function () {
         title:    $playingRow.find('.overflow').text(),
         stopped:  $('.album-art .cp-play').is(':visible'),
         duration: Utils.calculateDuration(($playingRow.find('.time').text() || "").replace(/[()]/g, '')),
-        percent:  (progressDegrees || [,0])[1] / 360
+        percent:  (progressDegrees || [null,0])[1] / 360
     };
 };
 

@@ -12,15 +12,17 @@ npr.test = function () {
 };
 
 npr.scrape = function () {
+    var artist, title;
     var $player = $('#npr-player');
     var fullTitle = $player.find('.player-details .title').text();
     var titleParts = /^(.+), "(.+)"$/.exec(fullTitle);
+
     if (titleParts) {
-      var artist = titleParts[1];
-      var title = titleParts[2];
+      artist = titleParts[1];
+      title = titleParts[2];
     } else {
-      var title = fullTitle;
-      var artist = '';
+      title = fullTitle;
+      artist = '';
     }
 
     var $playerBasic = $player.find('.player-basic');
