@@ -94,14 +94,21 @@ window.scroblrGlobal = (function () {
      */
     function getTrackInfoCallback(data) {
         var trackParams = {
-            album:      $("track > album title", data).text() || currentTrack.album || "",
-            image:      $("track > album image[size=large]", data).text() || "",
             loved:      $("track userloved").text() == "1",
             url_album:  $("track > album url", data).text() || "",
             url_artist: $("track > artist url", data).text() || "",
             url_track:  $("track > url", data).text() || "",
             tags:       []
         };
+
+        if (currentTrack.album) {
+            trackParams.album = currentTrack.album;
+            // TODO Retrieve album art through API call.
+            trackParams.image = "";
+        } else {
+            trackParams.album = $("track > album title", data).text() || "";
+            trackParams.image = $("track > album image[size=large]", data).text() || "";
+        }
 
         if (!currentTrack.duration) {
             trackParams.duration = parseFloat($("track > duration", data).text());
