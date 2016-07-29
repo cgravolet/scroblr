@@ -24,6 +24,7 @@ exports.sndtst       = require("./sndtst");
 exports.somafm       = require("./somafm");
 exports.songza       = require("./songza");
 exports.soundcloud   = require("./soundcloud");
+exports.spotify      = require("./spotify");
 exports.thedrop      = require("./thedrop");
 exports.tidal        = require("./tidal");
 exports.vk           = require("./vk");

@@ -39,6 +39,7 @@
                 "*://somafm.com/player*",
                 "*://*.songza.com/*",
                 "*://*.soundcloud.com/*",
+                "*://play.spotify.com/*",
                 "*://*.thedrop.club/*",
                 "*://*.tidalhifi.com/*",
                 "*://*.vk.com/*",
