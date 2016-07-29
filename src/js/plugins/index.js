@@ -28,5 +28,6 @@ exports.thedrop      = require("./thedrop");
 exports.tidal        = require("./tidal");
 exports.vk           = require("./vk");
 exports.wonderfm     = require("./wonderfm");
+exports.xiami        = require("./xiami");
 exports.yamusic      = require("./yamusic");
 exports.youtube      = require("./youtube");

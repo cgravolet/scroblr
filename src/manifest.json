@@ -43,6 +43,7 @@
                 "*://*.tidalhifi.com/*",
                 "*://*.vk.com/*",
                 "*://wonder.fm/*",
+                "*://*.xiami.com/play*",
                 "*://music.yandex.ru/*",
                 "*://*.youtube.com/watch*",
                 "*://*.di.fm/*"
