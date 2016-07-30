@@ -18,6 +18,7 @@
                 "*://music.amazon.de/*",
                 "*://*.bandcamp.com/*",
                 "*://*.beatsmusic.com/*",
+                "*://*.deezer.com/*",
                 "*://*.dubtrack.fm/*",
                 "*://*.earbits.com/*",
                 "*://*.focusatwill.com/music/*",
