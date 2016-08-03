@@ -6,6 +6,7 @@ exports.accuradio    = require("./accuradio");
 exports.amazon       = require("./amazon");
 exports.bandcamp     = require("./bandcamp");
 exports.beats        = require("./beats");
+exports.deezer       = require("./deezer");
 exports.di           = require("./di");
 exports.dubtrackfm   = require("./dubtrackfm");
 exports.earbits      = require("./earbits");
