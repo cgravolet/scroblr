@@ -307,16 +307,36 @@ window.scroblrGlobal = (function () {
         if (!(message.image && message.image.length)) {
             message.image = "img/scroblr64.png";
         }
+        
+        if (getOptionStatus("notifications")) {
+            // Chrome 28+ notifications
+            if (chrome && chrome.notifications) {
+                // Create unique notification id from message contents
+                var notificationId = (message.title + message.message).replace(/\s+/, "");
 
-        if (window.webkitNotifications && getOptionStatus("notifications")) {
-            notification = webkitNotifications.createNotification(
-                message.image, message.title, message.message);
-            notification.show();
+                chrome.notifications.create(notificationId, {
+                    type: 'basic',
+                    iconUrl: message.image,
+                    title: message.title,
+                    message: message.message
+                });
 
-            if (getOptionStatus("autodismiss")) {
-                window.setTimeout(function () {
-                    notification.cancel();
-                }, 5000);
+                if (getOptionStatus("autodismiss")) {
+                    window.setTimeout(function () {
+                        chrome.notifications.clear(notificationId);
+                    }, 5000);
+                }
+            // Legacy webkit notifications
+            } else if (window.webkitNotifications) {
+                notification = webkitNotifications.createNotification(
+                    message.image, message.title, message.message);
+                notification.show();
+
+                if (getOptionStatus("autodismiss")) {
+                    window.setTimeout(function () {
+                        notification.cancel();
+                    }, 5000);
+                }
             }
         }
 

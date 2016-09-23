@@ -10,6 +10,7 @@
     "content_scripts": [
         {
             "matches": [
+                "*://lastfm-img2.akamaized.net/*",
                 "*://*.scroblr.fm/access*",
                 "*://*.player.abacast.net/*",
                 "*://*.accuradio.com/*",
