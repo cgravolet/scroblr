@@ -80,7 +80,7 @@ function cleanseTrack(artist, title) {
         title:    title,
         elapsed:  Utils.calculateDuration($(".ytp-time-current").text()),
         duration: Utils.calculateDuration($(".ytp-time-duration").text()),
-        stopped:  $(".ytp-play-button").attr("aria-label").toLowerCase() === "play"
+        stopped:  $(".html5-video-player").hasClass("ended-mode")
     };
 }
 
