@@ -10,7 +10,8 @@ rhapsody.init("rhapsody", "Rhapsody");
 rhapsody.test = function () {
     var napster  = /napster\.[A-Z\.]{2,}/i.test(document.location.hostname);
     var rhapsody = /rhapsody\.com/i.test(document.location.hostname);
-    return (rhapsody || napster);
+    var aldi_life = /app\.lifestore-flat\.de/i.test(document.location.hostname);
+    return (rhapsody || napster || aldi_life);
 };
 
 rhapsody.scrape = function () {
