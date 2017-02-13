@@ -34,6 +34,7 @@
                 "*://*.pandora.com/*",
                 "*://*.player.fm/*",
                 "*://*.plug.dj/*",
+                "*://play.pocketcasts.com/*",
                 "*://*.relevantmagazine.com/the-drop/*",
                 "*://*.rhapsody.com/*",
                 "*://*.slipstreamradio.com/pop_player/*",

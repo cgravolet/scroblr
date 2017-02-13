@@ -19,6 +19,7 @@ exports.npr          = require("./npr");
 exports.pandora      = require("./pandora");
 exports.playerfm     = require("./playerfm");
 exports.plugdj       = require("./plugdj");
+exports.pocketcasts  = require("./pocketcasts");
 exports.relevant     = require("./relevant");
 exports.rhapsody     = require("./rhapsody");
 exports.sndtst       = require("./sndtst");
