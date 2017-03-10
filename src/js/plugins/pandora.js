@@ -9,19 +9,19 @@ pandora.init("pandora", "Pandora");
 
 pandora.test = function () {
     var domainMatch = this.hostre.test(document.location.hostname);
-    var playerFound = $("#playerBar").length > 0;
+    var playerFound = $(".Container").length > 0;
 
     return domainMatch && playerFound;
 };
 
 pandora.scrape = function () {
     return {
-        album:    $("#playerBar .playerBarAlbum").text(),
-        artist:   cleanseArtist($("#playerBar .playerBarArtist").text()),
-        duration: Utils.calculateDuration($("#playbackControl .elapsedTime").text(), $("#playbackControl .remainingTime").text()),
-        elapsed:  Utils.calculateDuration($("#playbackControl .elapsedTime").text()),
-        stopped:  $("#playerBar .playButton").css("display") === "block",
-        title:    $("#playerBar .playerBarSong").text()
+        album:    $("a[data-qa='playing_album_name']").text(),
+        artist:   cleanseArtist($("a[data-qa='playing_artist_name']").text()),
+        duration: Utils.calculateDuration($("span[data-qa='remaining_time']").text()),
+        elapsed:  Utils.calculateDuration($("span[data-qa='elapsed_time']").text()),
+        stopped:  $("button[data-qa='play_button']").length > 0,
+        title:    $(".Marquee__wrapper__content").text()
     };
 };
 
