@@ -1,6 +1,6 @@
 {
   "name": "scroblr",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "A lightweight browser extension that scrobbles the music you listen to on the web.",
   "main": "GruntFile.js",
   "private": true,
