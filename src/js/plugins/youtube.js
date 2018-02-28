@@ -9,12 +9,12 @@ youtube.init("youtube", "YouTube");
 
 youtube.test = function () {
     var domainMatch = (/youtube\.[A-Z\.]{2,}\/watch/i).test(document.location.href);
-    var playerFound = $("#eow-title").length > 0;
+    var playerFound = $("h1.ytd-video-primary-info-renderer").length > 0;
     return domainMatch && playerFound;
 };
 
 youtube.scrape = function () {
-    var title       = $.trim($("#eow-title").text());
+    var title       = $.trim($("h1.ytd-video-primary-info-renderer").text());
     var parsedTitle = title.replace(/^(.+)\s*[-–:]+\s*(.+)$/, "$1_,_$2").split("_,_");
 
     if (parsedTitle.length > 1) {
