@@ -16,6 +16,7 @@
                 "*://music.amazon.com/*",
                 "*://music.amazon.co.uk/*",
                 "*://music.amazon.de/*",
+                "*://music.amazon.in/*",
                 "*://*.bandcamp.com/*",
                 "*://*.beatsmusic.com/*",
                 "*://*.deezer.com/*",
