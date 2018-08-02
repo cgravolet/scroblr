@@ -36,6 +36,7 @@
                 "*://*.player.fm/*",
                 "*://*.plug.dj/*",
                 "*://play.pocketcasts.com/*",
+                "*://playbeta.pocketcasts.com/*",
                 "*://*.relevantmagazine.com/the-drop/*",
                 "*://*.rhapsody.com/*",
                 "*://*.slipstreamradio.com/pop_player/*",
